@@ -1,0 +1,85 @@
+---
+const faqs = [
+  {
+    q: "I don't have any content or photos yet — is that a problem?",
+    a: "Not at all. We'll guide you on what's needed and can help write the copy and source suitable images so you don't have to start from a blank page.",
+  },
+  {
+    q: "Will I be able to update the site myself afterwards?",
+    a: "Yes — we build sites so simple text and image changes can be made without touching code. If you'd rather not, our care plan covers changes for you.",
+  },
+  {
+    q: "Do I own the website?",
+    a: "Yes. Once the final payment is made, the site and its domain (if we register it for you) are entirely yours.",
+  },
+  {
+    q: "How long does a typical project take?",
+    a: "Most single or multi-page sites go from kickoff to launch in one to two weeks, depending on how quickly we get content and feedback from you.",
+  },
+  {
+    q: "Do you only work with businesses in the UK?",
+    a: "We're starting out focused on the UK, but everything we do is remote — so we're happy to work with businesses anywhere.",
+  },
+];
+---
+
+<section class="section" id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">FAQ</span>
+      <h2>Good questions, honest answers.</h2>
+    </div>
+
+    <div class="faq-list">
+      {faqs.map((item, i) => (
+        <details class="faq-item" open={i === 0}>
+          <summary>{item.q}</summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-list {
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--line);
+    padding: 18px 0;
+  }
+
+  .faq-item summary {
+    cursor: pointer;
+    font-weight: 700;
+    font-family: "Sora", sans-serif;
+    font-size: 1.02rem;
+    list-style: none;
+  }
+
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item summary::before {
+    content: "+";
+    display: inline-block;
+    width: 20px;
+    color: var(--accent-dark);
+    font-weight: 800;
+  }
+
+  .faq-item[open] summary::before {
+    content: "–";
+  }
+
+  .faq-item p {
+    margin: 12px 0 0 20px;
+    color: rgba(20, 33, 61, 0.72);
+  }
+</style>

@@ -1,0 +1,135 @@
+---
+const tiers = [
+  {
+    name: "Starter",
+    price: "£XXX",
+    tagline: "For businesses who just need to exist online, well.",
+    features: [
+      "Single-page site (home, about, services, contact)",
+      "Mobile-friendly design",
+      "Google Business Profile setup",
+      "1 round of revisions",
+    ],
+    featured: false,
+  },
+  {
+    name: "Growth",
+    price: "£XXX",
+    tagline: "The most popular choice for local businesses.",
+    features: [
+      "Multi-page site (up to 5 pages)",
+      "Contact & enquiry forms",
+      "Basic local SEO setup",
+      "Photo gallery / portfolio section",
+      "2 rounds of revisions",
+    ],
+    featured: true,
+  },
+  {
+    name: "Custom",
+    price: "Let's talk",
+    tagline: "Bookings, online shops, multiple locations — bigger builds.",
+    features: [
+      "Everything in Growth",
+      "Booking / ordering functionality",
+      "Multi-location or multi-language support",
+      "Ongoing care plan included",
+    ],
+    featured: false,
+  },
+];
+---
+
+<section class="section" id="pricing">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Pricing</span>
+      <h2>Simple packages, fixed prices.</h2>
+      <p>
+        Every business is different, so these are starting points — your free
+        website check ends with an exact quote, not a guess.
+        <em>Prices shown are placeholders — set your own before launch.</em>
+      </p>
+    </div>
+
+    <div class="grid grid-3">
+      {tiers.map((tier) => (
+        <div class={`card pricing-card ${tier.featured ? "featured" : ""}`}>
+          {tier.featured && <span class="pill pricing-badge">Most popular</span>}
+          <h3>{tier.name}</h3>
+          <div class="pricing-amount">{tier.price}</div>
+          <p class="pricing-tagline">{tier.tagline}</p>
+          <ul>
+            {tier.features.map((f) => (
+              <li>{f}</li>
+            ))}
+          </ul>
+          <a href="#contact" class={`btn ${tier.featured ? "btn-primary" : "btn-ghost"} pricing-cta`}>
+            Get started
+          </a>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .pricing-card {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .pricing-card.featured {
+    border-color: var(--accent);
+    box-shadow: var(--shadow);
+  }
+
+  .pricing-badge {
+    position: absolute;
+    top: -14px;
+    left: 32px;
+    background: var(--accent);
+    color: var(--paper);
+  }
+
+  .pricing-amount {
+    font-family: "Sora", sans-serif;
+    font-size: 2.1rem;
+    font-weight: 800;
+    margin: 12px 0 4px;
+  }
+
+  .pricing-tagline {
+    color: rgba(20, 33, 61, 0.65);
+    font-size: 0.92rem;
+  }
+
+  .pricing-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+  }
+
+  .pricing-card li {
+    padding-left: 24px;
+    position: relative;
+    font-size: 0.92rem;
+  }
+
+  .pricing-card li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--accent-dark);
+    font-weight: 700;
+  }
+
+  .pricing-cta {
+    width: 100%;
+  }
+</style>

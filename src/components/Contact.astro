@@ -1,0 +1,133 @@
+---
+---
+
+<section class="section section-dark" id="contact">
+  <div class="wrap contact-wrap">
+    <div class="contact-copy">
+      <span class="eyebrow">Get in touch</span>
+      <h2>Get your free website check.</h2>
+      <p>
+        Tell us a bit about your business. If you already have a website,
+        add the link — we'll take a look and tell you honestly what we'd
+        change. No obligation.
+      </p>
+
+      <div class="contact-direct">
+        <a href="mailto:hello@forgeandframe.digital">hello@forgeandframe.digital</a>
+        <span>Replace with your real business email &amp; phone before launch.</span>
+      </div>
+    </div>
+
+    <form class="contact-form" action="https://formspree.io/f/REPLACE_WITH_YOUR_FORM_ID" method="POST">
+      <label>
+        Name
+        <input type="text" name="name" required />
+      </label>
+      <label>
+        Business name
+        <input type="text" name="business" />
+      </label>
+      <label>
+        Email
+        <input type="email" name="email" required />
+      </label>
+      <label>
+        Current website (if you have one)
+        <input type="text" name="current_site" placeholder="e.g. none, or a link" />
+      </label>
+      <label>
+        What do you need?
+        <textarea name="message" rows="4" placeholder="A new website, a redesign, not sure yet..."></textarea>
+      </label>
+      <button type="submit" class="btn btn-primary">Send it over</button>
+      <p class="form-note">
+        This form needs a real endpoint before launch — see the README for a
+        2-minute Formspree setup.
+      </p>
+    </form>
+  </div>
+</section>
+
+<style>
+  .contact-wrap {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .contact-copy p {
+    color: rgba(251, 248, 242, 0.72);
+  }
+
+  .contact-direct {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .contact-direct a {
+    font-family: "Sora", sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--gold);
+    text-decoration: none;
+  }
+
+  .contact-direct span {
+    font-size: 0.8rem;
+    color: rgba(251, 248, 242, 0.5);
+  }
+
+  .contact-form {
+    background: rgba(251, 248, 242, 0.06);
+    border: 1px solid var(--line-light);
+    border-radius: var(--radius);
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .contact-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: rgba(251, 248, 242, 0.85);
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    font-family: inherit;
+    font-size: 0.95rem;
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--line-light);
+    background: rgba(251, 248, 242, 0.04);
+    color: var(--paper);
+  }
+
+  .contact-form input::placeholder,
+  .contact-form textarea::placeholder {
+    color: rgba(251, 248, 242, 0.4);
+  }
+
+  .contact-form button {
+    margin-top: 4px;
+  }
+
+  .form-note {
+    font-size: 0.78rem;
+    color: rgba(251, 248, 242, 0.45);
+    margin: 0;
+  }
+
+  @media (max-width: 800px) {
+    .contact-wrap {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,76 @@
+---
+const cases = [
+  {
+    title: "You don't have a website yet",
+    body: "Maybe you've relied on Facebook, Instagram, or word of mouth. That works — until someone Googles you and finds nothing. We'll get you a proper home online, fast.",
+    points: [
+      "Look established and trustworthy from search",
+      "Show up when people search for your service nearby",
+      "One link for everything — hours, menu, prices, booking",
+    ],
+  },
+  {
+    title: "Your website needs an upgrade",
+    body: "Built in 2012, doesn't work on phones, or you haven't touched it in years? An outdated site can cost you more customers than having none at all.",
+    points: [
+      "Modern design that reflects how good your business actually is",
+      "Fast, mobile-friendly, and easy for customers to use",
+      "Easier for you to update yourself, or we handle it for you",
+    ],
+  },
+];
+---
+
+<section class="section" id="who">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Sound familiar?</span>
+      <h2>Wherever you're starting from, we can help.</h2>
+      <p>Two kinds of businesses come to us. Both leave with a website they're proud to send people to.</p>
+    </div>
+
+    <div class="grid grid-2 who-grid">
+      {cases.map((item) => (
+        <div class="card who-card">
+          <h3>{item.title}</h3>
+          <p>{item.body}</p>
+          <ul>
+            {item.points.map((point) => (
+              <li>{point}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .who-card ul {
+    margin: 20px 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .who-card li {
+    padding-left: 26px;
+    position: relative;
+    font-size: 0.95rem;
+    color: rgba(20, 33, 61, 0.8);
+  }
+
+  .who-card li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--accent-dark);
+    font-weight: 700;
+  }
+
+  .who-card h3 {
+    font-size: 1.3rem;
+  }
+</style>

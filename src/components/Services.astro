@@ -1,0 +1,69 @@
+---
+const services = [
+  {
+    icon: "🧱",
+    title: "New website builds",
+    body: "A complete, custom website from scratch — home page, services, gallery, contact, the lot. Ready for search from day one.",
+  },
+  {
+    icon: "🔧",
+    title: "Website refresh & redesign",
+    body: "Keep your domain and content where it makes sense, but with a modern design, faster load times, and a site that works on every phone.",
+  },
+  {
+    icon: "🛡️",
+    title: "Care & hosting plans",
+    body: "Ongoing hosting, security updates, and small content changes handled for you, so your site stays online and up to date.",
+  },
+  {
+    icon: "📍",
+    title: "Local search & Google Business setup",
+    body: "We make sure your business actually shows up when local customers search — Google Business Profile, maps, and basic local SEO included.",
+  },
+];
+---
+
+<section class="section section-dark" id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">What we do</span>
+      <h2>Everything you need to be found online.</h2>
+      <p>No jargon, no bloated packages — just what a growing local business actually needs.</p>
+    </div>
+
+    <div class="grid grid-4">
+      {services.map((service) => (
+        <div class="service-card">
+          <div class="service-icon" aria-hidden="true">{service.icon}</div>
+          <h3>{service.title}</h3>
+          <p>{service.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .service-card {
+    background: rgba(251, 248, 242, 0.06);
+    border: 1px solid var(--line-light);
+    border-radius: var(--radius);
+    padding: 28px;
+  }
+
+  .service-icon {
+    font-size: 1.6rem;
+    margin-bottom: 16px;
+  }
+
+  .service-card h3 {
+    font-size: 1.05rem;
+    margin-bottom: 8px;
+  }
+
+  .service-card p {
+    font-size: 0.92rem;
+    color: rgba(251, 248, 242, 0.68);
+    margin: 0;
+  }
+</style>

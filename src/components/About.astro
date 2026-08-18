@@ -1,0 +1,81 @@
+---
+---
+
+<section class="section" id="about">
+  <div class="wrap about-wrap">
+    <div class="about-copy">
+      <span class="eyebrow">About</span>
+      <h2>Built by someone who'd rather build your website than sell you jargon.</h2>
+      <p>
+        Forge & Frame Digital is a small, founder-led studio. We work
+        directly with local business owners — no account managers, no
+        outsourced call centres, no confusing tech-speak. Just a website
+        that does its job: bringing you customers.
+      </p>
+      <p>
+        We're starting out working with businesses across the UK, and happy
+        to work with businesses anywhere in the world — everything is done
+        remotely, so location is never a barrier.
+      </p>
+    </div>
+
+    <div class="about-stats">
+      <div class="stat">
+        <strong>UK-based</strong>
+        <span>starting point, open to clients worldwide</span>
+      </div>
+      <div class="stat">
+        <strong>1 point of contact</strong>
+        <span>you talk to the person building your site</span>
+      </div>
+      <div class="stat">
+        <strong>Fixed pricing</strong>
+        <span>agreed before any work begins</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-wrap {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .about-copy p {
+    color: rgba(20, 33, 61, 0.75);
+    font-size: 1.02rem;
+  }
+
+  .about-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .stat {
+    border-left: 3px solid var(--accent);
+    padding-left: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .stat strong {
+    font-family: "Sora", sans-serif;
+    font-size: 1.05rem;
+  }
+
+  .stat span {
+    font-size: 0.88rem;
+    color: rgba(20, 33, 61, 0.6);
+  }
+
+  @media (max-width: 800px) {
+    .about-wrap {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,208 @@
+---
+---
+
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div class="hero-copy">
+      <span class="eyebrow">Websites for local businesses</span>
+      <h1>
+        A website that works as hard as you do —
+        <span class="accent">built in days, not months.</span>
+      </h1>
+      <p class="lead">
+        No website yet? Stuck with one from another decade? We design and
+        build fast, modern, mobile-friendly websites for local businesses —
+        starting across the UK, with clients anywhere in the world welcome.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-primary">Get your free website check</a>
+        <a href="#process" class="btn btn-ghost">See how it works</a>
+      </div>
+
+      <div class="hero-trust">
+        <div class="trust-item">
+          <strong>Fixed, upfront pricing</strong>
+          <span>No surprise invoices</span>
+        </div>
+        <div class="trust-item">
+          <strong>Live in ~1–2 weeks</strong>
+          <span>From kickoff to launch</span>
+        </div>
+        <div class="trust-item">
+          <strong>Built for mobile &amp; search</strong>
+          <span>So people can actually find you</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual" aria-hidden="true">
+      <div class="browser-frame">
+        <div class="browser-bar">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="browser-body">
+          <div class="mock-block mock-block--wide"></div>
+          <div class="mock-row">
+            <div class="mock-block"></div>
+            <div class="mock-block"></div>
+          </div>
+          <div class="mock-line"></div>
+          <div class="mock-line short"></div>
+        </div>
+      </div>
+      <div class="floating-pill floating-pill--1">Before → After</div>
+      <div class="floating-pill floating-pill--2">Mobile-ready ✓</div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding: 64px 0 40px;
+    background: linear-gradient(180deg, var(--paper) 0%, var(--paper-dim) 100%);
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 56px;
+    align-items: center;
+  }
+
+  h1 {
+    font-size: clamp(2.2rem, 4.2vw, 3.4rem);
+    letter-spacing: -0.01em;
+  }
+
+  h1 .accent {
+    color: var(--accent-dark);
+  }
+
+  .lead {
+    font-size: 1.1rem;
+    color: rgba(20, 33, 61, 0.75);
+    max-width: 520px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin: 28px 0 40px;
+  }
+
+  .hero-trust {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+    border-top: 1px solid var(--line);
+    padding-top: 24px;
+  }
+
+  .trust-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .trust-item strong {
+    font-size: 0.95rem;
+  }
+
+  .trust-item span {
+    font-size: 0.82rem;
+    color: rgba(20, 33, 61, 0.6);
+  }
+
+  .hero-visual {
+    position: relative;
+  }
+
+  .browser-frame {
+    background: #fff;
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+
+  .browser-bar {
+    display: flex;
+    gap: 6px;
+    padding: 14px 16px;
+    background: var(--paper-dim);
+  }
+
+  .browser-bar span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(20, 33, 61, 0.18);
+  }
+
+  .browser-body {
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .mock-block {
+    background: var(--paper-dim);
+    border-radius: 10px;
+    height: 64px;
+    flex: 1;
+  }
+
+  .mock-block--wide {
+    height: 120px;
+    background: linear-gradient(135deg, var(--ink) 0%, var(--ink-soft) 100%);
+  }
+
+  .mock-row {
+    display: flex;
+    gap: 14px;
+  }
+
+  .mock-line {
+    height: 10px;
+    border-radius: 6px;
+    background: var(--paper-dim);
+  }
+
+  .mock-line.short {
+    width: 60%;
+  }
+
+  .floating-pill {
+    position: absolute;
+    background: var(--ink);
+    color: var(--paper);
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 8px 14px;
+    border-radius: 999px;
+    box-shadow: var(--shadow);
+  }
+
+  .floating-pill--1 {
+    top: -16px;
+    left: -14px;
+    background: var(--accent);
+  }
+
+  .floating-pill--2 {
+    bottom: 20px;
+    right: -18px;
+  }
+
+  @media (max-width: 900px) {
+    .hero-inner {
+      grid-template-columns: 1fr;
+    }
+    .hero-visual {
+      order: -1;
+    }
+  }
+</style>

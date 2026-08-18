@@ -1,0 +1,14 @@
+{
+  "name": "forge-and-frame-digital",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Forge & Frame Digital — websites for local businesses that don't have one yet, or need an upgrade.",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^6.1.3"
+  }
+}

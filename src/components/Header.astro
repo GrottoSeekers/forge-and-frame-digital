@@ -1,0 +1,147 @@
+---
+const base = import.meta.env.BASE_URL;
+---
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a href={base} class="logo">
+      <span class="logo-mark">F<span>&</span>F</span>
+      <span class="logo-word">Forge<span class="amp">&amp;</span>Frame</span>
+    </a>
+
+    <nav class="nav" aria-label="Primary">
+      <a href="#services">Services</a>
+      <a href="#process">Process</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#work">Work</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+
+    <a href="#contact" class="btn btn-primary header-cta">Get your free check</a>
+
+    <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" id="menu-toggle">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <nav class="nav-mobile" id="nav-mobile" aria-label="Mobile">
+    <a href="#services">Services</a>
+    <a href="#process">Process</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#work">Work</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact" class="btn btn-primary">Get your free check</a>
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(251, 248, 242, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+
+  .nav {
+    display: flex;
+    gap: 28px;
+    font-size: 0.92rem;
+    font-weight: 600;
+  }
+
+  .nav a {
+    text-decoration: none;
+    color: var(--ink);
+    opacity: 0.75;
+    transition: opacity 0.15s ease;
+  }
+
+  .nav a:hover {
+    opacity: 1;
+  }
+
+  .header-cta {
+    padding: 11px 20px;
+    font-size: 0.88rem;
+  }
+
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .menu-toggle span {
+    display: block;
+    height: 2px;
+    width: 18px;
+    margin: 0 auto;
+    background: var(--ink);
+  }
+
+  .nav-mobile {
+    display: none;
+    flex-direction: column;
+    gap: 18px;
+    padding: 20px 24px 28px;
+    border-top: 1px solid var(--line);
+    font-weight: 600;
+  }
+
+  .nav-mobile a {
+    text-decoration: none;
+    color: var(--ink);
+  }
+
+  .nav-mobile .btn {
+    margin-top: 6px;
+  }
+
+  .nav-mobile.open {
+    display: flex;
+  }
+
+  @media (max-width: 800px) {
+    .nav, .header-cta {
+      display: none;
+    }
+    .menu-toggle {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById("menu-toggle");
+  const menu = document.getElementById("nav-mobile");
+
+  toggle?.addEventListener("click", () => {
+    const isOpen = menu?.classList.toggle("open");
+    toggle.setAttribute("aria-expanded", String(Boolean(isOpen)));
+  });
+
+  menu?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      menu.classList.remove("open");
+      toggle?.setAttribute("aria-expanded", "false");
+    });
+  });
+</script>
