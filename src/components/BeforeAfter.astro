@@ -165,6 +165,8 @@
     border: 1px solid var(--line);
     box-shadow: var(--shadow);
     background: #0f172a;
+    -webkit-user-select: none;
+    user-select: none;
   }
 
   .compare-visual {
@@ -186,6 +188,7 @@
   .compare-before {
     z-index: 2;
     clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+    will-change: clip-path;
   }
 
   .compare-badge {
@@ -663,6 +666,8 @@
     -webkit-appearance: none;
     appearance: none;
     background: transparent;
+    touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .compare-range::-webkit-slider-thumb {
@@ -708,12 +713,22 @@
   const frame = document.getElementById("compare-frame");
   const range = document.getElementById("compare-range") as HTMLInputElement | null;
 
+  let pendingFrame = 0;
+
   const update = (value: string) => {
     frame?.style.setProperty("--pos", `${value}%`);
   };
 
+  const scheduleUpdate = (value: string) => {
+    if (pendingFrame) cancelAnimationFrame(pendingFrame);
+    pendingFrame = requestAnimationFrame(() => {
+      pendingFrame = 0;
+      update(value);
+    });
+  };
+
   if (range) {
     update(range.value);
-    range.addEventListener("input", () => update(range.value));
+    range.addEventListener("input", () => scheduleUpdate(range.value));
   }
 </script>
