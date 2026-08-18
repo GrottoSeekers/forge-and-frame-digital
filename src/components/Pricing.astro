@@ -1,24 +1,30 @@
 ---
+const BASE_PRICE = 400;
+const FOUNDING_DISCOUNT_RATE = 0.15;
+
 const businessTypes = [
   {
     id: "local-service",
     label: "Local Service",
     desc: "Trades, clinics, salons, consultants",
-    base: 450,
+    suggestPages: ["services"],
+    suggestFeatures: ["seo"],
     icon: `<path d="M3 21h18M5 21V7l7-4 7 4v14M9 9v.01M9 12v.01M9 15v.01M15 9v.01M15 12v.01M15 15v.01"/>`,
   },
   {
     id: "ecommerce",
     label: "E-commerce",
     desc: "Online shop with product checkout",
-    base: 900,
+    suggestPages: ["gallery"],
+    suggestFeatures: ["store"],
     icon: `<circle cx="9" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.5 3h2l2.6 12.4a2 2 0 0 0 2 1.6h8.9a2 2 0 0 0 2-1.6L21.5 8H6"/>`,
   },
   {
     id: "hospitality",
     label: "Hospitality",
     desc: "Cafés, restaurants, venues",
-    base: 600,
+    suggestPages: ["services"],
+    suggestFeatures: ["booking"],
     icon: `<path d="M3 2v7c0 1.1.9 2 2 2h1v11M8 2v9M11 2v9M15 2c-1.7 1.6-3 3.5-3 6a3 3 0 0 0 3 3v9"/>`,
   },
 ];
@@ -49,6 +55,13 @@ const featureOptions = [
     recurring: false,
   },
   {
+    id: "store",
+    label: "Online Store Setup",
+    desc: "Product catalogue and checkout",
+    price: 450,
+    recurring: false,
+  },
+  {
     id: "maintenance",
     label: "Monthly Maintenance",
     desc: "Hosting, security updates, and small content changes",
@@ -65,8 +78,8 @@ const featureOptions = [
       <span class="eyebrow">Pricing</span>
       <h2>Build your estimate.</h2>
       <p>
-        Pick what applies and watch the price move — a real starting point,
-        not a guess.
+        One flat starting price for every site — you only pay more for what
+        you actually add.
         <em>Figures shown are placeholders — set your own before launch.</em>
       </p>
     </div>
@@ -75,6 +88,7 @@ const featureOptions = [
       <div class="estimator-config">
         <div class="config-block">
           <h3 class="config-label">Business type</h3>
+          <p class="config-hint">Picks a sensible starting point below — doesn't change the price.</p>
           <div class="type-grid" role="radiogroup" aria-label="Business type">
             {businessTypes.map((type, i) => (
               <label class="type-card">
@@ -82,8 +96,9 @@ const featureOptions = [
                   type="radio"
                   name="est-type"
                   value={type.id}
-                  data-base={type.base}
                   checked={i === 0}
+                  data-suggest-pages={type.suggestPages.join(",")}
+                  data-suggest-features={type.suggestFeatures.join(",")}
                 />
                 <svg class="type-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" set:html={type.icon} />
                 <span class="type-name">{type.label}</span>
@@ -143,8 +158,19 @@ const featureOptions = [
 
       <div class="estimator-summary">
         <span class="summary-label">Your estimate</span>
-        <div class="summary-total" id="estimate-total" aria-live="polite">£450</div>
+        <div class="summary-total" id="estimate-total" aria-live="polite">£{BASE_PRICE}</div>
         <div class="summary-recurring" id="estimate-recurring" hidden></div>
+
+        <label class="founding-toggle">
+          <span class="toggle">
+            <input type="checkbox" id="founding-discount" checked data-rate={FOUNDING_DISCOUNT_RATE} />
+            <span class="toggle-track" aria-hidden="true"><span class="toggle-thumb"></span></span>
+          </span>
+          <span class="founding-text">
+            <span class="founding-title">Founding client — {FOUNDING_DISCOUNT_RATE * 100}% off</span>
+            <span class="founding-desc">For the first businesses we work with</span>
+          </span>
+        </label>
 
         <ul class="summary-breakdown" id="estimate-breakdown"></ul>
 
@@ -190,6 +216,12 @@ const featureOptions = [
     font-weight: 700;
     letter-spacing: 0.06em;
     text-transform: uppercase;
+    color: var(--text-faint);
+    margin: 0 0 6px;
+  }
+
+  .config-hint {
+    font-size: 0.82rem;
     color: var(--text-faint);
     margin: 0 0 14px;
   }
@@ -450,6 +482,35 @@ const featureOptions = [
     margin-bottom: 14px;
   }
 
+  .founding-toggle {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 14px;
+    padding: 12px 14px;
+    border-radius: var(--radius-sm);
+    background: var(--accent-2-soft);
+    border: 1px solid rgba(76, 122, 31, 0.3);
+    cursor: pointer;
+  }
+
+  .founding-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .founding-title {
+    font-weight: 700;
+    font-size: 0.86rem;
+    color: var(--accent-2);
+  }
+
+  .founding-desc {
+    font-size: 0.76rem;
+    color: var(--text-faint);
+  }
+
   .summary-breakdown {
     list-style: none;
     margin: 0 0 20px;
@@ -467,6 +528,11 @@ const featureOptions = [
     gap: 12px;
     font-size: 0.82rem;
     color: var(--text-dim);
+  }
+
+  .summary-breakdown li.discount-line {
+    color: var(--accent-2);
+    font-weight: 700;
   }
 
   .summary-cta {
@@ -499,29 +565,27 @@ const featureOptions = [
   }
 </style>
 
-<script>
-  type FeatureState = { id: string; label: string; price: number; recurring: boolean };
-
-  const typeInputs = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="est-type"]'));
-  const pageInputs = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="est-page"]'));
-  const featureInputs = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="est-feature"]'));
+<script define:vars={{ BASE_PRICE }}>
+  const typeInputs = Array.from(document.querySelectorAll('input[name="est-type"]'));
+  const pageInputs = Array.from(document.querySelectorAll('input[name="est-page"]'));
+  const featureInputs = Array.from(document.querySelectorAll('input[name="est-feature"]'));
+  const foundingInput = document.getElementById("founding-discount");
 
   const totalEl = document.getElementById("estimate-total");
   const recurringEl = document.getElementById("estimate-recurring");
   const breakdownEl = document.getElementById("estimate-breakdown");
-  const ctaBtn = document.getElementById("estimate-cta") as HTMLButtonElement | null;
+  const ctaBtn = document.getElementById("estimate-cta");
 
-  const currency = (n: number) => `£${n.toLocaleString("en-GB")}`;
+  const currency = (n) => `£${Math.round(n).toLocaleString("en-GB")}`;
 
   function calculate() {
     const typeInput = typeInputs.find((i) => i.checked);
     const typeLabel = typeInput?.closest(".type-card")?.querySelector(".type-name")?.textContent ?? "";
-    const base = typeInput ? Number(typeInput.dataset.base) : 0;
 
     const selectedPages = pageInputs.filter((i) => i.checked);
     const pagesTotal = selectedPages.reduce((sum, i) => sum + Number(i.dataset.price), 0);
 
-    const selectedFeatures: FeatureState[] = featureInputs
+    const selectedFeatures = featureInputs
       .filter((i) => i.checked)
       .map((i) => ({
         id: i.value,
@@ -533,13 +597,17 @@ const featureOptions = [
     const oneOffFeatures = selectedFeatures.filter((f) => !f.recurring).reduce((sum, f) => sum + f.price, 0);
     const recurringFeatures = selectedFeatures.filter((f) => f.recurring).reduce((sum, f) => sum + f.price, 0);
 
-    const oneOff = base + pagesTotal + oneOffFeatures;
+    const subtotal = BASE_PRICE + pagesTotal + oneOffFeatures;
+    const foundingApplied = Boolean(foundingInput?.checked);
+    const discountRate = foundingApplied ? Number(foundingInput.dataset.rate) : 0;
+    const discount = subtotal * discountRate;
+    const oneOff = subtotal - discount;
 
-    return { typeLabel, base, selectedPages, pagesTotal, selectedFeatures, oneOff, recurringFeatures };
+    return { typeLabel, selectedPages, selectedFeatures, subtotal, discount, foundingApplied, oneOff, recurringFeatures };
   }
 
   function render() {
-    const { typeLabel, base, selectedPages, selectedFeatures, oneOff, recurringFeatures } = calculate();
+    const { typeLabel, selectedPages, selectedFeatures, subtotal, discount, foundingApplied, oneOff, recurringFeatures } = calculate();
 
     if (totalEl) {
       totalEl.textContent = currency(oneOff);
@@ -558,33 +626,55 @@ const featureOptions = [
 
     if (breakdownEl) {
       breakdownEl.replaceChildren();
-      const addLine = (label: string, amount: number) => {
+      const addLine = (label, amountText, isDiscount) => {
         const li = document.createElement("li");
+        if (isDiscount) li.classList.add("discount-line");
         const labelSpan = document.createElement("span");
         labelSpan.textContent = label;
         const amountSpan = document.createElement("span");
-        amountSpan.textContent = `+${currency(amount)}`;
+        amountSpan.textContent = amountText;
         li.append(labelSpan, amountSpan);
         breakdownEl.append(li);
       };
-      addLine(`${typeLabel} base`, base);
+      addLine("Base site", `+${currency(BASE_PRICE)}`);
       selectedPages.forEach((p) => {
-        addLine(p.parentElement?.querySelector("span")?.textContent ?? "Page", Number(p.dataset.price));
+        addLine(p.parentElement?.querySelector("span")?.textContent ?? "Page", `+${currency(Number(p.dataset.price))}`);
       });
       selectedFeatures.forEach((f) => {
-        addLine(f.label + (f.recurring ? " (monthly)" : ""), f.price);
+        addLine(f.label + (f.recurring ? " (monthly)" : ""), `+${currency(f.price)}`);
       });
+      if (foundingApplied && discount > 0) {
+        addLine("Founding client discount", `−${currency(discount)}`, true);
+      }
     }
+
+    return { typeLabel, subtotal, oneOff, recurringFeatures, foundingApplied };
   }
 
   [...typeInputs, ...pageInputs, ...featureInputs].forEach((input) => {
     input.addEventListener("change", render);
   });
 
+  foundingInput?.addEventListener("change", render);
+
+  typeInputs.forEach((input) => {
+    input.addEventListener("change", () => {
+      const suggestPages = (input.dataset.suggestPages ?? "").split(",").filter(Boolean);
+      const suggestFeatures = (input.dataset.suggestFeatures ?? "").split(",").filter(Boolean);
+      pageInputs.forEach((p) => {
+        if (suggestPages.includes(p.value)) p.checked = true;
+      });
+      featureInputs.forEach((f) => {
+        if (suggestFeatures.includes(f.value)) f.checked = true;
+      });
+      render();
+    });
+  });
+
   render();
 
   ctaBtn?.addEventListener("click", () => {
-    const { typeLabel, selectedPages, selectedFeatures, oneOff, recurringFeatures } = calculate();
+    const { typeLabel, selectedPages, selectedFeatures, oneOff, recurringFeatures, foundingApplied } = calculate();
 
     const pageLabels = selectedPages.map((p) => p.parentElement?.querySelector("span")?.textContent ?? "");
     const featureLabels = selectedFeatures.map((f) => f.label);
@@ -595,11 +685,11 @@ const featureOptions = [
       featureLabels.length ? `with ${featureLabels.join(", ")}` : "",
     ].filter(Boolean);
 
-    const estimateInput = document.getElementById("estimate_details") as HTMLInputElement | null;
+    const estimateInput = document.getElementById("estimate_details");
     if (estimateInput) {
-      estimateInput.value = `${summaryParts.join(" ")} — estimated £${oneOff}${
+      estimateInput.value = `${summaryParts.join(" ")} — estimated £${Math.round(oneOff)}${
         recurringFeatures ? ` + £${recurringFeatures}/mo` : ""
-      }`;
+      }${foundingApplied ? " (founding client discount applied)" : ""}`;
     }
 
     const notice = document.getElementById("prefill-notice");
@@ -607,13 +697,13 @@ const featureOptions = [
       notice.replaceChildren();
       notice.append("Your estimate: ");
       const strong = document.createElement("strong");
-      strong.textContent = `£${oneOff}${recurringFeatures ? ` + £${recurringFeatures}/mo` : ""} for a ${typeLabel} site`;
+      strong.textContent = `£${Math.round(oneOff)}${recurringFeatures ? ` + £${recurringFeatures}/mo` : ""} for a ${typeLabel} site`;
       notice.append(strong);
       notice.append(" — tell us a bit more below.");
       notice.hidden = false;
     }
 
-    const serviceSelect = document.getElementById("service") as HTMLSelectElement | null;
+    const serviceSelect = document.getElementById("service");
     if (serviceSelect) {
       serviceSelect.value = "New Site";
       serviceSelect.dispatchEvent(new Event("change"));
@@ -621,7 +711,7 @@ const featureOptions = [
 
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth", block: "start" });
 
-    const businessNameInput = document.getElementById("business_name") as HTMLInputElement | null;
+    const businessNameInput = document.getElementById("business_name");
     if (businessNameInput && !businessNameInput.value) {
       window.setTimeout(() => businessNameInput.focus(), 500);
     }
