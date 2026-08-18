@@ -16,57 +16,46 @@
         add the link — we'll take a look and tell you honestly what we'd
         change. No obligation.
       </p>
-
-      <div class="contact-direct">
-        <a href="mailto:hello@forgeandframe.digital">hello@forgeandframe.digital</a>
-        <span>Replace with your real business email &amp; phone before launch.</span>
-      </div>
     </div>
 
     <div class="contact-form-wrap reveal">
       <p class="prefill-notice" id="prefill-notice" hidden>
         Enquiring about a <strong id="prefill-type"></strong>-style site — tell us a bit more below.
       </p>
+
       <form class="contact-form" id="lead-form" action="https://formspree.io/f/REPLACE_WITH_YOUR_FORM_ID" method="POST" novalidate>
         <div class="field">
-          <label for="client_name">Client name</label>
           <input type="text" id="client_name" name="client_name" autocomplete="name" required />
+          <label for="client_name">Name</label>
           <span class="field-error" id="err-client_name" role="alert"></span>
         </div>
 
         <div class="field">
-          <label for="business_name">Business name</label>
+          <input type="email" id="email" name="email" autocomplete="email" required />
+          <label for="email">Email</label>
+          <span class="field-error" id="err-email" role="alert"></span>
+        </div>
+
+        <div class="field">
           <input type="text" id="business_name" name="business_name" autocomplete="organization" required />
+          <label for="business_name">Business name</label>
           <span class="field-error" id="err-business_name" role="alert"></span>
         </div>
 
         <div class="field">
-          <label for="contact_info">Phone or email</label>
-          <input
-            type="text"
-            id="contact_info"
-            name="contact_info"
-            autocomplete="email"
-            placeholder="you@business.co.uk or 07123 456789"
-            required
-          />
-          <span class="field-error" id="err-contact_info" role="alert"></span>
-        </div>
-
-        <div class="field">
-          <label for="website">Current website URL <span class="optional">(optional)</span></label>
-          <input type="text" id="website" name="website" placeholder="e.g. yourbusiness.co.uk" />
+          <input type="text" id="website" name="website" />
+          <label for="website">Existing website URL <span class="optional">(optional)</span></label>
           <span class="field-error" id="err-website" role="alert"></span>
         </div>
 
         <div class="field">
-          <label for="service">Service needed</label>
           <select id="service" name="service" required>
-            <option value="" disabled selected>Select an option</option>
+            <option value="" disabled selected></option>
             <option value="New Site">New Site</option>
             <option value="Redesign">Redesign</option>
             <option value="Not Sure">Not Sure</option>
           </select>
+          <label for="service">Service needed</label>
           <span class="field-error" id="err-service" role="alert"></span>
         </div>
 
@@ -82,9 +71,9 @@
       </form>
 
       <div class="form-success" id="form-success" hidden>
-        <svg class="success-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="10" />
-          <path d="m9 12 2 2 4-4" />
+        <svg class="success-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle class="success-icon-circle" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+          <path class="success-icon-check" d="m8 12.5 2.5 2.5L16 9.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
         <h3>Got it — thanks!</h3>
         <p>We'll take a look and get back to you within one business day.</p>
@@ -120,26 +109,6 @@
     color: var(--text-dim);
   }
 
-  .contact-direct {
-    margin-top: 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .contact-direct a {
-    font-family: "Fraunces", serif;
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--accent-2);
-    text-decoration: none;
-  }
-
-  .contact-direct span {
-    font-size: 0.8rem;
-    color: var(--text-faint);
-  }
-
   .contact-form-wrap {
     position: relative;
   }
@@ -158,14 +127,21 @@
     color: var(--accent-2);
   }
 
+  .contact-form,
+  .form-success {
+    background: rgba(15, 23, 42, 0.92);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+    padding: 32px;
+  }
+
   .contact-form {
-    background: var(--bg-raised-2);
-    border: 1px solid var(--line-strong);
-    border-radius: var(--radius);
-    padding: 34px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 18px;
     transition: opacity 0.3s ease, transform 0.3s ease;
   }
 
@@ -174,20 +150,33 @@
   }
 
   .field {
+    position: relative;
     display: flex;
     flex-direction: column;
-    gap: 6px;
   }
 
   .field label {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--text);
+    position: absolute;
+    left: 15px;
+    top: 13px;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.5);
+    pointer-events: none;
+    transform-origin: left top;
+    transition: transform 0.2s var(--ease), color 0.2s ease;
   }
 
   .field label .optional {
-    font-weight: 500;
-    color: var(--text-faint);
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  .field.is-active label {
+    transform: translateY(-21px) scale(0.8);
+    color: var(--accent-2);
+  }
+
+  .field.has-error.is-active label {
+    color: var(--error);
   }
 
   .contact-form input,
@@ -196,34 +185,32 @@
     font-size: 0.95rem;
     padding: 12px 14px;
     border-radius: var(--radius-sm);
-    border: 1px solid var(--line-strong);
-    background: var(--bg);
-    color: var(--text);
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
   }
 
   .contact-form select {
     appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%231c1710' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 8 5 5 5-5'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 8 5 5 5-5'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 14px center;
     background-size: 16px;
     padding-right: 40px;
   }
 
-  .contact-form select:invalid {
-    color: var(--text-faint);
+  .contact-form select option {
+    background: #0f172a;
+    color: #fff;
   }
 
   .contact-form input:focus,
   .contact-form select:focus {
     outline: none;
     border-color: var(--accent-2);
-    box-shadow: 0 0 0 3px var(--accent-2-soft);
-  }
-
-  .contact-form input::placeholder {
-    color: var(--text-faint);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 0 3px rgba(76, 122, 31, 0.25);
   }
 
   .field.has-error input,
@@ -233,13 +220,14 @@
 
   .field.has-error input:focus,
   .field.has-error select:focus {
-    box-shadow: 0 0 0 3px var(--error-soft);
+    box-shadow: 0 0 0 3px rgba(193, 67, 47, 0.25);
   }
 
   .field-error {
     font-size: 0.8rem;
-    color: var(--error);
+    color: #ff8a75;
     min-height: 0;
+    margin-top: 5px;
   }
 
   .field-error:empty {
@@ -283,23 +271,19 @@
 
   .submit-error {
     font-size: 0.85rem;
-    color: var(--error);
-    background: var(--error-soft);
+    color: #ff8a75;
+    background: rgba(193, 67, 47, 0.15);
     border-radius: var(--radius-sm);
     padding: 10px 14px;
     margin: 0;
   }
 
   .submit-error a {
-    color: var(--error);
+    color: #ff8a75;
     font-weight: 700;
   }
 
   .form-success {
-    background: var(--bg-raised-2);
-    border: 1px solid var(--line-strong);
-    border-radius: var(--radius);
-    padding: 44px 34px;
     text-align: center;
     flex-direction: column;
     align-items: center;
@@ -308,27 +292,64 @@
 
   .form-success:not([hidden]) {
     display: flex;
-    animation: fadeUp 0.5s var(--ease) forwards;
+    animation: popIn 0.45s var(--ease) forwards;
+  }
+
+  @keyframes popIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 
   .success-icon {
-    width: 46px;
-    height: 46px;
+    width: 52px;
+    height: 52px;
     color: var(--success);
-    background: var(--success-soft);
-    border-radius: 50%;
-    padding: 10px;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
+  }
+
+  .success-icon-circle {
+    stroke-dasharray: 63;
+    stroke-dashoffset: 63;
+    animation: drawIcon 0.6s ease forwards 0.1s;
+  }
+
+  .success-icon-check {
+    stroke-dasharray: 14;
+    stroke-dashoffset: 14;
+    animation: drawIcon 0.35s ease forwards 0.55s;
+  }
+
+  @keyframes drawIcon {
+    to {
+      stroke-dashoffset: 0;
+    }
   }
 
   .form-success h3 {
     font-size: 1.3rem;
+    color: #fff;
     margin-bottom: 2px;
   }
 
   .form-success p {
-    color: var(--text-dim);
+    color: rgba(255, 255, 255, 0.65);
     margin: 0 0 20px;
+  }
+
+  .form-success .btn-ghost {
+    border-color: rgba(255, 255, 255, 0.25);
+    color: #fff;
+  }
+
+  .form-success .btn-ghost:hover {
+    border-color: var(--accent-2);
+    color: var(--accent-2);
   }
 
   @media (max-width: 800px) {
@@ -346,7 +367,6 @@
   const resetBtn = document.getElementById("reset-form");
 
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const phonePattern = /^[+\d][\d\s()-]{6,19}$/;
   const urlPattern = /^(https?:\/\/)?[a-z0-9-]+(\.[a-z0-9-]+)+([/?#].*)?$/i;
 
   function fieldWrap(input: HTMLElement) {
@@ -379,21 +399,21 @@
       ok = false;
     }
 
+    const email = (form.elements.namedItem("email") as HTMLInputElement).value.trim();
+    if (!email) {
+      setError("email", "Add an email so we can reply.");
+      firstInvalid ||= document.getElementById("email");
+      ok = false;
+    } else if (!emailPattern.test(email)) {
+      setError("email", "That doesn't look like a valid email.");
+      firstInvalid ||= document.getElementById("email");
+      ok = false;
+    }
+
     const businessName = (form.elements.namedItem("business_name") as HTMLInputElement).value.trim();
     if (!businessName) {
       setError("business_name", "What's the business called?");
       firstInvalid ||= document.getElementById("business_name");
-      ok = false;
-    }
-
-    const contactInfo = (form.elements.namedItem("contact_info") as HTMLInputElement).value.trim();
-    if (!contactInfo) {
-      setError("contact_info", "Add a phone number or email so we can reply.");
-      firstInvalid ||= document.getElementById("contact_info");
-      ok = false;
-    } else if (!emailPattern.test(contactInfo) && !phonePattern.test(contactInfo.replace(/\s/g, ""))) {
-      setError("contact_info", "That doesn't look like a valid phone number or email.");
-      firstInvalid ||= document.getElementById("contact_info");
       ok = false;
     }
 
@@ -431,6 +451,7 @@
     if (!form || !successPanel) return;
     form.reset();
     clearErrors();
+    form.querySelectorAll(".field").forEach((el) => el.classList.remove("is-active"));
     if (submitError) submitError.hidden = true;
     successPanel.hidden = true;
     form.classList.remove("is-hidden");
@@ -462,4 +483,19 @@
   });
 
   resetBtn?.addEventListener("click", resetToForm);
+
+  // Floating labels: keep a field's label floated while focused or filled.
+  const updateActive = (el: HTMLInputElement | HTMLSelectElement) => {
+    const wrap = fieldWrap(el);
+    const hasValue = el.value.trim().length > 0;
+    wrap?.classList.toggle("is-active", hasValue || document.activeElement === el);
+  };
+
+  form?.querySelectorAll<HTMLInputElement | HTMLSelectElement>("input, select").forEach((el) => {
+    updateActive(el);
+    el.addEventListener("focus", () => fieldWrap(el)?.classList.add("is-active"));
+    el.addEventListener("blur", () => updateActive(el));
+    el.addEventListener("input", () => updateActive(el));
+    el.addEventListener("change", () => updateActive(el));
+  });
 </script>
