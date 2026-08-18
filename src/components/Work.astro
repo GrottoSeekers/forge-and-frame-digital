@@ -1,19 +1,24 @@
 ---
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
 const concepts = [
   {
     tag: "Trade & Services Concept",
     features: "Tap-to-call hero section, fast 0.6s load time",
     variant: "trade" as const,
+    href: `${base}/demo-trade.html`,
   },
   {
     tag: "Café & Restaurant Concept",
     features: "Menu-first layout, Instagram feed embed",
     variant: "cafe" as const,
+    href: "#contact",
   },
   {
     tag: "Salon & Wellness Concept",
     features: "Booking widget above the fold, mobile gallery",
     variant: "salon" as const,
+    href: "#contact",
   },
 ];
 ---
@@ -54,7 +59,14 @@ const concepts = [
           <span class="pill concept-tag">{concept.tag}</span>
           <p class="concept-features">{concept.features}</p>
 
-          <a href="#contact" class="btn btn-ghost concept-cta">View Demo Layout</a>
+          <a
+            href={concept.href}
+            class="btn btn-ghost concept-cta"
+            target={concept.href.startsWith("#") ? undefined : "_blank"}
+            rel={concept.href.startsWith("#") ? undefined : "noopener"}
+          >
+            View Demo Layout
+          </a>
         </div>
       ))}
     </div>
