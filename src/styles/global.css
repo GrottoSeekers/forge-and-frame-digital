@@ -12,6 +12,10 @@
   --accent-2: #4c7a1f;
   --accent-2-soft: rgba(76, 122, 31, 0.12);
   --on-accent: #1c1006;
+  --error: #c1432f;
+  --error-soft: rgba(193, 67, 47, 0.1);
+  --success: #3f7d1f;
+  --success-soft: rgba(63, 125, 31, 0.12);
   --line: rgba(28, 23, 16, 0.1);
   --line-strong: rgba(28, 23, 16, 0.2);
   --radius: 16px;

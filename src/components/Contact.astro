@@ -1,4 +1,8 @@
 ---
+// Formspree endpoint below is a placeholder — swap FORM_ID for a real one
+// (see README) before launch. Until then the form still validates and
+// submits, but delivery will fail and visitors see a graceful fallback
+// prompting them to email hello@forgeandframe.digital directly.
 ---
 
 <section class="section section-alt" id="contact">
@@ -19,33 +23,71 @@
       </div>
     </div>
 
-    <form class="contact-form reveal" action="https://formspree.io/f/REPLACE_WITH_YOUR_FORM_ID" method="POST">
-      <label>
-        Name
-        <input type="text" name="name" required />
-      </label>
-      <label>
-        Business name
-        <input type="text" name="business" />
-      </label>
-      <label>
-        Email
-        <input type="email" name="email" required />
-      </label>
-      <label>
-        Current website (if you have one)
-        <input type="text" name="current_site" placeholder="e.g. none, or a link" />
-      </label>
-      <label>
-        What do you need?
-        <textarea name="message" rows="4" placeholder="A new website, a redesign, not sure yet..."></textarea>
-      </label>
-      <button type="submit" class="btn btn-primary">Send it over</button>
-      <p class="form-note">
-        This form needs a real endpoint before launch — see the README for a
-        2-minute Formspree setup.
-      </p>
-    </form>
+    <div class="contact-form-wrap reveal">
+      <form class="contact-form" id="lead-form" action="https://formspree.io/f/REPLACE_WITH_YOUR_FORM_ID" method="POST" novalidate>
+        <div class="field">
+          <label for="client_name">Client name</label>
+          <input type="text" id="client_name" name="client_name" autocomplete="name" required />
+          <span class="field-error" id="err-client_name" role="alert"></span>
+        </div>
+
+        <div class="field">
+          <label for="business_name">Business name</label>
+          <input type="text" id="business_name" name="business_name" autocomplete="organization" required />
+          <span class="field-error" id="err-business_name" role="alert"></span>
+        </div>
+
+        <div class="field">
+          <label for="contact_info">Phone or email</label>
+          <input
+            type="text"
+            id="contact_info"
+            name="contact_info"
+            autocomplete="email"
+            placeholder="you@business.co.uk or 07123 456789"
+            required
+          />
+          <span class="field-error" id="err-contact_info" role="alert"></span>
+        </div>
+
+        <div class="field">
+          <label for="website">Current website URL <span class="optional">(optional)</span></label>
+          <input type="text" id="website" name="website" placeholder="e.g. yourbusiness.co.uk" />
+          <span class="field-error" id="err-website" role="alert"></span>
+        </div>
+
+        <div class="field">
+          <label for="service">Service needed</label>
+          <select id="service" name="service" required>
+            <option value="" disabled selected>Select an option</option>
+            <option value="New Site">New Site</option>
+            <option value="Redesign">Redesign</option>
+            <option value="Not Sure">Not Sure</option>
+          </select>
+          <span class="field-error" id="err-service" role="alert"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary submit-btn" id="submit-btn">
+          <span class="spinner" aria-hidden="true"></span>
+          <span class="btn-label">Send it over</span>
+        </button>
+
+        <p class="submit-error" id="submit-error" role="alert" hidden>
+          Something went wrong sending that. Please email us directly at
+          <a href="mailto:hello@forgeandframe.digital">hello@forgeandframe.digital</a> instead.
+        </p>
+      </form>
+
+      <div class="form-success" id="form-success" hidden>
+        <svg class="success-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10" />
+          <path d="m9 12 2 2 4-4" />
+        </svg>
+        <h3>Got it — thanks!</h3>
+        <p>We'll take a look and get back to you within one business day.</p>
+        <button type="button" class="btn btn-ghost" id="reset-form">Send another enquiry</button>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -95,6 +137,10 @@
     color: var(--text-faint);
   }
 
+  .contact-form-wrap {
+    position: relative;
+  }
+
   .contact-form {
     background: var(--bg-raised-2);
     border: 1px solid var(--line-strong);
@@ -103,19 +149,32 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+    transition: opacity 0.3s ease, transform 0.3s ease;
   }
 
-  .contact-form label {
+  .contact-form.is-hidden {
+    display: none;
+  }
+
+  .field {
     display: flex;
     flex-direction: column;
     gap: 6px;
+  }
+
+  .field label {
     font-size: 0.85rem;
     font-weight: 600;
     color: var(--text);
   }
 
+  .field label .optional {
+    font-weight: 500;
+    color: var(--text-faint);
+  }
+
   .contact-form input,
-  .contact-form textarea {
+  .contact-form select {
     font-family: inherit;
     font-size: 0.95rem;
     padding: 12px 14px;
@@ -123,27 +182,136 @@
     border: 1px solid var(--line-strong);
     background: var(--bg);
     color: var(--text);
-    transition: border-color 0.2s ease;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .contact-form select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%231c1710' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 8 5 5 5-5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 16px;
+    padding-right: 40px;
+  }
+
+  .contact-form select:invalid {
+    color: var(--text-faint);
   }
 
   .contact-form input:focus,
-  .contact-form textarea:focus {
+  .contact-form select:focus {
+    outline: none;
     border-color: var(--accent-2);
+    box-shadow: 0 0 0 3px var(--accent-2-soft);
   }
 
-  .contact-form input::placeholder,
-  .contact-form textarea::placeholder {
+  .contact-form input::placeholder {
     color: var(--text-faint);
   }
 
-  .contact-form button {
+  .field.has-error input,
+  .field.has-error select {
+    border-color: var(--error);
+  }
+
+  .field.has-error input:focus,
+  .field.has-error select:focus {
+    box-shadow: 0 0 0 3px var(--error-soft);
+  }
+
+  .field-error {
+    font-size: 0.8rem;
+    color: var(--error);
+    min-height: 0;
+  }
+
+  .field-error:empty {
+    display: none;
+  }
+
+  .submit-btn {
     margin-top: 4px;
+    position: relative;
   }
 
-  .form-note {
-    font-size: 0.78rem;
-    color: var(--text-faint);
+  .submit-btn[disabled] {
+    opacity: 0.75;
+    cursor: not-allowed;
+    transform: none !important;
+  }
+
+  .spinner {
+    display: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 2px solid var(--on-accent);
+    border-top-color: transparent;
+    animation: spin 0.7s linear infinite;
+  }
+
+  .submit-btn.is-loading .spinner {
+    display: inline-block;
+  }
+
+  .submit-btn.is-loading .btn-label {
+    opacity: 0.85;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .submit-error {
+    font-size: 0.85rem;
+    color: var(--error);
+    background: var(--error-soft);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
     margin: 0;
+  }
+
+  .submit-error a {
+    color: var(--error);
+    font-weight: 700;
+  }
+
+  .form-success {
+    background: var(--bg-raised-2);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+    padding: 44px 34px;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .form-success:not([hidden]) {
+    display: flex;
+    animation: fadeUp 0.5s var(--ease) forwards;
+  }
+
+  .success-icon {
+    width: 46px;
+    height: 46px;
+    color: var(--success);
+    background: var(--success-soft);
+    border-radius: 50%;
+    padding: 10px;
+    margin-bottom: 8px;
+  }
+
+  .form-success h3 {
+    font-size: 1.3rem;
+    margin-bottom: 2px;
+  }
+
+  .form-success p {
+    color: var(--text-dim);
+    margin: 0 0 20px;
   }
 
   @media (max-width: 800px) {
@@ -152,3 +320,129 @@
     }
   }
 </style>
+
+<script>
+  const form = document.getElementById("lead-form") as HTMLFormElement | null;
+  const submitBtn = document.getElementById("submit-btn") as HTMLButtonElement | null;
+  const submitError = document.getElementById("submit-error");
+  const successPanel = document.getElementById("form-success");
+  const resetBtn = document.getElementById("reset-form");
+
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const phonePattern = /^[+\d][\d\s()-]{6,19}$/;
+  const urlPattern = /^(https?:\/\/)?[a-z0-9-]+(\.[a-z0-9-]+)+([/?#].*)?$/i;
+
+  function fieldWrap(input: HTMLElement) {
+    return input.closest(".field");
+  }
+
+  function setError(id: string, message: string) {
+    const input = document.getElementById(id);
+    const err = document.getElementById(`err-${id}`);
+    if (!input || !err) return;
+    err.textContent = message;
+    fieldWrap(input)?.classList.toggle("has-error", Boolean(message));
+  }
+
+  function clearErrors() {
+    form?.querySelectorAll(".field-error").forEach((el) => (el.textContent = ""));
+    form?.querySelectorAll(".field.has-error").forEach((el) => el.classList.remove("has-error"));
+  }
+
+  function validate(): boolean {
+    if (!form) return false;
+    clearErrors();
+    let firstInvalid: HTMLElement | null = null;
+    let ok = true;
+
+    const clientName = (form.elements.namedItem("client_name") as HTMLInputElement).value.trim();
+    if (!clientName) {
+      setError("client_name", "Let us know your name.");
+      firstInvalid ||= document.getElementById("client_name");
+      ok = false;
+    }
+
+    const businessName = (form.elements.namedItem("business_name") as HTMLInputElement).value.trim();
+    if (!businessName) {
+      setError("business_name", "What's the business called?");
+      firstInvalid ||= document.getElementById("business_name");
+      ok = false;
+    }
+
+    const contactInfo = (form.elements.namedItem("contact_info") as HTMLInputElement).value.trim();
+    if (!contactInfo) {
+      setError("contact_info", "Add a phone number or email so we can reply.");
+      firstInvalid ||= document.getElementById("contact_info");
+      ok = false;
+    } else if (!emailPattern.test(contactInfo) && !phonePattern.test(contactInfo.replace(/\s/g, ""))) {
+      setError("contact_info", "That doesn't look like a valid phone number or email.");
+      firstInvalid ||= document.getElementById("contact_info");
+      ok = false;
+    }
+
+    const website = (form.elements.namedItem("website") as HTMLInputElement).value.trim();
+    if (website && !urlPattern.test(website)) {
+      setError("website", "That doesn't look like a valid website address.");
+      firstInvalid ||= document.getElementById("website");
+      ok = false;
+    }
+
+    const service = (form.elements.namedItem("service") as HTMLSelectElement).value;
+    if (!service) {
+      setError("service", "Let us know what you're after.");
+      firstInvalid ||= document.getElementById("service");
+      ok = false;
+    }
+
+    firstInvalid?.focus();
+    return ok;
+  }
+
+  function setLoading(loading: boolean) {
+    if (!submitBtn) return;
+    submitBtn.disabled = loading;
+    submitBtn.classList.toggle("is-loading", loading);
+  }
+
+  function showSuccess() {
+    if (!form || !successPanel) return;
+    form.classList.add("is-hidden");
+    successPanel.hidden = false;
+  }
+
+  function resetToForm() {
+    if (!form || !successPanel) return;
+    form.reset();
+    clearErrors();
+    if (submitError) submitError.hidden = true;
+    successPanel.hidden = true;
+    form.classList.remove("is-hidden");
+  }
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (submitError) submitError.hidden = true;
+
+    if (!validate()) return;
+
+    setLoading(true);
+    try {
+      const res = await fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { Accept: "application/json" },
+      });
+      if (res.ok) {
+        showSuccess();
+      } else if (submitError) {
+        submitError.hidden = false;
+      }
+    } catch {
+      if (submitError) submitError.hidden = false;
+    } finally {
+      setLoading(false);
+    }
+  });
+
+  resetBtn?.addEventListener("click", resetToForm);
+</script>
