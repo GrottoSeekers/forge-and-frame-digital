@@ -31,6 +31,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 96px;
   background: var(--bg);
   scrollbar-color: var(--line-strong) var(--bg);
 }

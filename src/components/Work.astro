@@ -4,21 +4,27 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const concepts = [
   {
     tag: "Trade & Services Concept",
-    features: "Tap-to-call hero section, fast 0.6s load time",
-    variant: "trade" as const,
+    business: "Apex Heating & Electrical",
+    preview: `${base}/previews/trade-preview.jpg`,
     href: `${base}/demo-trade.html`,
+    features: ["Tap-to-call enabled", "24/7 emergency badge", "0.6s load speed"],
+    businessType: "Trade & Services",
   },
   {
     tag: "Café & Restaurant Concept",
-    features: "Menu-first layout, Instagram feed embed",
-    variant: "cafe" as const,
+    business: "The Artisan Kitchen",
+    preview: `${base}/previews/cafe-preview.jpg`,
     href: `${base}/demo-cafe.html`,
+    features: ["Live open/closed status", "Tabbed menu system", "Instant table booking"],
+    businessType: "Café & Restaurant",
   },
   {
     tag: "Salon & Wellness Concept",
-    features: "Booking widget above the fold, mobile gallery",
-    variant: "salon" as const,
+    business: "Aura Skin & Beauty",
+    preview: `${base}/previews/salon-preview.jpg`,
     href: `${base}/demo-salon.html`,
+    features: ["Sticky booking bar", "Visual pricing menu", "Client review slider"],
+    businessType: "Salon & Wellness",
   },
 ];
 ---
@@ -30,43 +36,60 @@ const concepts = [
       <h2>No client sites yet — here's what we'd build you.</h2>
       <p>
         We're a new studio, so there's no real portfolio to show off yet.
-        Instead, here are three concept layouts — the kind of site we'd
-        design for a business like yours, ready to go live in under a week.
+        Instead, here are three live concept builds — the kind of site
+        we'd design for a business like yours, ready to go live in under
+        a week.
       </p>
     </div>
 
     <div class="concept-grid reveal-stagger">
       {concepts.map((concept) => (
         <div class="concept-card">
-          <div class="browser-frame">
+          <div class="preview-frame">
             <div class="browser-bar">
               <span></span><span></span><span></span>
             </div>
-            <div class={`browser-preview preview--${concept.variant}`}>
-              <div class="pv-hero">
-                <div class="pv-hero-line"></div>
-                <div class="pv-hero-line short"></div>
-                <div class="pv-hero-cta"></div>
-              </div>
-              <div class="pv-row">
-                <div class="pv-block"></div>
-                <div class="pv-block"></div>
-                <div class="pv-block"></div>
+            <div class="preview-image-wrap">
+              <img
+                src={concept.preview}
+                alt={`${concept.business} homepage preview`}
+                loading="lazy"
+                width="1120"
+                height="680"
+              />
+              <div class="device-badges">
+                <span class="device-badge">
+                  <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                  Desktop
+                </span>
+                <span class="device-badge">
+                  <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>
+                  Mobile
+                </span>
               </div>
             </div>
           </div>
 
           <span class="pill concept-tag">{concept.tag}</span>
-          <p class="concept-features">{concept.features}</p>
 
-          <a
-            href={concept.href}
-            class="btn btn-ghost concept-cta"
-            target={concept.href.startsWith("#") ? undefined : "_blank"}
-            rel={concept.href.startsWith("#") ? undefined : "noopener"}
-          >
-            View Demo Layout
-          </a>
+          <ul class="feature-tags">
+            {concept.features.map((feature) => (
+              <li>
+                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                {feature}
+              </li>
+            ))}
+          </ul>
+
+          <div class="concept-ctas">
+            <a href={concept.href} target="_blank" rel="noopener" class="btn btn-primary concept-cta-primary">
+              View Live Demo
+              <svg class="cta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
+            </a>
+            <button type="button" class="btn btn-ghost concept-cta-secondary" data-business-type={concept.businessType}>
+              Want a site like this?
+            </button>
+          </div>
         </div>
       ))}
     </div>
@@ -92,10 +115,10 @@ const concepts = [
   .concept-card {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 16px;
   }
 
-  .browser-frame {
+  .preview-frame {
     border-radius: var(--radius);
     overflow: hidden;
     border: 1px solid var(--line);
@@ -116,131 +139,96 @@ const concepts = [
     background: rgba(255, 255, 255, 0.25);
   }
 
-  .browser-bar span:first-child {
-    background: #ff5f56;
+  .browser-bar span:first-child { background: #ff5f56; }
+  .browser-bar span:nth-child(2) { background: #ffbd2e; }
+  .browser-bar span:nth-child(3) { background: #27c93f; }
+
+  .preview-image-wrap {
+    position: relative;
+    line-height: 0;
   }
 
-  .browser-bar span:nth-child(2) {
-    background: #ffbd2e;
+  .preview-image-wrap img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.5s var(--ease);
   }
 
-  .browser-bar span:nth-child(3) {
-    background: #27c93f;
+  .concept-card:hover .preview-image-wrap img {
+    transform: scale(1.03);
   }
 
-  .browser-preview {
-    padding: 18px;
+  .device-badges {
+    position: absolute;
+    left: 12px;
+    bottom: 12px;
     display: flex;
-    flex-direction: column;
-    gap: 12px;
-    min-height: 160px;
+    gap: 6px;
   }
 
-  .pv-hero {
-    border-radius: 10px;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .pv-hero-line {
-    height: 9px;
-    border-radius: 5px;
-    width: 70%;
-  }
-
-  .pv-hero-line.short {
-    width: 45%;
-    height: 7px;
-  }
-
-  .pv-hero-cta {
-    margin-top: 6px;
-    width: 84px;
-    height: 22px;
+  .device-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(11, 14, 20, 0.72);
+    backdrop-filter: blur(4px);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    padding: 5px 10px;
     border-radius: 999px;
   }
 
-  .pv-row {
-    display: flex;
-    gap: 8px;
-  }
+  .badge-icon { width: 12px; height: 12px; }
 
-  .pv-block {
-    flex: 1;
-    height: 40px;
-    border-radius: 8px;
-  }
+  .concept-tag { align-self: flex-start; }
 
-  /* Trade & Services — bold call-now band */
-  .preview--trade {
-    background: #eef1f6;
-  }
-  .preview--trade .pv-hero {
-    background: linear-gradient(135deg, var(--accent) 0%, #a83c1c 100%);
-  }
-  .preview--trade .pv-hero-line,
-  .preview--trade .pv-hero-line.short {
-    background: rgba(255, 255, 255, 0.85);
-  }
-  .preview--trade .pv-hero-cta {
-    background: var(--on-accent);
-  }
-  .preview--trade .pv-block {
-    background: #dde3ee;
-  }
-
-  /* Café & Restaurant — warm menu grid */
-  .preview--cafe {
-    background: #f7efe2;
-  }
-  .preview--cafe .pv-hero {
-    background: #e7d9bf;
-  }
-  .preview--cafe .pv-hero-line,
-  .preview--cafe .pv-hero-line.short {
-    background: #6b5c40;
-  }
-  .preview--cafe .pv-hero-cta {
-    background: #a8763f;
-  }
-  .preview--cafe .pv-block {
-    background: #ecdfc9;
-  }
-
-  /* Salon & Wellness — soft gallery + booking bar */
-  .preview--salon {
-    background: #f3edf1;
-  }
-  .preview--salon .pv-hero {
-    background: #ded1da;
-  }
-  .preview--salon .pv-hero-line,
-  .preview--salon .pv-hero-line.short {
-    background: #6e5568;
-  }
-  .preview--salon .pv-hero-cta {
-    background: #8a5d7e;
-  }
-  .preview--salon .pv-block {
-    background: #e8dce4;
-  }
-
-  .concept-tag {
-    align-self: flex-start;
-  }
-
-  .concept-features {
-    font-size: 0.92rem;
-    color: var(--text-dim);
+  .feature-tags {
+    list-style: none;
     margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     flex: 1;
   }
 
-  .concept-cta {
-    width: 100%;
+  .feature-tags li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.88rem;
+    color: var(--text-dim);
+  }
+
+  .feature-icon {
+    width: 15px;
+    height: 15px;
+    color: var(--accent-2);
+    flex-shrink: 0;
+  }
+
+  .concept-ctas {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     margin-top: 4px;
+  }
+
+  .concept-cta-primary {
+    width: 100%;
+  }
+
+  .cta-icon {
+    width: 15px;
+    height: 15px;
+  }
+
+  .concept-cta-secondary {
+    width: 100%;
+    font-size: 0.86rem;
   }
 
   .founding-note {
@@ -265,3 +253,30 @@ const concepts = [
     }
   }
 </style>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>(".concept-cta-secondary").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const businessType = btn.dataset.businessType || "";
+
+      const notice = document.getElementById("prefill-notice");
+      const typeEl = document.getElementById("prefill-type");
+      const serviceSelect = document.getElementById("service") as HTMLSelectElement | null;
+      const businessNameInput = document.getElementById("business_name") as HTMLInputElement | null;
+
+      if (typeEl) typeEl.textContent = businessType;
+      if (notice) notice.hidden = false;
+
+      if (serviceSelect) {
+        serviceSelect.value = "New Site";
+        serviceSelect.dispatchEvent(new Event("change"));
+      }
+
+      document.getElementById("contact")?.scrollIntoView({ behavior: "smooth", block: "start" });
+
+      if (businessNameInput && !businessNameInput.value) {
+        window.setTimeout(() => businessNameInput.focus(), 500);
+      }
+    });
+  });
+</script>
