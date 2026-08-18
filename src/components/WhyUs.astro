@@ -1,7 +1,7 @@
 ---
 const metrics = [
   {
-    label: "PageSpeed score",
+    label: "PageSpeed",
     bad: { value: 42, suffix: "/100" },
     good: { value: 100, suffix: "/100" },
   },
@@ -11,199 +11,135 @@ const metrics = [
     good: { value: 0.3, decimals: 1, suffix: "s" },
   },
   {
-    badLabel: "Plugins & bloated code",
-    goodLabel: "Known vulnerabilities",
+    label: "Plugins vs. flaws",
     bad: { value: 85, suffix: "+" },
     good: { value: 0, suffix: "" },
   },
 ];
 ---
 
-<section class="section" id="why-us">
+<section class="section section-compact" id="why-us">
   <div class="wrap">
-    <div class="section-head reveal">
+    <div class="why-head reveal">
       <span class="eyebrow">Why us</span>
-      <h2>Built different — and it shows in the numbers.</h2>
-      <p>
-        Most "affordable" sites are built on WordPress or Wix, stacked
-        with plugins to do what they can't out of the box. Ours are
-        hand-coded from scratch, so there's nothing to slow it down.
-      </p>
+      <h2>Hand-coded beats bloated CMS builds.</h2>
     </div>
 
-    <div class="compare-grid reveal-stagger">
-      <div class="compare-card compare-card--bad">
-        <div class="compare-card-head">
-          <svg class="compare-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/></svg>
-          <span class="compare-label">Typical WordPress / Wix site</span>
+    <div class="stat-row reveal-stagger">
+      {metrics.map((metric) => (
+        <div class="stat-chip">
+          <span class="stat-label">{metric.label}</span>
+          <div class="stat-values">
+            <span
+              class="stat-value stat-value--bad"
+              data-target={metric.bad.value}
+              data-decimals={metric.bad.decimals ?? 0}
+              data-suffix={metric.bad.suffix}
+            >0</span>
+            <svg class="stat-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            <span
+              class="stat-value stat-value--good"
+              data-target={metric.good.value}
+              data-decimals={metric.good.decimals ?? 0}
+              data-suffix={metric.good.suffix}
+            >0</span>
+          </div>
         </div>
-        <div class="metric-list">
-          {metrics.map((metric) => (
-            <div class="metric">
-              <span
-                class="metric-value"
-                data-target={metric.bad.value}
-                data-decimals={metric.bad.decimals ?? 0}
-                data-suffix={metric.bad.suffix}
-              >0</span>
-              <span class="metric-label">{metric.badLabel ?? metric.label}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <span class="compare-vs" aria-hidden="true">VS</span>
-
-      <div class="compare-card compare-card--good">
-        <div class="compare-card-head">
-          <svg class="compare-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.05 3.005a1 1 0 0 1 1.9 0l2.31 5.36 5.815.42a1 1 0 0 1 .57 1.755l-4.42 3.86 1.36 5.67a1 1 0 0 1-1.48 1.09L12 18.35l-5.105 2.81a1 1 0 0 1-1.48-1.09l1.36-5.67-4.42-3.86a1 1 0 0 1 .57-1.755l5.815-.42Z"/></svg>
-          <span class="compare-label">A Forge &amp; Frame build</span>
-        </div>
-        <div class="metric-list">
-          {metrics.map((metric) => (
-            <div class="metric">
-              <span
-                class="metric-value"
-                data-target={metric.good.value}
-                data-decimals={metric.good.decimals ?? 0}
-                data-suffix={metric.good.suffix}
-              >0</span>
-              <span class="metric-label">{metric.goodLabel ?? metric.label}</span>
-            </div>
-          ))}
-        </div>
-      </div>
+      ))}
     </div>
 
-    <p class="compare-footnote">
-      Illustrative figures based on typical results for hand-coded vs.
-      plugin-heavy CMS builds — actual performance varies by site.
-    </p>
+    <p class="compare-footnote">Illustrative figures based on typical results — actual performance varies by site.</p>
   </div>
 </section>
 
 <style>
-  .compare-grid {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    margin-bottom: 18px;
+  .section-compact {
+    padding: 64px 0;
   }
 
-  .compare-card {
-    border-radius: var(--radius);
-    border: 1px solid;
-    padding: 32px;
+  .why-head {
+    text-align: center;
+    max-width: none;
+    margin-bottom: 32px;
   }
 
-  .compare-card--bad {
-    background: var(--error-soft);
-    border-color: rgba(193, 67, 47, 0.25);
+  .why-head h2 {
+    font-size: clamp(1.4rem, 2.4vw, 1.8rem);
+    margin: 0;
   }
 
-  .compare-card--good {
-    background: var(--success-soft);
-    border-color: rgba(63, 125, 31, 0.25);
-  }
-
-  .compare-card-head {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 24px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid rgba(28, 23, 16, 0.1);
-  }
-
-  .compare-icon {
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0;
-  }
-
-  .compare-card--bad .compare-icon {
-    color: var(--error);
-  }
-
-  .compare-card--good .compare-icon {
-    color: var(--success);
-  }
-
-  .compare-label {
-    font-weight: 700;
-    font-size: 0.95rem;
-  }
-
-  .compare-vs {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    align-items: center;
+  .why-head .eyebrow {
     justify-content: center;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: var(--bg);
-    border: 1px solid var(--line-strong);
-    box-shadow: var(--shadow);
-    font-family: "Fraunces", serif;
-    font-weight: 600;
-    font-size: 0.82rem;
+    margin-bottom: 10px;
+  }
+
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .stat-chip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 18px 14px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    text-align: center;
+  }
+
+  .stat-label {
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
     color: var(--text-faint);
+    text-transform: uppercase;
   }
 
-  .metric-list {
+  .stat-values {
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+    align-items: center;
+    gap: 8px;
   }
 
-  .metric {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .metric-value {
+  .stat-value {
     font-family: "Fraunces", serif;
-    font-size: clamp(1.8rem, 3vw, 2.2rem);
     font-weight: 600;
-    line-height: 1.1;
+    font-size: 1.2rem;
     font-variant-numeric: tabular-nums;
+    white-space: nowrap;
   }
 
-  .compare-card--bad .metric-value {
+  .stat-value--bad {
     color: var(--error);
+    opacity: 0.75;
   }
 
-  .compare-card--good .metric-value {
+  .stat-value--good {
     color: var(--success);
   }
 
-  .metric-label {
-    font-size: 0.86rem;
-    color: var(--text-dim);
+  .stat-arrow {
+    width: 14px;
+    height: 14px;
+    color: var(--text-faint);
+    flex-shrink: 0;
   }
 
   .compare-footnote {
     margin: 0;
     text-align: center;
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     color: var(--text-faint);
   }
 
-  @media (max-width: 720px) {
-    .compare-grid {
+  @media (max-width: 640px) {
+    .stat-row {
       grid-template-columns: 1fr;
-      gap: 16px;
-    }
-    .compare-vs {
-      position: static;
-      transform: none;
-      justify-self: center;
     }
   }
 </style>
@@ -240,7 +176,7 @@ const metrics = [
   };
 
   const section = document.getElementById("why-us");
-  const values = Array.from(section?.querySelectorAll<HTMLElement>(".metric-value") ?? []);
+  const values = Array.from(section?.querySelectorAll<HTMLElement>(".stat-value") ?? []);
 
   const observer = new IntersectionObserver(
     (entries, obs) => {

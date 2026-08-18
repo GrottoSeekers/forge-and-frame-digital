@@ -5,25 +5,31 @@ const concepts = [
   {
     tag: "Trade & Services Concept",
     business: "Apex Heating & Electrical",
-    preview: `${base}/previews/trade-preview.jpg`,
+    domain: "apexheating.co.uk",
+    previewDesktop: `${base}/previews/trade-preview.jpg`,
+    previewMobile: `${base}/previews/trade-preview-mobile.jpg`,
     href: `${base}/demo-trade.html`,
-    features: ["Tap-to-call enabled", "24/7 emergency badge", "0.6s load speed"],
+    features: ["Tap-to-Call", "24/7 Badge", "0.6s Load"],
     businessType: "Trade & Services",
   },
   {
     tag: "Café & Restaurant Concept",
     business: "The Artisan Kitchen",
-    preview: `${base}/previews/cafe-preview.jpg`,
+    domain: "theartisankitchen.co.uk",
+    previewDesktop: `${base}/previews/cafe-preview.jpg`,
+    previewMobile: `${base}/previews/cafe-preview-mobile.jpg`,
     href: `${base}/demo-cafe.html`,
-    features: ["Live open/closed status", "Tabbed menu system", "Instant table booking"],
+    features: ["Live Status", "Tabbed Menu", "Instant Booking"],
     businessType: "Café & Restaurant",
   },
   {
     tag: "Salon & Wellness Concept",
     business: "Aura Skin & Beauty",
-    preview: `${base}/previews/salon-preview.jpg`,
+    domain: "auraskinbeauty.co.uk",
+    previewDesktop: `${base}/previews/salon-preview.jpg`,
+    previewMobile: `${base}/previews/salon-preview-mobile.jpg`,
     href: `${base}/demo-salon.html`,
-    features: ["Sticky booking bar", "Visual pricing menu", "Client review slider"],
+    features: ["Sticky Booking", "Visual Pricing", "SEO Optimized"],
     businessType: "Salon & Wellness",
   },
 ];
@@ -51,37 +57,48 @@ const concepts = [
           {concepts.map((concept) => (
             <div class="concept-slide">
               <div class="concept-card">
-                <div class="preview-frame">
+                <div class="preview-frame" data-preview-frame>
                   <div class="browser-bar">
-                    <span></span><span></span><span></span>
+                    <div class="traffic-lights">
+                      <span></span><span></span><span></span>
+                    </div>
+                    <div class="url-bar">
+                      <svg class="url-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+                      <span>{concept.domain}</span>
+                    </div>
+                    <div class="viewport-toggle" role="group" aria-label={`${concept.business} preview viewport`}>
+                      <button type="button" class="viewport-btn is-active" data-mode="desktop" aria-pressed="true" aria-label="Desktop preview">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                      </button>
+                      <button type="button" class="viewport-btn" data-mode="mobile" aria-pressed="false" aria-label="Mobile preview">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>
+                      </button>
+                    </div>
                   </div>
                   <div class="preview-image-wrap">
                     <img
-                      src={concept.preview}
-                      alt={`${concept.business} homepage preview`}
-                      loading="lazy"
+                      src={concept.previewDesktop}
+                      alt={`${concept.business} homepage preview, desktop view`}
                       width="1120"
                       height="680"
+                      data-mode="desktop"
                     />
-                    <div class="device-badges">
-                      <span class="device-badge">
-                        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-                        Desktop
-                      </span>
-                      <span class="device-badge">
-                        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>
-                        Mobile
-                      </span>
-                    </div>
+                    <img
+                      src={concept.previewMobile}
+                      alt={`${concept.business} homepage preview, mobile view`}
+                      width="430"
+                      height="932"
+                      data-mode="mobile"
+                    />
                   </div>
                 </div>
 
                 <span class="pill concept-tag">{concept.tag}</span>
 
-                <ul class="feature-tags">
+                <ul class="tag-row">
                   {concept.features.map((feature) => (
-                    <li>
-                      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    <li class="tag-pill">
+                      <svg class="tag-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                       {feature}
                     </li>
                   ))}
@@ -192,29 +209,109 @@ const concepts = [
   }
 
   .preview-frame {
+    max-width: 100%;
+    margin: 0 auto;
     border-radius: var(--radius);
     overflow: hidden;
     border: 1px solid var(--line);
     box-shadow: var(--shadow);
+    background: #0f172a;
+    transition: max-width 0.45s var(--ease);
+  }
+
+  .preview-frame.is-mobile-view {
+    max-width: 240px;
   }
 
   .browser-bar {
     background: #0f172a;
-    padding: 8px;
+    padding: 8px 10px;
     display: flex;
-    gap: 6px;
+    align-items: center;
+    gap: 10px;
   }
 
-  .browser-bar span {
+  .traffic-lights {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .traffic-lights span {
     width: 9px;
     height: 9px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.25);
   }
 
-  .browser-bar span:first-child { background: #ff5f56; }
-  .browser-bar span:nth-child(2) { background: #ffbd2e; }
-  .browser-bar span:nth-child(3) { background: #27c93f; }
+  .traffic-lights span:nth-child(1) { background: #ff5f56; }
+  .traffic-lights span:nth-child(2) { background: #ffbd2e; }
+  .traffic-lights span:nth-child(3) { background: #27c93f; }
+
+  .url-bar {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    min-width: 0;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+    padding: 4px 10px;
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.7rem;
+    font-family: "Plus Jakarta Sans", sans-serif;
+  }
+
+  .url-bar span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .url-lock {
+    width: 11px;
+    height: 11px;
+    flex-shrink: 0;
+    color: var(--accent-2);
+  }
+
+  .viewport-toggle {
+    flex-shrink: 0;
+    display: flex;
+    gap: 2px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 999px;
+    padding: 2px;
+  }
+
+  .viewport-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    border: none;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.45);
+    cursor: pointer;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+
+  .viewport-btn svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .viewport-btn:hover {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .viewport-btn.is-active {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
 
   .preview-image-wrap {
     position: relative;
@@ -225,54 +322,56 @@ const concepts = [
     width: 100%;
     height: auto;
     display: block;
+    transition: opacity 0.3s ease;
   }
 
-  .device-badges {
-    position: absolute;
-    left: 12px;
-    bottom: 12px;
-    display: flex;
-    gap: 6px;
+  .preview-image-wrap img[data-mode="mobile"] {
+    display: none;
   }
 
-  .device-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    background: rgba(11, 14, 20, 0.72);
-    backdrop-filter: blur(4px);
-    color: #fff;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    padding: 5px 10px;
-    border-radius: 999px;
+  .preview-frame.is-mobile-view .preview-image-wrap img[data-mode="desktop"] {
+    display: none;
   }
 
-  .badge-icon { width: 12px; height: 12px; }
+  .preview-frame.is-mobile-view .preview-image-wrap img[data-mode="mobile"] {
+    display: block;
+  }
 
   .concept-tag { align-self: flex-start; }
 
-  .feature-tags {
+  .tag-row {
     list-style: none;
     margin: 0;
     padding: 0;
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     gap: 8px;
   }
 
-  .feature-tags li {
-    display: flex;
+  .tag-pill {
+    display: inline-flex;
     align-items: center;
-    gap: 8px;
-    font-size: 0.88rem;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    font-size: 0.8rem;
+    font-weight: 600;
     color: var(--text-dim);
+    transition: transform 0.25s var(--ease), border-color 0.25s ease, color 0.25s ease, background 0.25s ease;
   }
 
-  .feature-icon {
-    width: 15px;
-    height: 15px;
+  .tag-pill:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent-2);
+    color: var(--accent-2);
+    background: var(--accent-2-soft);
+  }
+
+  .tag-icon {
+    width: 13px;
+    height: 13px;
     color: var(--accent-2);
     flex-shrink: 0;
   }
@@ -349,6 +448,9 @@ const concepts = [
       width: 38px;
       height: 38px;
     }
+    .url-bar span {
+      max-width: 90px;
+    }
   }
 </style>
 
@@ -413,6 +515,23 @@ const concepts = [
       if (businessNameInput && !businessNameInput.value) {
         window.setTimeout(() => businessNameInput.focus(), 500);
       }
+    });
+  });
+
+  document.querySelectorAll<HTMLButtonElement>(".viewport-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const frame = btn.closest<HTMLElement>("[data-preview-frame]");
+      if (!frame) return;
+      const mode = btn.dataset.mode;
+      const siblingBtns = frame.querySelectorAll<HTMLButtonElement>(".viewport-btn");
+
+      siblingBtns.forEach((sibling) => {
+        const isActive = sibling === btn;
+        sibling.classList.toggle("is-active", isActive);
+        sibling.setAttribute("aria-pressed", String(isActive));
+      });
+
+      frame.classList.toggle("is-mobile-view", mode === "mobile");
     });
   });
 </script>
