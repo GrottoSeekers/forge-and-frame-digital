@@ -1,0 +1,258 @@
+---
+const metrics = [
+  {
+    label: "PageSpeed score",
+    bad: { value: 42, suffix: "/100" },
+    good: { value: 100, suffix: "/100" },
+  },
+  {
+    label: "Load time",
+    bad: { value: 3.4, decimals: 1, suffix: "s" },
+    good: { value: 0.3, decimals: 1, suffix: "s" },
+  },
+  {
+    badLabel: "Plugins & bloated code",
+    goodLabel: "Known vulnerabilities",
+    bad: { value: 85, suffix: "+" },
+    good: { value: 0, suffix: "" },
+  },
+];
+---
+
+<section class="section" id="why-us">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Why us</span>
+      <h2>Built different — and it shows in the numbers.</h2>
+      <p>
+        Most "affordable" sites are built on WordPress or Wix, stacked
+        with plugins to do what they can't out of the box. Ours are
+        hand-coded from scratch, so there's nothing to slow it down.
+      </p>
+    </div>
+
+    <div class="compare-grid reveal-stagger">
+      <div class="compare-card compare-card--bad">
+        <div class="compare-card-head">
+          <svg class="compare-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/></svg>
+          <span class="compare-label">Typical WordPress / Wix site</span>
+        </div>
+        <div class="metric-list">
+          {metrics.map((metric) => (
+            <div class="metric">
+              <span
+                class="metric-value"
+                data-target={metric.bad.value}
+                data-decimals={metric.bad.decimals ?? 0}
+                data-suffix={metric.bad.suffix}
+              >0</span>
+              <span class="metric-label">{metric.badLabel ?? metric.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <span class="compare-vs" aria-hidden="true">VS</span>
+
+      <div class="compare-card compare-card--good">
+        <div class="compare-card-head">
+          <svg class="compare-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.05 3.005a1 1 0 0 1 1.9 0l2.31 5.36 5.815.42a1 1 0 0 1 .57 1.755l-4.42 3.86 1.36 5.67a1 1 0 0 1-1.48 1.09L12 18.35l-5.105 2.81a1 1 0 0 1-1.48-1.09l1.36-5.67-4.42-3.86a1 1 0 0 1 .57-1.755l5.815-.42Z"/></svg>
+          <span class="compare-label">A Forge &amp; Frame build</span>
+        </div>
+        <div class="metric-list">
+          {metrics.map((metric) => (
+            <div class="metric">
+              <span
+                class="metric-value"
+                data-target={metric.good.value}
+                data-decimals={metric.good.decimals ?? 0}
+                data-suffix={metric.good.suffix}
+              >0</span>
+              <span class="metric-label">{metric.goodLabel ?? metric.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <p class="compare-footnote">
+      Illustrative figures based on typical results for hand-coded vs.
+      plugin-heavy CMS builds — actual performance varies by site.
+    </p>
+  </div>
+</section>
+
+<style>
+  .compare-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 18px;
+  }
+
+  .compare-card {
+    border-radius: var(--radius);
+    border: 1px solid;
+    padding: 32px;
+  }
+
+  .compare-card--bad {
+    background: var(--error-soft);
+    border-color: rgba(193, 67, 47, 0.25);
+  }
+
+  .compare-card--good {
+    background: var(--success-soft);
+    border-color: rgba(63, 125, 31, 0.25);
+  }
+
+  .compare-card-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(28, 23, 16, 0.1);
+  }
+
+  .compare-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+
+  .compare-card--bad .compare-icon {
+    color: var(--error);
+  }
+
+  .compare-card--good .compare-icon {
+    color: var(--success);
+  }
+
+  .compare-label {
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+
+  .compare-vs {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 1px solid var(--line-strong);
+    box-shadow: var(--shadow);
+    font-family: "Fraunces", serif;
+    font-weight: 600;
+    font-size: 0.82rem;
+    color: var(--text-faint);
+  }
+
+  .metric-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .metric {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .metric-value {
+    font-family: "Fraunces", serif;
+    font-size: clamp(1.8rem, 3vw, 2.2rem);
+    font-weight: 600;
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .compare-card--bad .metric-value {
+    color: var(--error);
+  }
+
+  .compare-card--good .metric-value {
+    color: var(--success);
+  }
+
+  .metric-label {
+    font-size: 0.86rem;
+    color: var(--text-dim);
+  }
+
+  .compare-footnote {
+    margin: 0;
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--text-faint);
+  }
+
+  @media (max-width: 720px) {
+    .compare-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .compare-vs {
+      position: static;
+      transform: none;
+      justify-self: center;
+    }
+  }
+</style>
+
+<script>
+  const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const formatValue = (value: number, decimals: number, suffix: string) =>
+    `${value.toFixed(decimals)}${suffix}`;
+
+  const animateCount = (el: HTMLElement) => {
+    const target = parseFloat(el.dataset.target ?? "0");
+    const decimals = parseInt(el.dataset.decimals ?? "0", 10);
+    const suffix = el.dataset.suffix ?? "";
+
+    if (prefersReducedMotion) {
+      el.textContent = formatValue(target, decimals, suffix);
+      return;
+    }
+
+    const duration = 1400;
+    const startTime = performance.now();
+
+    const tick = (now: number) => {
+      const progress = Math.min((now - startTime) / duration, 1);
+      const value = target * easeOutCubic(progress);
+      el.textContent = formatValue(value, decimals, suffix);
+      if (progress < 1) requestAnimationFrame(tick);
+      else el.textContent = formatValue(target, decimals, suffix);
+    };
+
+    requestAnimationFrame(tick);
+  };
+
+  const section = document.getElementById("why-us");
+  const values = Array.from(section?.querySelectorAll<HTMLElement>(".metric-value") ?? []);
+
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          values.forEach((el) => animateCount(el));
+          obs.disconnect();
+        }
+      });
+    },
+    { threshold: 0.35 }
+  );
+
+  if (section) observer.observe(section);
+</script>
