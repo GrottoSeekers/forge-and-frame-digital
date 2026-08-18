@@ -1,0 +1,184 @@
+---
+import Icon from "./Icon.astro";
+
+const services = [
+  { icon: "layout" as const, title: "New builds", body: "From scratch, ready to search from day one." },
+  { icon: "wrench" as const, title: "Redesigns", body: "Modern and mobile-friendly, same domain." },
+  { icon: "shield-check" as const, title: "Care & hosting", body: "Updates and small changes, handled." },
+  { icon: "map-pin" as const, title: "Local search setup", body: "So nearby customers actually find you." },
+];
+
+const steps = [
+  { n: "01", title: "Free check", body: "Tell us about your business — we'll say honestly what we'd build." },
+  { n: "02", title: "Fixed proposal", body: "One clear price, one clear timeline." },
+  { n: "03", title: "Design & build", body: "You see drafts along the way, we handle the rest." },
+  { n: "04", title: "Launch & support", body: "Live on your domain, with support if you want it." },
+];
+---
+
+<section class="section section-alt" id="how-we-help">
+  <div class="orb orb-services" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">How we help</span>
+      <h2>From "no website" to launched, in under a week.</h2>
+      <p>
+        Whether you've never had a site or you're stuck with one from
+        another decade, we design, build, and launch it — one clear price,
+        no jargon.
+      </p>
+    </div>
+
+    <div class="overview-block reveal-stagger" id="services">
+      <h3 class="block-label">What you get</h3>
+      <div class="services-row">
+        {services.map((service) => (
+          <div class="service-item">
+            <div class="service-icon" aria-hidden="true">
+              <Icon name={service.icon} />
+            </div>
+            <h4>{service.title}</h4>
+            <p>{service.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="overview-block reveal-stagger" id="process">
+      <h3 class="block-label">The process</h3>
+      <div class="process-row">
+        {steps.map((step) => (
+          <div class="process-step">
+            <div class="process-num">{step.n}</div>
+            <h4>{step.title}</h4>
+            <p>{step.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-alt {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .orb-services {
+    width: 400px;
+    height: 400px;
+    background: var(--accent);
+    top: 10%;
+    right: -160px;
+    opacity: 0.14;
+  }
+
+  .overview-block + .overview-block {
+    margin-top: 64px;
+  }
+
+  .block-label {
+    font-family: "Fraunces", serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin: 0 0 22px;
+  }
+
+  .services-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+
+  .service-item {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 22px;
+    transition: transform 0.35s var(--ease), border-color 0.3s ease;
+  }
+
+  .service-item:hover {
+    transform: translateY(-4px);
+    border-color: var(--line-strong);
+  }
+
+  .service-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: var(--bg-raised-2);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+  }
+
+  .service-icon :global(svg) {
+    width: 18px;
+    height: 18px;
+  }
+
+  .service-item h4 {
+    font-family: "Fraunces", serif;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 6px;
+  }
+
+  .service-item p {
+    font-size: 0.86rem;
+    color: var(--text-dim);
+    margin: 0;
+  }
+
+  .process-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+
+  .process-step {
+    position: relative;
+  }
+
+  .process-num {
+    font-family: "Fraunces", serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  .process-step h4 {
+    font-family: "Fraunces", serif;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 6px;
+  }
+
+  .process-step p {
+    font-size: 0.86rem;
+    color: var(--text-dim);
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    .services-row,
+    .process-row {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .overview-block + .overview-block {
+      margin-top: 48px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .services-row,
+    .process-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

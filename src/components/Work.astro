@@ -36,61 +36,87 @@ const concepts = [
       <h2>No client sites yet — here's what we'd build you.</h2>
       <p>
         We're a new studio, so there's no real portfolio to show off yet.
-        Instead, here are three concept builds — the kind of site
-        we'd design for a business like yours, ready to launch in under
-        a week.
+        Here's one of the concept builds we'd design for a business like
+        yours — flick through to see the others.
       </p>
     </div>
 
-    <div class="concept-grid reveal-stagger">
-      {concepts.map((concept) => (
-        <div class="concept-card">
-          <div class="preview-frame">
-            <div class="browser-bar">
-              <span></span><span></span><span></span>
-            </div>
-            <div class="preview-image-wrap">
-              <img
-                src={concept.preview}
-                alt={`${concept.business} homepage preview`}
-                loading="lazy"
-                width="1120"
-                height="680"
-              />
-              <div class="device-badges">
-                <span class="device-badge">
-                  <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-                  Desktop
-                </span>
-                <span class="device-badge">
-                  <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>
-                  Mobile
-                </span>
+    <div class="concept-carousel reveal" id="concept-carousel">
+      <button type="button" class="carousel-arrow carousel-arrow--prev" id="concept-prev" aria-label="Previous concept">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+      </button>
+
+      <div class="concept-viewport">
+        <div class="concept-track" id="concept-track">
+          {concepts.map((concept) => (
+            <div class="concept-slide">
+              <div class="concept-card">
+                <div class="preview-frame">
+                  <div class="browser-bar">
+                    <span></span><span></span><span></span>
+                  </div>
+                  <div class="preview-image-wrap">
+                    <img
+                      src={concept.preview}
+                      alt={`${concept.business} homepage preview`}
+                      loading="lazy"
+                      width="1120"
+                      height="680"
+                    />
+                    <div class="device-badges">
+                      <span class="device-badge">
+                        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                        Desktop
+                      </span>
+                      <span class="device-badge">
+                        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>
+                        Mobile
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <span class="pill concept-tag">{concept.tag}</span>
+
+                <ul class="feature-tags">
+                  {concept.features.map((feature) => (
+                    <li>
+                      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+
+                <div class="concept-ctas">
+                  <a href={concept.href} target="_blank" rel="noopener" class="btn btn-primary concept-cta-primary">
+                    View Demo
+                    <svg class="cta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
+                  </a>
+                  <button type="button" class="btn btn-ghost concept-cta-secondary" data-business-type={concept.businessType}>
+                    Want a site like this?
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-
-          <span class="pill concept-tag">{concept.tag}</span>
-
-          <ul class="feature-tags">
-            {concept.features.map((feature) => (
-              <li>
-                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                {feature}
-              </li>
-            ))}
-          </ul>
-
-          <div class="concept-ctas">
-            <a href={concept.href} target="_blank" rel="noopener" class="btn btn-primary concept-cta-primary">
-              View Demo
-              <svg class="cta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
-            </a>
-            <button type="button" class="btn btn-ghost concept-cta-secondary" data-business-type={concept.businessType}>
-              Want a site like this?
-            </button>
-          </div>
+          ))}
         </div>
+      </div>
+
+      <button type="button" class="carousel-arrow carousel-arrow--next" id="concept-next" aria-label="Next concept">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
+    </div>
+
+    <div class="concept-dots" id="concept-dots" role="tablist" aria-label="Choose a concept">
+      {concepts.map((concept, i) => (
+        <button
+          type="button"
+          class="concept-dot"
+          data-index={i}
+          role="tab"
+          aria-selected={i === 0 ? "true" : "false"}
+          aria-label={`Show ${concept.business} concept`}
+        ></button>
       ))}
     </div>
 
@@ -105,11 +131,58 @@ const concepts = [
 </section>
 
 <style>
-  .concept-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    margin-bottom: 48px;
+  .concept-carousel {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  .carousel-arrow {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 1px solid var(--line-strong);
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: border-color 0.25s ease, color 0.25s ease, transform 0.25s var(--ease);
+  }
+
+  .carousel-arrow:hover {
+    border-color: var(--accent-2);
+    color: var(--accent-2);
+  }
+
+  .carousel-arrow:active {
+    transform: scale(0.94);
+  }
+
+  .carousel-arrow svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .concept-viewport {
+    flex: 1;
+    max-width: 640px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  .concept-track {
+    display: flex;
+    transition: transform 0.5s var(--ease);
+  }
+
+  .concept-slide {
+    flex: 0 0 100%;
+    width: 100%;
   }
 
   .concept-card {
@@ -152,11 +225,6 @@ const concepts = [
     width: 100%;
     height: auto;
     display: block;
-    transition: transform 0.5s var(--ease);
-  }
-
-  .concept-card:hover .preview-image-wrap img {
-    transform: scale(1.03);
   }
 
   .device-badges {
@@ -192,7 +260,6 @@ const concepts = [
     display: flex;
     flex-direction: column;
     gap: 8px;
-    flex: 1;
   }
 
   .feature-tags li {
@@ -231,6 +298,33 @@ const concepts = [
     font-size: 0.86rem;
   }
 
+  .concept-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 48px;
+  }
+
+  .concept-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--line-strong);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.25s ease;
+  }
+
+  .concept-dot:hover {
+    background: var(--accent-2);
+  }
+
+  .concept-dot[aria-selected="true"] {
+    background: var(--accent);
+    transform: scale(1.3);
+  }
+
   .founding-note {
     display: flex;
     align-items: center;
@@ -247,14 +341,56 @@ const concepts = [
     max-width: 480px;
   }
 
-  @media (max-width: 900px) {
-    .concept-grid {
-      grid-template-columns: 1fr;
+  @media (max-width: 640px) {
+    .concept-carousel {
+      gap: 10px;
+    }
+    .carousel-arrow {
+      width: 38px;
+      height: 38px;
     }
   }
 </style>
 
 <script>
+  const track = document.getElementById("concept-track");
+  const carousel = document.getElementById("concept-carousel");
+  const prevBtn = document.getElementById("concept-prev") as HTMLButtonElement | null;
+  const nextBtn = document.getElementById("concept-next") as HTMLButtonElement | null;
+  const dots = Array.from(document.querySelectorAll<HTMLButtonElement>(".concept-dot"));
+  const slideCount = dots.length;
+  let index = 0;
+
+  const render = () => {
+    if (track) track.style.transform = `translateX(-${index * 100}%)`;
+    dots.forEach((dot, i) => dot.setAttribute("aria-selected", String(i === index)));
+  };
+
+  const goTo = (next: number) => {
+    index = (next + slideCount) % slideCount;
+    render();
+  };
+
+  prevBtn?.addEventListener("click", () => goTo(index - 1));
+  nextBtn?.addEventListener("click", () => goTo(index + 1));
+
+  dots.forEach((dot, i) => {
+    dot.addEventListener("click", () => goTo(i));
+  });
+
+  const dotsContainer = document.getElementById("concept-dots");
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+    const active = document.activeElement;
+    if (!active) return;
+    if (!carousel?.contains(active) && !dotsContainer?.contains(active)) return;
+
+    e.preventDefault();
+    if (e.key === "ArrowLeft") goTo(index - 1);
+    if (e.key === "ArrowRight") goTo(index + 1);
+  });
+
   document.querySelectorAll<HTMLButtonElement>(".concept-cta-secondary").forEach((btn) => {
     btn.addEventListener("click", () => {
       const businessType = btn.dataset.businessType || "";
