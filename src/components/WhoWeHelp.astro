@@ -21,17 +21,18 @@ const cases = [
 ];
 ---
 
-<section class="section" id="who">
+<section class="section who-section" id="who">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <span class="eyebrow">Sound familiar?</span>
-      <h2>Wherever you're starting from, we can help.</h2>
+      <h2>Wherever you're starting from,<br />we can help.</h2>
       <p>Two kinds of businesses come to us. Both leave with a website they're proud to send people to.</p>
     </div>
 
-    <div class="grid grid-2 who-grid">
-      {cases.map((item) => (
-        <div class="card who-card">
+    <div class="grid grid-2 who-grid reveal-stagger">
+      {cases.map((item, i) => (
+        <div class={`card who-card ${i === 1 ? "who-card--flip" : ""}`}>
+          <span class="who-num">{`0${i + 1}`}</span>
           <h3>{item.title}</h3>
           <p>{item.body}</p>
           <ul>
@@ -46,6 +47,34 @@ const cases = [
 </section>
 
 <style>
+  .who-section {
+    position: relative;
+  }
+
+  .who-grid {
+    align-items: stretch;
+  }
+
+  .who-card {
+    position: relative;
+    padding-top: 44px;
+  }
+
+  .who-card--flip {
+    margin-top: 28px;
+    border-color: rgba(255, 91, 46, 0.3);
+  }
+
+  .who-num {
+    position: absolute;
+    top: 24px;
+    right: 28px;
+    font-family: "Fraunces", serif;
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: var(--line-strong);
+  }
+
   .who-card ul {
     margin: 20px 0 0;
     padding: 0;
@@ -59,18 +88,24 @@ const cases = [
     padding-left: 26px;
     position: relative;
     font-size: 0.95rem;
-    color: rgba(20, 33, 61, 0.8);
+    color: var(--text-dim);
   }
 
   .who-card li::before {
-    content: "✓";
+    content: "→";
     position: absolute;
     left: 0;
-    color: var(--accent-dark);
+    color: var(--accent-2);
     font-weight: 700;
   }
 
   .who-card h3 {
-    font-size: 1.3rem;
+    font-size: 1.35rem;
+  }
+
+  @media (max-width: 900px) {
+    .who-card--flip {
+      margin-top: 0;
+    }
   }
 </style>

@@ -1,9 +1,9 @@
 ---
 ---
 
-<section class="section" id="about">
+<section class="section section-alt" id="about">
   <div class="wrap about-wrap">
-    <div class="about-copy">
+    <div class="about-copy reveal">
       <span class="eyebrow">About</span>
       <h2>Built by someone who'd rather build your website than sell you jargon.</h2>
       <p>
@@ -19,7 +19,7 @@
       </p>
     </div>
 
-    <div class="about-stats">
+    <div class="about-stats reveal-stagger">
       <div class="stat">
         <strong>UK-based</strong>
         <span>starting point, open to clients worldwide</span>
@@ -45,32 +45,33 @@
   }
 
   .about-copy p {
-    color: rgba(20, 33, 61, 0.75);
+    color: var(--text-dim);
     font-size: 1.02rem;
   }
 
   .about-stats {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 22px;
   }
 
   .stat {
-    border-left: 3px solid var(--accent);
-    padding-left: 16px;
+    border-left: 2px solid var(--accent);
+    padding-left: 18px;
     display: flex;
     flex-direction: column;
     gap: 4px;
   }
 
   .stat strong {
-    font-family: "Sora", sans-serif;
-    font-size: 1.05rem;
+    font-family: "Fraunces", serif;
+    font-size: 1.08rem;
+    font-weight: 600;
   }
 
   .stat span {
-    font-size: 0.88rem;
-    color: rgba(20, 33, 61, 0.6);
+    font-size: 0.86rem;
+    color: var(--text-faint);
   }
 
   @media (max-width: 800px) {

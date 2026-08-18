@@ -25,13 +25,13 @@ const steps = [
 
 <section class="section" id="process">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <span class="eyebrow">How it works</span>
-      <h2>From "we don't have a website" to live, in about two weeks.</h2>
+      <h2>From "no website" to live, in about two weeks.</h2>
       <p>A simple, honest process — built for business owners who don't have time to manage a big project.</p>
     </div>
 
-    <div class="process-list">
+    <div class="process-list reveal-stagger">
       {steps.map((step, i) => (
         <div class="process-step">
           <div class="process-num">{step.n}</div>
@@ -59,21 +59,21 @@ const steps = [
   }
 
   .process-num {
-    font-family: "Sora", sans-serif;
-    font-size: 1.6rem;
-    font-weight: 800;
-    color: var(--accent-dark);
-    margin-bottom: 12px;
+    font-family: "Fraunces", serif;
+    font-size: 1.9rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 14px;
   }
 
   .process-body h3 {
-    font-size: 1.05rem;
+    font-size: 1.08rem;
     margin-bottom: 8px;
   }
 
   .process-body p {
     font-size: 0.92rem;
-    color: rgba(20, 33, 61, 0.7);
+    color: var(--text-dim);
     margin: 0;
   }
 
@@ -88,8 +88,8 @@ const steps = [
       top: 20px;
       left: calc(100% + 12px);
       width: calc(24px - 12px);
-      height: 2px;
-      background: var(--line);
+      height: 1px;
+      background: var(--line-strong);
     }
   }
 

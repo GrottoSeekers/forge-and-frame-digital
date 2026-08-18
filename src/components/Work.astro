@@ -1,9 +1,9 @@
 ---
 ---
 
-<section class="section section-dim" id="work">
+<section class="section" id="work">
   <div class="wrap work-wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <span class="eyebrow">Our work</span>
       <h2>We're a new studio — and taking on founding clients.</h2>
       <p>
@@ -14,7 +14,8 @@
       </p>
     </div>
 
-    <div class="founding-card">
+    <div class="founding-card reveal">
+      <span class="founding-num">01</span>
       <h3>Founding client offer</h3>
       <p>
         The first businesses we work with help shape what we build — in
@@ -28,24 +29,32 @@
 </section>
 
 <style>
-  .section-dim {
-    background: var(--paper-dim);
+  .founding-card {
+    position: relative;
+    background: var(--bg-raised);
+    border: 1px dashed var(--line-strong);
+    border-radius: var(--radius);
+    padding: 40px;
+    max-width: 640px;
+    overflow: hidden;
   }
 
-  .founding-card {
-    background: #fff;
-    border: 1px dashed var(--line);
-    border-radius: var(--radius);
-    padding: 36px;
-    max-width: 640px;
+  .founding-num {
+    position: absolute;
+    top: 20px;
+    right: 28px;
+    font-family: "Fraunces", serif;
+    font-size: 3rem;
+    font-weight: 600;
+    color: var(--line-strong);
   }
 
   .founding-card h3 {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     margin-bottom: 10px;
   }
 
   .founding-card p {
-    color: rgba(20, 33, 61, 0.75);
+    color: var(--text-dim);
   }
 </style>

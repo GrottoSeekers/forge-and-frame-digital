@@ -10,11 +10,11 @@ const base = import.meta.env.BASE_URL;
     </a>
 
     <nav class="nav" aria-label="Primary">
-      <a href="#services">Services</a>
-      <a href="#process">Process</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#work">Work</a>
-      <a href="#faq">FAQ</a>
+      <a href="#services"><span>Services</span></a>
+      <a href="#process"><span>Process</span></a>
+      <a href="#pricing"><span>Pricing</span></a>
+      <a href="#work"><span>Work</span></a>
+      <a href="#faq"><span>FAQ</span></a>
     </nav>
 
     <a href="#contact" class="btn btn-primary header-cta">Get your free check</a>
@@ -39,8 +39,9 @@ const base = import.meta.env.BASE_URL;
     position: sticky;
     top: 0;
     z-index: 50;
-    background: rgba(251, 248, 242, 0.9);
-    backdrop-filter: blur(10px);
+    background: rgba(11, 14, 20, 0.7);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--line);
   }
 
@@ -49,31 +50,54 @@ const base = import.meta.env.BASE_URL;
     align-items: center;
     justify-content: space-between;
     gap: 24px;
-    padding-top: 16px;
-    padding-bottom: 16px;
+    padding-top: 18px;
+    padding-bottom: 18px;
   }
 
   .nav {
     display: flex;
-    gap: 28px;
-    font-size: 0.92rem;
+    gap: 30px;
+    font-size: 0.9rem;
     font-weight: 600;
   }
 
   .nav a {
     text-decoration: none;
-    color: var(--ink);
-    opacity: 0.75;
-    transition: opacity 0.15s ease;
+    color: var(--text-dim);
+    transition: color 0.2s ease;
+    position: relative;
+    padding-bottom: 3px;
+  }
+
+  .nav a span {
+    position: relative;
+  }
+
+  .nav a span::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -5px;
+    height: 1.5px;
+    background: var(--accent-2);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.35s var(--ease);
   }
 
   .nav a:hover {
-    opacity: 1;
+    color: var(--text);
+  }
+
+  .nav a:hover span::after {
+    transform: scaleX(1);
+    transform-origin: left;
   }
 
   .header-cta {
-    padding: 11px 20px;
-    font-size: 0.88rem;
+    padding: 12px 22px;
+    font-size: 0.86rem;
   }
 
   .menu-toggle {
@@ -84,7 +108,7 @@ const base = import.meta.env.BASE_URL;
     width: 40px;
     height: 40px;
     border-radius: 8px;
-    border: 1px solid var(--line);
+    border: 1px solid var(--line-strong);
     background: transparent;
     cursor: pointer;
   }
@@ -94,7 +118,7 @@ const base = import.meta.env.BASE_URL;
     height: 2px;
     width: 18px;
     margin: 0 auto;
-    background: var(--ink);
+    background: var(--text);
   }
 
   .nav-mobile {
@@ -104,11 +128,12 @@ const base = import.meta.env.BASE_URL;
     padding: 20px 24px 28px;
     border-top: 1px solid var(--line);
     font-weight: 600;
+    background: var(--bg);
   }
 
   .nav-mobile a {
     text-decoration: none;
-    color: var(--ink);
+    color: var(--text);
   }
 
   .nav-mobile .btn {

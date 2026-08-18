@@ -4,36 +4,38 @@ const services = [
     icon: "🧱",
     title: "New website builds",
     body: "A complete, custom website from scratch — home page, services, gallery, contact, the lot. Ready for search from day one.",
+    big: true,
   },
   {
     icon: "🔧",
     title: "Website refresh & redesign",
-    body: "Keep your domain and content where it makes sense, but with a modern design, faster load times, and a site that works on every phone.",
+    body: "Keep your domain and content where it makes sense, but with a modern design and a site that works on every phone.",
   },
   {
     icon: "🛡️",
     title: "Care & hosting plans",
-    body: "Ongoing hosting, security updates, and small content changes handled for you, so your site stays online and up to date.",
+    body: "Ongoing hosting, security updates, and small content changes handled for you.",
   },
   {
     icon: "📍",
     title: "Local search & Google Business setup",
-    body: "We make sure your business actually shows up when local customers search — Google Business Profile, maps, and basic local SEO included.",
+    body: "We make sure your business actually shows up when local customers search nearby.",
   },
 ];
 ---
 
-<section class="section section-dark" id="services">
+<section class="section section-alt" id="services">
+  <div class="orb orb-services" aria-hidden="true"></div>
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <span class="eyebrow">What we do</span>
       <h2>Everything you need to be found online.</h2>
       <p>No jargon, no bloated packages — just what a growing local business actually needs.</p>
     </div>
 
-    <div class="grid grid-4">
+    <div class="bento reveal-stagger">
       {services.map((service) => (
-        <div class="service-card">
+        <div class={`service-card ${service.big ? "service-card--big" : ""}`}>
           <div class="service-icon" aria-hidden="true">{service.icon}</div>
           <h3>{service.title}</h3>
           <p>{service.body}</p>
@@ -44,26 +46,94 @@ const services = [
 </section>
 
 <style>
+  .section-alt {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .orb-services {
+    width: 400px;
+    height: 400px;
+    background: var(--accent);
+    top: 20%;
+    right: -160px;
+    opacity: 0.12;
+  }
+
+  .bento {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 20px;
+  }
+
   .service-card {
-    background: rgba(251, 248, 242, 0.06);
-    border: 1px solid var(--line-light);
+    background: var(--bg-raised-2);
+    border: 1px solid var(--line);
     border-radius: var(--radius);
-    padding: 28px;
+    padding: 30px;
+    transition: transform 0.4s var(--ease), border-color 0.3s ease;
+    grid-column: span 2;
+  }
+
+  .service-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--accent-2);
+  }
+
+  .service-card--big {
+    grid-row: span 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background: linear-gradient(160deg, var(--accent) 0%, #a83c1c 100%);
+    border: none;
+    color: var(--bg);
+    min-height: 280px;
+  }
+
+  .service-card--big h3,
+  .service-card--big p {
+    color: var(--bg);
+  }
+
+  .service-card--big:hover {
+    border-color: transparent;
   }
 
   .service-icon {
-    font-size: 1.6rem;
-    margin-bottom: 16px;
+    font-size: 1.7rem;
+    margin-bottom: 18px;
   }
 
   .service-card h3 {
-    font-size: 1.05rem;
+    font-size: 1.15rem;
     margin-bottom: 8px;
   }
 
   .service-card p {
     font-size: 0.92rem;
-    color: rgba(251, 248, 242, 0.68);
+    color: var(--text-dim);
     margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    .bento {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: auto;
+    }
+    .service-card--big {
+      grid-row: auto;
+      min-height: 200px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .bento {
+      grid-template-columns: 1fr;
+    }
+    .service-card, .service-card--big {
+      grid-column: auto;
+    }
   }
 </style>

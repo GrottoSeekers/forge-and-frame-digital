@@ -1,18 +1,23 @@
 ---
 ---
 
-<section class="hero">
+<section class="hero" id="hero">
+  <div class="hero-glow" id="hero-glow" aria-hidden="true"></div>
+  <div class="orb orb-a" aria-hidden="true"></div>
+  <div class="orb orb-b" aria-hidden="true"></div>
+
   <div class="wrap hero-inner">
-    <div class="hero-copy">
+    <div class="hero-copy stagger">
       <span class="eyebrow">Websites for local businesses</span>
       <h1>
-        A website that works as hard as you do —
-        <span class="accent">built in days, not months.</span>
+        A website that works<br />
+        as hard as <em>you</em> do.
       </h1>
       <p class="lead">
         No website yet? Stuck with one from another decade? We design and
-        build fast, modern, mobile-friendly websites for local businesses —
-        starting across the UK, with clients anywhere in the world welcome.
+        build fast, modern, mobile-friendly websites for local
+        businesses — starting across the UK, with clients anywhere in the
+        world welcome.
       </p>
 
       <div class="hero-actions">
@@ -53,51 +58,99 @@
       </div>
       <div class="floating-pill floating-pill--1">Before → After</div>
       <div class="floating-pill floating-pill--2">Mobile-ready ✓</div>
+      <div class="floating-tag">01 — New studio, taking founding clients</div>
+    </div>
+  </div>
+
+  <div class="hero-marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>New builds</span><span>·</span><span>Redesigns</span><span>·</span>
+      <span>Local SEO</span><span>·</span><span>Care plans</span><span>·</span>
+      <span>New builds</span><span>·</span><span>Redesigns</span><span>·</span>
+      <span>Local SEO</span><span>·</span><span>Care plans</span><span>·</span>
     </div>
   </div>
 </section>
 
 <style>
   .hero {
-    padding: 64px 0 40px;
-    background: linear-gradient(180deg, var(--paper) 0%, var(--paper-dim) 100%);
+    padding: 76px 0 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .orb {
+    width: 480px;
+    height: 480px;
+  }
+
+  .orb-a {
+    background: var(--accent);
+    top: -180px;
+    right: -140px;
+  }
+
+  .orb-b {
+    width: 360px;
+    height: 360px;
+    background: var(--accent-2);
+    opacity: 0.14;
+    bottom: -160px;
+    left: -100px;
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--accent-soft) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 40%;
+    opacity: 0;
+    transition: opacity 0.4s ease;
   }
 
   .hero-inner {
     display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 56px;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 40px;
     align-items: center;
+    padding-bottom: 80px;
   }
 
   h1 {
-    font-size: clamp(2.2rem, 4.2vw, 3.4rem);
-    letter-spacing: -0.01em;
+    font-size: clamp(2.6rem, 5vw, 4.2rem);
+    letter-spacing: -0.02em;
   }
 
-  h1 .accent {
-    color: var(--accent-dark);
+  h1 em {
+    font-style: italic;
+    color: var(--accent-2);
   }
 
   .lead {
-    font-size: 1.1rem;
-    color: rgba(20, 33, 61, 0.75);
-    max-width: 520px;
+    font-size: 1.12rem;
+    color: var(--text-dim);
+    max-width: 500px;
   }
 
   .hero-actions {
     display: flex;
     gap: 14px;
     flex-wrap: wrap;
-    margin: 28px 0 40px;
+    margin: 30px 0 44px;
   }
 
   .hero-trust {
     display: flex;
-    gap: 28px;
+    gap: 30px;
     flex-wrap: wrap;
     border-top: 1px solid var(--line);
-    padding-top: 24px;
+    padding-top: 26px;
   }
 
   .trust-item {
@@ -108,21 +161,27 @@
 
   .trust-item strong {
     font-size: 0.95rem;
+    font-family: "Fraunces", serif;
+    font-weight: 600;
   }
 
   .trust-item span {
     font-size: 0.82rem;
-    color: rgba(20, 33, 61, 0.6);
+    color: var(--text-faint);
   }
 
   .hero-visual {
     position: relative;
+    justify-self: end;
+    width: 100%;
+    max-width: 460px;
+    transform: rotate(1.5deg);
   }
 
   .browser-frame {
-    background: #fff;
+    background: var(--bg-raised);
     border-radius: var(--radius);
-    border: 1px solid var(--line);
+    border: 1px solid var(--line-strong);
     box-shadow: var(--shadow);
     overflow: hidden;
   }
@@ -131,14 +190,14 @@
     display: flex;
     gap: 6px;
     padding: 14px 16px;
-    background: var(--paper-dim);
+    background: var(--bg-raised-2);
   }
 
   .browser-bar span {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: rgba(20, 33, 61, 0.18);
+    background: var(--line-strong);
   }
 
   .browser-body {
@@ -149,7 +208,7 @@
   }
 
   .mock-block {
-    background: var(--paper-dim);
+    background: var(--bg-raised-2);
     border-radius: 10px;
     height: 64px;
     flex: 1;
@@ -157,7 +216,7 @@
 
   .mock-block--wide {
     height: 120px;
-    background: linear-gradient(135deg, var(--ink) 0%, var(--ink-soft) 100%);
+    background: linear-gradient(135deg, var(--accent) 0%, #a83c1c 100%);
   }
 
   .mock-row {
@@ -168,7 +227,7 @@
   .mock-line {
     height: 10px;
     border-radius: 6px;
-    background: var(--paper-dim);
+    background: var(--bg-raised-2);
   }
 
   .mock-line.short {
@@ -177,24 +236,66 @@
 
   .floating-pill {
     position: absolute;
-    background: var(--ink);
-    color: var(--paper);
+    background: var(--bg);
+    color: var(--text);
     font-size: 0.78rem;
     font-weight: 700;
-    padding: 8px 14px;
+    padding: 9px 16px;
     border-radius: 999px;
     box-shadow: var(--shadow);
+    border: 1px solid var(--line-strong);
   }
 
   .floating-pill--1 {
-    top: -16px;
-    left: -14px;
+    top: -18px;
+    left: -22px;
     background: var(--accent);
+    color: var(--bg);
+    border: none;
+    transform: rotate(-4deg);
   }
 
   .floating-pill--2 {
-    bottom: 20px;
-    right: -18px;
+    bottom: 26px;
+    right: -22px;
+    color: var(--accent-2);
+    transform: rotate(3deg);
+  }
+
+  .floating-tag {
+    position: absolute;
+    bottom: -34px;
+    left: 10px;
+    font-size: 0.72rem;
+    color: var(--text-faint);
+    letter-spacing: 0.03em;
+  }
+
+  .hero-marquee {
+    border-top: 1px solid var(--line);
+    overflow: hidden;
+    padding: 20px 0;
+    background: var(--bg-raised);
+  }
+
+  .marquee-track {
+    display: flex;
+    gap: 18px;
+    white-space: nowrap;
+    width: max-content;
+    animation: marquee 22s linear infinite;
+    font-family: "Fraunces", serif;
+    font-size: 1.1rem;
+    color: var(--text-faint);
+  }
+
+  .marquee-track span:nth-child(2n) {
+    color: var(--accent);
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
   }
 
   @media (max-width: 900px) {
@@ -203,6 +304,28 @@
     }
     .hero-visual {
       order: -1;
+      justify-self: stretch;
+      max-width: 100%;
+      transform: none;
+      margin-bottom: 24px;
     }
   }
 </style>
+
+<script>
+  const hero = document.getElementById("hero");
+  const glow = document.getElementById("hero-glow");
+  const canHover = window.matchMedia("(pointer: fine)").matches;
+
+  if (hero && glow && canHover) {
+    hero.addEventListener("mousemove", (e) => {
+      const rect = hero.getBoundingClientRect();
+      glow.style.left = `${e.clientX - rect.left}px`;
+      glow.style.top = `${e.clientY - rect.top}px`;
+      glow.style.opacity = "1";
+    });
+    hero.addEventListener("mouseleave", () => {
+      glow.style.opacity = "0";
+    });
+  }
+</script>
