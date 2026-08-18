@@ -498,12 +498,18 @@ const concepts = [
       const businessType = btn.dataset.businessType || "";
 
       const notice = document.getElementById("prefill-notice");
-      const typeEl = document.getElementById("prefill-type");
       const serviceSelect = document.getElementById("service") as HTMLSelectElement | null;
       const businessNameInput = document.getElementById("business_name") as HTMLInputElement | null;
 
-      if (typeEl) typeEl.textContent = businessType;
-      if (notice) notice.hidden = false;
+      if (notice) {
+        notice.replaceChildren();
+        notice.append("Enquiring about a ");
+        const strong = document.createElement("strong");
+        strong.textContent = businessType;
+        notice.append(strong);
+        notice.append("-style site — tell us a bit more below.");
+        notice.hidden = false;
+      }
 
       if (serviceSelect) {
         serviceSelect.value = "New Site";

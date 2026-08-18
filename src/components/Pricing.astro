@@ -1,154 +1,629 @@
 ---
-const tiers = [
+const businessTypes = [
   {
-    name: "Starter",
-    price: "£XXX",
-    tagline: "For businesses who just need to exist online, well.",
-    features: [
-      "Single-page site (home, about, services, contact)",
-      "Mobile-friendly design",
-      "Google Business Profile setup",
-      "1 round of revisions",
-    ],
-    featured: false,
+    id: "local-service",
+    label: "Local Service",
+    desc: "Trades, clinics, salons, consultants",
+    base: 450,
+    icon: `<path d="M3 21h18M5 21V7l7-4 7 4v14M9 9v.01M9 12v.01M9 15v.01M15 9v.01M15 12v.01M15 15v.01"/>`,
   },
   {
-    name: "Growth",
-    price: "£XXX",
-    tagline: "The most popular choice for local businesses.",
-    features: [
-      "Multi-page site (up to 5 pages)",
-      "Contact & enquiry forms",
-      "Basic local SEO setup",
-      "Photo gallery / portfolio section",
-      "2 rounds of revisions",
-    ],
-    featured: true,
+    id: "ecommerce",
+    label: "E-commerce",
+    desc: "Online shop with product checkout",
+    base: 900,
+    icon: `<circle cx="9" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.5 3h2l2.6 12.4a2 2 0 0 0 2 1.6h8.9a2 2 0 0 0 2-1.6L21.5 8H6"/>`,
   },
   {
-    name: "Custom",
-    price: "Let's talk",
-    tagline: "Bookings, online shops, multiple locations — bigger builds.",
-    features: [
-      "Everything in Growth",
-      "Booking / ordering functionality",
-      "Multi-location or multi-language support",
-      "Ongoing care plan included",
-    ],
-    featured: false,
+    id: "hospitality",
+    label: "Hospitality",
+    desc: "Cafés, restaurants, venues",
+    base: 600,
+    icon: `<path d="M3 2v7c0 1.1.9 2 2 2h1v11M8 2v9M11 2v9M15 2c-1.7 1.6-3 3.5-3 6a3 3 0 0 0 3 3v9"/>`,
+  },
+];
+
+const includedPages = ["Home", "Contact"];
+
+const pageOptions = [
+  { id: "about", label: "About", price: 50 },
+  { id: "services", label: "Services / Menu", price: 75 },
+  { id: "gallery", label: "Gallery", price: 60 },
+  { id: "blog", label: "Blog", price: 120 },
+  { id: "booking-page", label: "Booking page", price: 70 },
+];
+
+const featureOptions = [
+  {
+    id: "seo",
+    label: "Local SEO Package",
+    desc: "Google Business optimisation and local keyword targeting",
+    price: 150,
+    recurring: false,
+  },
+  {
+    id: "booking",
+    label: "Online Booking System",
+    desc: "Real-time appointment, table, or callout booking",
+    price: 220,
+    recurring: false,
+  },
+  {
+    id: "maintenance",
+    label: "Monthly Maintenance",
+    desc: "Hosting, security updates, and small content changes",
+    price: 35,
+    recurring: true,
   },
 ];
 ---
 
 <section class="section section-alt" id="pricing">
+  <div class="orb orb-pricing" aria-hidden="true"></div>
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">Pricing</span>
-      <h2>Simple packages, fixed prices.</h2>
+      <h2>Build your estimate.</h2>
       <p>
-        Every business is different, so these are starting points — your free
-        website check ends with an exact quote, not a guess.
-        <em>Prices shown are placeholders — set your own before launch.</em>
+        Pick what applies and watch the price move — a real starting point,
+        not a guess.
+        <em>Figures shown are placeholders — set your own before launch.</em>
       </p>
     </div>
 
-    <div class="grid grid-3 pricing-grid reveal-stagger">
-      {tiers.map((tier) => (
-        <div class={`card pricing-card ${tier.featured ? "featured" : ""}`}>
-          {tier.featured && <span class="pill pricing-badge">Most popular</span>}
-          <h3>{tier.name}</h3>
-          <div class="pricing-amount">{tier.price}</div>
-          <p class="pricing-tagline">{tier.tagline}</p>
-          <ul>
-            {tier.features.map((f) => (
-              <li>{f}</li>
+    <div class="estimator reveal" id="estimator">
+      <div class="estimator-config">
+        <div class="config-block">
+          <h3 class="config-label">Business type</h3>
+          <div class="type-grid" role="radiogroup" aria-label="Business type">
+            {businessTypes.map((type, i) => (
+              <label class="type-card">
+                <input
+                  type="radio"
+                  name="est-type"
+                  value={type.id}
+                  data-base={type.base}
+                  checked={i === 0}
+                />
+                <svg class="type-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" set:html={type.icon} />
+                <span class="type-name">{type.label}</span>
+                <span class="type-desc">{type.desc}</span>
+              </label>
             ))}
-          </ul>
-          <a href="#contact" class={`btn ${tier.featured ? "btn-primary" : "btn-ghost"} pricing-cta`}>
-            Get started
-          </a>
+          </div>
         </div>
-      ))}
+
+        <div class="config-block">
+          <h3 class="config-label">Pages</h3>
+          <div class="included-row">
+            <span class="included-label">Always included:</span>
+            {includedPages.map((page) => (
+              <span class="pill included-pill">{page}</span>
+            ))}
+          </div>
+          <div class="page-grid">
+            {pageOptions.map((page) => (
+              <label class="page-chip">
+                <input type="checkbox" name="est-page" value={page.id} data-price={page.price} />
+                <span>{page.label}</span>
+                <span class="chip-price">+£{page.price}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <div class="config-block">
+          <h3 class="config-label">Features</h3>
+          <div class="feature-list">
+            {featureOptions.map((feature) => (
+              <label class="feature-row">
+                <span class="feature-text">
+                  <span class="feature-name">{feature.label}</span>
+                  <span class="feature-desc">{feature.desc}</span>
+                </span>
+                <span class="feature-price">
+                  +£{feature.price}{feature.recurring ? "/mo" : ""}
+                </span>
+                <span class="toggle">
+                  <input
+                    type="checkbox"
+                    name="est-feature"
+                    value={feature.id}
+                    data-price={feature.price}
+                    data-recurring={feature.recurring ? "true" : "false"}
+                    data-label={feature.label}
+                  />
+                  <span class="toggle-track" aria-hidden="true"><span class="toggle-thumb"></span></span>
+                </span>
+              </label>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div class="estimator-summary">
+        <span class="summary-label">Your estimate</span>
+        <div class="summary-total" id="estimate-total" aria-live="polite">£450</div>
+        <div class="summary-recurring" id="estimate-recurring" hidden></div>
+
+        <ul class="summary-breakdown" id="estimate-breakdown"></ul>
+
+        <button type="button" class="btn btn-primary summary-cta" id="estimate-cta">
+          Get this quote
+        </button>
+        <p class="summary-note">No payment, no obligation — just a starting point for your free check.</p>
+      </div>
     </div>
   </div>
 </section>
 
 <style>
-  .pricing-grid {
-    align-items: center;
+  .section-alt {
+    position: relative;
+    overflow: hidden;
   }
 
-  .pricing-card {
+  .orb-pricing {
+    width: 420px;
+    height: 420px;
+    background: var(--accent);
+    opacity: 0.08;
+    top: -100px;
+    right: -140px;
+  }
+
+  .estimator {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+
+  .estimator-config {
     display: flex;
     flex-direction: column;
-    position: relative;
+    gap: 32px;
   }
 
-  .pricing-card.featured {
-    border-color: var(--accent);
-    box-shadow: var(--shadow);
-    background: var(--bg-raised-2);
-    transform: scale(1.05);
-    z-index: 1;
-  }
-
-  .pricing-card.featured:hover {
-    transform: scale(1.05) translateY(-4px);
-  }
-
-  .pricing-badge {
-    position: absolute;
-    top: -14px;
-    left: 32px;
-  }
-
-  .pricing-amount {
-    font-family: "Fraunces", serif;
-    font-size: 2.3rem;
-    font-weight: 600;
-    margin: 12px 0 4px;
-  }
-
-  .pricing-tagline {
-    color: var(--text-dim);
-    font-size: 0.92rem;
-  }
-
-  .pricing-card ul {
-    list-style: none;
-    padding: 0;
-    margin: 20px 0 28px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    flex: 1;
-  }
-
-  .pricing-card li {
-    padding-left: 24px;
-    position: relative;
-    font-size: 0.92rem;
-    color: var(--text-dim);
-  }
-
-  .pricing-card li::before {
-    content: "✓";
-    position: absolute;
-    left: 0;
-    color: var(--accent-2);
+  .config-label {
+    font-size: 0.78rem;
     font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin: 0 0 14px;
   }
 
-  .pricing-cta {
+  /* Business type cards */
+  .type-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .type-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 18px 16px;
+    border-radius: var(--radius-sm);
+    background: var(--bg);
+    border: 1.5px solid var(--line);
+    cursor: pointer;
+    transition: border-color 0.2s ease, transform 0.2s var(--ease), box-shadow 0.2s ease;
+  }
+
+  .type-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--line-strong);
+  }
+
+  .type-card input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+  }
+
+  .type-card:has(input:checked) {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    box-shadow: var(--shadow);
+  }
+
+  .type-card input:focus-visible ~ .type-name {
+    outline: 2px solid var(--accent-2);
+    outline-offset: 2px;
+  }
+
+  .type-icon {
+    width: 22px;
+    height: 22px;
+    color: var(--accent);
+  }
+
+  .type-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+
+  .type-desc {
+    font-size: 0.78rem;
+    color: var(--text-faint);
+    line-height: 1.3;
+  }
+
+  /* Pages */
+  .included-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+
+  .included-label {
+    font-size: 0.82rem;
+    color: var(--text-faint);
+  }
+
+  .included-pill {
+    background: var(--bg-raised-2);
+    border-color: var(--line-strong);
+    color: var(--text-dim);
+  }
+
+  .page-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .page-chip {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 14px;
+    border-radius: 999px;
+    background: var(--bg);
+    border: 1.5px solid var(--line);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+  }
+
+  .page-chip input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+  }
+
+  .page-chip:has(input:checked) {
+    border-color: var(--accent-2);
+    background: var(--accent-2-soft);
+    color: var(--accent-2);
+  }
+
+  .chip-price {
+    font-size: 0.76rem;
+    color: var(--text-faint);
+  }
+
+  .page-chip:has(input:checked) .chip-price {
+    color: var(--accent-2);
+  }
+
+  /* Features */
+  .feature-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .feature-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 4px;
+    border-bottom: 1px solid var(--line);
+    cursor: pointer;
+  }
+
+  .feature-row:last-child {
+    border-bottom: none;
+  }
+
+  .feature-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .feature-name {
+    font-weight: 700;
+    font-size: 0.92rem;
+  }
+
+  .feature-desc {
+    font-size: 0.78rem;
+    color: var(--text-faint);
+  }
+
+  .feature-price {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-faint);
+    white-space: nowrap;
+  }
+
+  .toggle {
+    position: relative;
+    display: inline-flex;
+    flex-shrink: 0;
+  }
+
+  .toggle input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+  }
+
+  .toggle-track {
+    width: 42px;
+    height: 24px;
+    border-radius: 999px;
+    background: var(--bg-raised-2);
+    border: 1px solid var(--line-strong);
+    position: relative;
+    transition: background 0.25s ease, border-color 0.25s ease;
+  }
+
+  .toggle-thumb {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    transition: transform 0.25s var(--ease);
+  }
+
+  .toggle input:checked ~ .toggle-track {
+    background: var(--accent-2);
+    border-color: var(--accent-2);
+  }
+
+  .toggle input:checked ~ .toggle-track .toggle-thumb {
+    transform: translateX(18px);
+  }
+
+  .toggle input:focus-visible ~ .toggle-track {
+    outline: 2px solid var(--accent-2);
+    outline-offset: 2px;
+  }
+
+  /* Summary sidebar */
+  .estimator-summary {
+    position: sticky;
+    top: 96px;
+    background: var(--bg-raised-2);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+    padding: 28px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .summary-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+
+  .summary-total {
+    font-family: "Fraunces", serif;
+    font-size: 2.6rem;
+    font-weight: 600;
+    margin: 6px 0 2px;
+    transition: color 0.3s ease;
+  }
+
+  .summary-total.is-updated {
+    color: var(--accent-2);
+  }
+
+  .summary-recurring {
+    font-size: 0.86rem;
+    color: var(--text-dim);
+    margin-bottom: 14px;
+  }
+
+  .summary-breakdown {
+    list-style: none;
+    margin: 0 0 20px;
+    padding: 14px 0 0;
+    border-top: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-height: 20px;
+  }
+
+  .summary-breakdown li {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 0.82rem;
+    color: var(--text-dim);
+  }
+
+  .summary-cta {
     width: 100%;
   }
 
+  .summary-note {
+    margin: 12px 0 0;
+    font-size: 0.76rem;
+    color: var(--text-faint);
+    text-align: center;
+  }
+
   @media (max-width: 900px) {
-    .pricing-card.featured {
-      transform: none;
+    .estimator {
+      grid-template-columns: 1fr;
     }
-    .pricing-card.featured:hover {
-      transform: translateY(-4px);
+    .estimator-summary {
+      position: static;
+    }
+    .type-grid {
+      grid-template-columns: 1fr;
+    }
+    .feature-row {
+      grid-template-columns: 1fr auto;
+    }
+    .feature-price {
+      grid-column: 1 / 2;
     }
   }
 </style>
+
+<script>
+  type FeatureState = { id: string; label: string; price: number; recurring: boolean };
+
+  const typeInputs = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="est-type"]'));
+  const pageInputs = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="est-page"]'));
+  const featureInputs = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="est-feature"]'));
+
+  const totalEl = document.getElementById("estimate-total");
+  const recurringEl = document.getElementById("estimate-recurring");
+  const breakdownEl = document.getElementById("estimate-breakdown");
+  const ctaBtn = document.getElementById("estimate-cta") as HTMLButtonElement | null;
+
+  const currency = (n: number) => `£${n.toLocaleString("en-GB")}`;
+
+  function calculate() {
+    const typeInput = typeInputs.find((i) => i.checked);
+    const typeLabel = typeInput?.closest(".type-card")?.querySelector(".type-name")?.textContent ?? "";
+    const base = typeInput ? Number(typeInput.dataset.base) : 0;
+
+    const selectedPages = pageInputs.filter((i) => i.checked);
+    const pagesTotal = selectedPages.reduce((sum, i) => sum + Number(i.dataset.price), 0);
+
+    const selectedFeatures: FeatureState[] = featureInputs
+      .filter((i) => i.checked)
+      .map((i) => ({
+        id: i.value,
+        label: i.dataset.label ?? "",
+        price: Number(i.dataset.price),
+        recurring: i.dataset.recurring === "true",
+      }));
+
+    const oneOffFeatures = selectedFeatures.filter((f) => !f.recurring).reduce((sum, f) => sum + f.price, 0);
+    const recurringFeatures = selectedFeatures.filter((f) => f.recurring).reduce((sum, f) => sum + f.price, 0);
+
+    const oneOff = base + pagesTotal + oneOffFeatures;
+
+    return { typeLabel, base, selectedPages, pagesTotal, selectedFeatures, oneOff, recurringFeatures };
+  }
+
+  function render() {
+    const { typeLabel, base, selectedPages, selectedFeatures, oneOff, recurringFeatures } = calculate();
+
+    if (totalEl) {
+      totalEl.textContent = currency(oneOff);
+      totalEl.classList.add("is-updated");
+      window.setTimeout(() => totalEl.classList.remove("is-updated"), 300);
+    }
+
+    if (recurringEl) {
+      if (recurringFeatures > 0) {
+        recurringEl.textContent = `+ ${currency(recurringFeatures)}/month ongoing`;
+        recurringEl.hidden = false;
+      } else {
+        recurringEl.hidden = true;
+      }
+    }
+
+    if (breakdownEl) {
+      breakdownEl.replaceChildren();
+      const addLine = (label: string, amount: number) => {
+        const li = document.createElement("li");
+        const labelSpan = document.createElement("span");
+        labelSpan.textContent = label;
+        const amountSpan = document.createElement("span");
+        amountSpan.textContent = `+${currency(amount)}`;
+        li.append(labelSpan, amountSpan);
+        breakdownEl.append(li);
+      };
+      addLine(`${typeLabel} base`, base);
+      selectedPages.forEach((p) => {
+        addLine(p.parentElement?.querySelector("span")?.textContent ?? "Page", Number(p.dataset.price));
+      });
+      selectedFeatures.forEach((f) => {
+        addLine(f.label + (f.recurring ? " (monthly)" : ""), f.price);
+      });
+    }
+  }
+
+  [...typeInputs, ...pageInputs, ...featureInputs].forEach((input) => {
+    input.addEventListener("change", render);
+  });
+
+  render();
+
+  ctaBtn?.addEventListener("click", () => {
+    const { typeLabel, selectedPages, selectedFeatures, oneOff, recurringFeatures } = calculate();
+
+    const pageLabels = selectedPages.map((p) => p.parentElement?.querySelector("span")?.textContent ?? "");
+    const featureLabels = selectedFeatures.map((f) => f.label);
+
+    const summaryParts = [
+      `${typeLabel} website`,
+      pageLabels.length ? `+ ${pageLabels.join(", ")}` : "",
+      featureLabels.length ? `with ${featureLabels.join(", ")}` : "",
+    ].filter(Boolean);
+
+    const estimateInput = document.getElementById("estimate_details") as HTMLInputElement | null;
+    if (estimateInput) {
+      estimateInput.value = `${summaryParts.join(" ")} — estimated £${oneOff}${
+        recurringFeatures ? ` + £${recurringFeatures}/mo` : ""
+      }`;
+    }
+
+    const notice = document.getElementById("prefill-notice");
+    if (notice) {
+      notice.replaceChildren();
+      notice.append("Your estimate: ");
+      const strong = document.createElement("strong");
+      strong.textContent = `£${oneOff}${recurringFeatures ? ` + £${recurringFeatures}/mo` : ""} for a ${typeLabel} site`;
+      notice.append(strong);
+      notice.append(" — tell us a bit more below.");
+      notice.hidden = false;
+    }
+
+    const serviceSelect = document.getElementById("service") as HTMLSelectElement | null;
+    if (serviceSelect) {
+      serviceSelect.value = "New Site";
+      serviceSelect.dispatchEvent(new Event("change"));
+    }
+
+    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    const businessNameInput = document.getElementById("business_name") as HTMLInputElement | null;
+    if (businessNameInput && !businessNameInput.value) {
+      window.setTimeout(() => businessNameInput.focus(), 500);
+    }
+  });
+</script>

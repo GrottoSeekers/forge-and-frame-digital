@@ -19,9 +19,7 @@
     </div>
 
     <div class="contact-form-wrap reveal">
-      <p class="prefill-notice" id="prefill-notice" hidden>
-        Enquiring about a <strong id="prefill-type"></strong>-style site — tell us a bit more below.
-      </p>
+      <p class="prefill-notice" id="prefill-notice" hidden></p>
 
       <form class="contact-form" id="lead-form" action="https://formspree.io/f/REPLACE_WITH_YOUR_FORM_ID" method="POST" novalidate>
         <div class="field">
@@ -58,6 +56,8 @@
           <label for="service">Service needed</label>
           <span class="field-error" id="err-service" role="alert"></span>
         </div>
+
+        <input type="hidden" id="estimate_details" name="estimate_details" />
 
         <button type="submit" class="btn btn-primary submit-btn" id="submit-btn">
           <span class="spinner" aria-hidden="true"></span>
