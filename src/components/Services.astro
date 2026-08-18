@@ -1,25 +1,28 @@
 ---
+import Icon from "./Icon.astro";
+
 const services = [
   {
-    icon: "🧱",
+    icon: "layout" as const,
     title: "New website builds",
-    body: "A complete, custom website from scratch — home page, services, gallery, contact, the lot. Ready for search from day one.",
+    body: "A complete, custom website from scratch — home page, services, gallery, contact, the lot. Live in under a week, and ready for search from day one.",
     big: true,
   },
   {
-    icon: "🔧",
+    icon: "wrench" as const,
     title: "Website refresh & redesign",
     body: "Keep your domain and content where it makes sense, but with a modern design and a site that works on every phone.",
   },
   {
-    icon: "🛡️",
+    icon: "shield-check" as const,
     title: "Care & hosting plans",
     body: "Ongoing hosting, security updates, and small content changes handled for you.",
   },
   {
-    icon: "📍",
+    icon: "map-pin" as const,
     title: "Local search & Google Business setup",
     body: "We make sure your business actually shows up when local customers search nearby.",
+    wide: true,
   },
 ];
 ---
@@ -35,8 +38,12 @@ const services = [
 
     <div class="bento reveal-stagger">
       {services.map((service) => (
-        <div class={`service-card ${service.big ? "service-card--big" : ""}`}>
-          <div class="service-icon" aria-hidden="true">{service.icon}</div>
+        <div
+          class={`service-card ${service.big ? "service-card--big" : ""} ${service.wide ? "service-card--wide" : ""}`}
+        >
+          <div class="service-icon" aria-hidden="true">
+            <Icon name={service.icon} />
+          </div>
           <h3>{service.title}</h3>
           <p>{service.body}</p>
         </div>
@@ -57,52 +64,54 @@ const services = [
     background: var(--accent);
     top: 20%;
     right: -160px;
-    opacity: 0.12;
+    opacity: 0.16;
   }
 
   .bento {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(2, auto);
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
   }
 
   .service-card {
-    background: var(--bg-raised-2);
+    background: var(--bg);
     border: 1px solid var(--line);
     border-radius: var(--radius);
     padding: 30px;
-    transition: transform 0.4s var(--ease), border-color 0.3s ease;
-    grid-column: span 2;
+    transition: transform 0.4s var(--ease), border-color 0.3s ease, box-shadow 0.3s ease;
+    grid-column: span 1;
   }
 
   .service-card:hover {
     transform: translateY(-6px);
-    border-color: var(--accent-2);
+    border-color: var(--line-strong);
+    box-shadow: var(--shadow);
+  }
+
+  .service-card--big,
+  .service-card--wide {
+    grid-column: span 2;
   }
 
   .service-card--big {
-    grid-row: span 2;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    background: linear-gradient(160deg, var(--accent) 0%, #a83c1c 100%);
-    border: none;
-    color: var(--bg);
-    min-height: 280px;
+    background: linear-gradient(155deg, var(--bg-raised-2) 0%, var(--accent-soft) 55%, var(--bg) 100%);
+    border-color: rgba(255, 91, 46, 0.25);
   }
 
-  .service-card--big h3,
-  .service-card--big p {
-    color: var(--bg);
-  }
-
-  .service-card--big:hover {
-    border-color: transparent;
+  .service-card--big .service-icon {
+    background: var(--accent);
+    color: var(--on-accent);
   }
 
   .service-icon {
-    font-size: 1.7rem;
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: var(--bg-raised-2);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-bottom: 18px;
   }
 
@@ -112,7 +121,7 @@ const services = [
   }
 
   .service-card p {
-    font-size: 0.92rem;
+    font-size: 0.94rem;
     color: var(--text-dim);
     margin: 0;
   }
@@ -120,11 +129,10 @@ const services = [
   @media (max-width: 900px) {
     .bento {
       grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: auto;
     }
-    .service-card--big {
-      grid-row: auto;
-      min-height: 200px;
+    .service-card--big,
+    .service-card--wide {
+      grid-column: span 2;
     }
   }
 
@@ -132,7 +140,9 @@ const services = [
     .bento {
       grid-template-columns: 1fr;
     }
-    .service-card, .service-card--big {
+    .service-card,
+    .service-card--big,
+    .service-card--wide {
       grid-column: auto;
     }
   }
