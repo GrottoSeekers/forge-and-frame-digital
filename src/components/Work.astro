@@ -1,27 +1,68 @@
 ---
+const concepts = [
+  {
+    tag: "Trade & Services Concept",
+    features: "Tap-to-call hero section, fast 0.6s load time",
+    variant: "trade" as const,
+  },
+  {
+    tag: "Café & Restaurant Concept",
+    features: "Menu-first layout, Instagram feed embed",
+    variant: "cafe" as const,
+  },
+  {
+    tag: "Salon & Wellness Concept",
+    features: "Booking widget above the fold, mobile gallery",
+    variant: "salon" as const,
+  },
+];
 ---
 
 <section class="section" id="work">
   <div class="wrap work-wrap">
     <div class="section-head reveal">
       <span class="eyebrow">Our work</span>
-      <h2>We're a new studio — and taking on founding clients.</h2>
+      <h2>No client sites yet — here's what we'd build you.</h2>
       <p>
-        We'd rather be upfront than fake a portfolio: this is a new venture,
-        so there are no case studies here yet. What you get instead is full
-        attention, founder pricing, and a real say in how the studio's first
-        projects turn out.
+        We're a new studio, so there's no real portfolio to show off yet.
+        Instead, here are three concept layouts — the kind of site we'd
+        design for a business like yours, ready to go live in under a week.
       </p>
     </div>
 
-    <div class="founding-card reveal">
-      <span class="founding-num">01</span>
-      <h3>Founding client offer</h3>
+    <div class="concept-grid reveal-stagger">
+      {concepts.map((concept) => (
+        <div class="concept-card">
+          <div class="browser-frame">
+            <div class="browser-bar">
+              <span></span><span></span><span></span>
+            </div>
+            <div class={`browser-preview preview--${concept.variant}`}>
+              <div class="pv-hero">
+                <div class="pv-hero-line"></div>
+                <div class="pv-hero-line short"></div>
+                <div class="pv-hero-cta"></div>
+              </div>
+              <div class="pv-row">
+                <div class="pv-block"></div>
+                <div class="pv-block"></div>
+                <div class="pv-block"></div>
+              </div>
+            </div>
+          </div>
+
+          <span class="pill concept-tag">{concept.tag}</span>
+          <p class="concept-features">{concept.features}</p>
+
+          <a href="#contact" class="btn btn-ghost concept-cta">View Demo Layout</a>
+        </div>
+      ))}
+    </div>
+
+    <div class="founding-note reveal">
       <p>
-        The first businesses we work with help shape what we build — in
-        exchange, you get priority turnaround and a discounted rate on your
-        first project. Once we've launched a handful of sites, they'll live
-        right here as real case studies.
+        Like the direction? The first businesses we work with get priority
+        turnaround and founder pricing — and a real say in how it turns out.
       </p>
       <a href="#contact" class="btn btn-primary">Become a founding client</a>
     </div>
@@ -29,32 +70,186 @@
 </section>
 
 <style>
-  .founding-card {
-    position: relative;
-    background: var(--bg-raised);
-    border: 1px dashed var(--line-strong);
+  .concept-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+
+  .concept-card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .browser-frame {
     border-radius: var(--radius);
-    padding: 40px;
-    max-width: 640px;
     overflow: hidden;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
   }
 
-  .founding-num {
-    position: absolute;
-    top: 20px;
-    right: 28px;
-    font-family: "Fraunces", serif;
-    font-size: 3rem;
-    font-weight: 600;
-    color: var(--line-strong);
+  .browser-bar {
+    background: #0f172a;
+    padding: 8px;
+    display: flex;
+    gap: 6px;
   }
 
-  .founding-card h3 {
-    font-size: 1.3rem;
-    margin-bottom: 10px;
+  .browser-bar span {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.25);
   }
 
-  .founding-card p {
+  .browser-bar span:first-child {
+    background: #ff5f56;
+  }
+
+  .browser-bar span:nth-child(2) {
+    background: #ffbd2e;
+  }
+
+  .browser-bar span:nth-child(3) {
+    background: #27c93f;
+  }
+
+  .browser-preview {
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 160px;
+  }
+
+  .pv-hero {
+    border-radius: 10px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .pv-hero-line {
+    height: 9px;
+    border-radius: 5px;
+    width: 70%;
+  }
+
+  .pv-hero-line.short {
+    width: 45%;
+    height: 7px;
+  }
+
+  .pv-hero-cta {
+    margin-top: 6px;
+    width: 84px;
+    height: 22px;
+    border-radius: 999px;
+  }
+
+  .pv-row {
+    display: flex;
+    gap: 8px;
+  }
+
+  .pv-block {
+    flex: 1;
+    height: 40px;
+    border-radius: 8px;
+  }
+
+  /* Trade & Services — bold call-now band */
+  .preview--trade {
+    background: #eef1f6;
+  }
+  .preview--trade .pv-hero {
+    background: linear-gradient(135deg, var(--accent) 0%, #a83c1c 100%);
+  }
+  .preview--trade .pv-hero-line,
+  .preview--trade .pv-hero-line.short {
+    background: rgba(255, 255, 255, 0.85);
+  }
+  .preview--trade .pv-hero-cta {
+    background: var(--on-accent);
+  }
+  .preview--trade .pv-block {
+    background: #dde3ee;
+  }
+
+  /* Café & Restaurant — warm menu grid */
+  .preview--cafe {
+    background: #f7efe2;
+  }
+  .preview--cafe .pv-hero {
+    background: #e7d9bf;
+  }
+  .preview--cafe .pv-hero-line,
+  .preview--cafe .pv-hero-line.short {
+    background: #6b5c40;
+  }
+  .preview--cafe .pv-hero-cta {
+    background: #a8763f;
+  }
+  .preview--cafe .pv-block {
+    background: #ecdfc9;
+  }
+
+  /* Salon & Wellness — soft gallery + booking bar */
+  .preview--salon {
+    background: #f3edf1;
+  }
+  .preview--salon .pv-hero {
+    background: #ded1da;
+  }
+  .preview--salon .pv-hero-line,
+  .preview--salon .pv-hero-line.short {
+    background: #6e5568;
+  }
+  .preview--salon .pv-hero-cta {
+    background: #8a5d7e;
+  }
+  .preview--salon .pv-block {
+    background: #e8dce4;
+  }
+
+  .concept-tag {
+    align-self: flex-start;
+  }
+
+  .concept-features {
+    font-size: 0.92rem;
     color: var(--text-dim);
+    margin: 0;
+    flex: 1;
+  }
+
+  .concept-cta {
+    width: 100%;
+    margin-top: 4px;
+  }
+
+  .founding-note {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    border-top: 1px solid var(--line);
+    padding-top: 32px;
+  }
+
+  .founding-note p {
+    margin: 0;
+    color: var(--text-dim);
+    max-width: 480px;
+  }
+
+  @media (max-width: 900px) {
+    .concept-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
