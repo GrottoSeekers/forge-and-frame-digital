@@ -535,4 +535,44 @@
     el.addEventListener("input", () => updateActive(el));
     el.addEventListener("change", () => updateActive(el));
   });
+
+  // WhatsApp: draft a message from whatever the visitor has filled in so far.
+  const whatsappLink = document.querySelector(".whatsapp-link") as HTMLAnchorElement | null;
+  const WHATSAPP_NUMBER = "447306100251";
+  const DEFAULT_WHATSAPP_MESSAGE = "Hi! I'd like to chat about getting a website.";
+
+  function fieldValue(id: string): string {
+    const el = document.getElementById(id) as HTMLInputElement | HTMLSelectElement | null;
+    return el?.value.trim() ?? "";
+  }
+
+  function buildWhatsAppMessage(): string {
+    const name = fieldValue("client_name");
+    const email = fieldValue("email");
+    const business = fieldValue("business_name");
+    const website = fieldValue("website");
+    const service = fieldValue("service");
+    const estimate = fieldValue("estimate_details");
+
+    if (!name && !email && !business && !service) return DEFAULT_WHATSAPP_MESSAGE;
+
+    const intro = `Hi, I'm${name ? ` ${name}` : ""}${business ? ` from ${business}` : ""}.`;
+    const details: string[] = [];
+    if (service) details.push(`I'm after: ${service}.`);
+    if (website) details.push(`Existing site: ${website}.`);
+    if (estimate) details.push(`Estimate: ${estimate}.`);
+    if (email) details.push(`My email is ${email}.`);
+
+    return [intro, ...details].join(" ");
+  }
+
+  whatsappLink?.addEventListener("click", (e) => {
+    e.preventDefault();
+    const text = buildWhatsAppMessage();
+    window.open(
+      `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`,
+      "_blank",
+      "noopener,noreferrer"
+    );
+  });
 </script>
