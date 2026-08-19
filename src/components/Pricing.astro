@@ -2,33 +2,6 @@
 const BASE_PRICE = 400;
 const FOUNDING_DISCOUNT_RATE = 0.5;
 
-const businessTypes = [
-  {
-    id: "local-service",
-    label: "Local Service",
-    desc: "Trades, clinics, salons, consultants",
-    suggestPages: ["services"],
-    suggestFeatures: ["seo"],
-    icon: `<path d="M3 21h18M5 21V7l7-4 7 4v14M9 9v.01M9 12v.01M9 15v.01M15 9v.01M15 12v.01M15 15v.01"/>`,
-  },
-  {
-    id: "ecommerce",
-    label: "E-commerce",
-    desc: "Online shop with product checkout",
-    suggestPages: ["gallery"],
-    suggestFeatures: ["store"],
-    icon: `<circle cx="9" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.5 3h2l2.6 12.4a2 2 0 0 0 2 1.6h8.9a2 2 0 0 0 2-1.6L21.5 8H6"/>`,
-  },
-  {
-    id: "hospitality",
-    label: "Hospitality",
-    desc: "Cafés, restaurants, venues",
-    suggestPages: ["services"],
-    suggestFeatures: ["booking"],
-    icon: `<path d="M3 2v7c0 1.1.9 2 2 2h1v11M8 2v9M11 2v9M15 2c-1.7 1.6-3 3.5-3 6a3 3 0 0 0 3 3v9"/>`,
-  },
-];
-
 const includedPages = ["Home", "Contact"];
 
 const pageOptions = [
@@ -86,28 +59,6 @@ const featureOptions = [
 
     <div class="estimator reveal" id="estimator">
       <div class="estimator-config">
-        <div class="config-block">
-          <h3 class="config-label">Business type</h3>
-          <p class="config-hint">Picks a sensible starting point below — doesn't change the price.</p>
-          <div class="type-grid" role="radiogroup" aria-label="Business type">
-            {businessTypes.map((type, i) => (
-              <label class="type-card">
-                <input
-                  type="radio"
-                  name="est-type"
-                  value={type.id}
-                  checked={i === 0}
-                  data-suggest-pages={type.suggestPages.join(",")}
-                  data-suggest-features={type.suggestFeatures.join(",")}
-                />
-                <svg class="type-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" set:html={type.icon} />
-                <span class="type-name">{type.label}</span>
-                <span class="type-desc">{type.desc}</span>
-              </label>
-            ))}
-          </div>
-        </div>
-
         <div class="config-block">
           <h3 class="config-label">Pages</h3>
           <div class="included-row">
@@ -218,72 +169,6 @@ const featureOptions = [
     text-transform: uppercase;
     color: var(--text-faint);
     margin: 0 0 6px;
-  }
-
-  .config-hint {
-    font-size: 0.82rem;
-    color: var(--text-faint);
-    margin: 0 0 14px;
-  }
-
-  /* Business type cards */
-  .type-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-  }
-
-  .type-card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    padding: 18px 16px;
-    border-radius: var(--radius-sm);
-    background: var(--bg);
-    border: 1.5px solid var(--line);
-    cursor: pointer;
-    transition: border-color 0.2s ease, transform 0.2s var(--ease), box-shadow 0.2s ease;
-  }
-
-  .type-card:hover {
-    transform: translateY(-2px);
-    border-color: var(--line-strong);
-  }
-
-  .type-card input {
-    position: absolute;
-    opacity: 0;
-    width: 1px;
-    height: 1px;
-  }
-
-  .type-card:has(input:checked) {
-    border-color: var(--accent);
-    background: var(--accent-soft);
-    box-shadow: var(--shadow);
-  }
-
-  .type-card input:focus-visible ~ .type-name {
-    outline: 2px solid var(--accent-2);
-    outline-offset: 2px;
-  }
-
-  .type-icon {
-    width: 22px;
-    height: 22px;
-    color: var(--accent);
-  }
-
-  .type-name {
-    font-weight: 700;
-    font-size: 0.95rem;
-  }
-
-  .type-desc {
-    font-size: 0.78rem;
-    color: var(--text-faint);
-    line-height: 1.3;
   }
 
   /* Pages */
@@ -553,9 +438,6 @@ const featureOptions = [
     .estimator-summary {
       position: static;
     }
-    .type-grid {
-      grid-template-columns: 1fr;
-    }
     .feature-row {
       grid-template-columns: 1fr auto;
     }
@@ -566,7 +448,6 @@ const featureOptions = [
 </style>
 
 <script define:vars={{ BASE_PRICE }}>
-  const typeInputs = Array.from(document.querySelectorAll('input[name="est-type"]'));
   const pageInputs = Array.from(document.querySelectorAll('input[name="est-page"]'));
   const featureInputs = Array.from(document.querySelectorAll('input[name="est-feature"]'));
   const foundingInput = document.getElementById("founding-discount");
@@ -579,9 +460,6 @@ const featureOptions = [
   const currency = (n) => `£${Math.round(n).toLocaleString("en-GB")}`;
 
   function calculate() {
-    const typeInput = typeInputs.find((i) => i.checked);
-    const typeLabel = typeInput?.closest(".type-card")?.querySelector(".type-name")?.textContent ?? "";
-
     const selectedPages = pageInputs.filter((i) => i.checked);
     const pagesTotal = selectedPages.reduce((sum, i) => sum + Number(i.dataset.price), 0);
 
@@ -603,11 +481,11 @@ const featureOptions = [
     const discount = subtotal * discountRate;
     const oneOff = subtotal - discount;
 
-    return { typeLabel, selectedPages, selectedFeatures, subtotal, discount, foundingApplied, oneOff, recurringFeatures };
+    return { selectedPages, selectedFeatures, subtotal, discount, foundingApplied, oneOff, recurringFeatures };
   }
 
   function render() {
-    const { typeLabel, selectedPages, selectedFeatures, subtotal, discount, foundingApplied, oneOff, recurringFeatures } = calculate();
+    const { selectedPages, selectedFeatures, discount, foundingApplied, oneOff, recurringFeatures } = calculate();
 
     if (totalEl) {
       totalEl.textContent = currency(oneOff);
@@ -647,40 +525,24 @@ const featureOptions = [
         addLine("Founding client discount", `−${currency(discount)}`, true);
       }
     }
-
-    return { typeLabel, subtotal, oneOff, recurringFeatures, foundingApplied };
   }
 
-  [...typeInputs, ...pageInputs, ...featureInputs].forEach((input) => {
+  [...pageInputs, ...featureInputs].forEach((input) => {
     input.addEventListener("change", render);
   });
 
   foundingInput?.addEventListener("change", render);
 
-  typeInputs.forEach((input) => {
-    input.addEventListener("change", () => {
-      const suggestPages = (input.dataset.suggestPages ?? "").split(",").filter(Boolean);
-      const suggestFeatures = (input.dataset.suggestFeatures ?? "").split(",").filter(Boolean);
-      pageInputs.forEach((p) => {
-        if (suggestPages.includes(p.value)) p.checked = true;
-      });
-      featureInputs.forEach((f) => {
-        if (suggestFeatures.includes(f.value)) f.checked = true;
-      });
-      render();
-    });
-  });
-
   render();
 
   ctaBtn?.addEventListener("click", () => {
-    const { typeLabel, selectedPages, selectedFeatures, oneOff, recurringFeatures, foundingApplied } = calculate();
+    const { selectedPages, selectedFeatures, oneOff, recurringFeatures, foundingApplied } = calculate();
 
     const pageLabels = selectedPages.map((p) => p.parentElement?.querySelector("span")?.textContent ?? "");
     const featureLabels = selectedFeatures.map((f) => f.label);
 
     const summaryParts = [
-      `${typeLabel} website`,
+      "Website build",
       pageLabels.length ? `+ ${pageLabels.join(", ")}` : "",
       featureLabels.length ? `with ${featureLabels.join(", ")}` : "",
     ].filter(Boolean);
@@ -697,7 +559,7 @@ const featureOptions = [
       notice.replaceChildren();
       notice.append("Your estimate: ");
       const strong = document.createElement("strong");
-      strong.textContent = `£${Math.round(oneOff)}${recurringFeatures ? ` + £${recurringFeatures}/mo` : ""} for a ${typeLabel} site`;
+      strong.textContent = `£${Math.round(oneOff)}${recurringFeatures ? ` + £${recurringFeatures}/mo` : ""}`;
       notice.append(strong);
       notice.append(" — tell us a bit more below.");
       notice.hidden = false;
