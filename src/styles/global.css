@@ -277,24 +277,9 @@ img {
 }
 
 .logo-mark {
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  background: var(--accent);
-  color: var(--on-accent);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: "Fraunces", serif;
-  font-size: 0.85rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  width: 30px;
+  height: 30px;
   flex-shrink: 0;
-}
-
-.logo-mark span {
-  color: var(--on-accent);
-  opacity: 0.65;
 }
 
 .logo-word {

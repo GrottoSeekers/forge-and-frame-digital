@@ -1,4 +1,6 @@
 ---
+import Logomark from "./Logomark.astro";
+
 const base = import.meta.env.BASE_URL;
 
 const navItems = [
@@ -13,7 +15,7 @@ const navItems = [
 <header class="site-header">
   <div class="nav-pill">
     <a href={base} class="logo" aria-label="CG Design Co. home">
-      <span class="logo-mark">CG</span>
+      <Logomark class="logo-mark" color="#fff" />
       <span class="logo-word">CG Design Co.</span>
     </a>
 
@@ -70,24 +72,9 @@ const navItems = [
   }
 
   .logo-mark {
-    width: 34px;
-    height: 34px;
-    border-radius: 9px;
-    background: var(--accent);
-    color: var(--on-accent);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: "Fraunces", serif;
-    font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: -0.02em;
+    width: 26px;
+    height: 26px;
     flex-shrink: 0;
-  }
-
-  .logo-mark span {
-    color: var(--on-accent);
-    opacity: 0.65;
   }
 
   .logo-word {
