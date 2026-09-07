@@ -251,6 +251,14 @@ const navItems = [
     });
   });
 
+  document.addEventListener("click", (e) => {
+    if (!menu?.classList.contains("open")) return;
+    const target = e.target as Node;
+    if (menu.contains(target) || toggle?.contains(target)) return;
+    menu.classList.remove("open");
+    toggle?.setAttribute("aria-expanded", "false");
+  });
+
   const nav = document.getElementById("primary-nav");
   const indicator = document.getElementById("nav-indicator") as HTMLElement | null;
   const links = Array.from(nav?.querySelectorAll<HTMLAnchorElement>("[data-nav-link]") ?? []);
