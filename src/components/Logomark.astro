@@ -7,18 +7,13 @@ interface Props {
 const { class: className = "", color = "currentColor" } = Astro.props;
 ---
 
-<svg
-  class={className}
-  style={`color: ${color}`}
-  viewBox="0 0 100 100"
-  fill="none"
-  aria-hidden="true"
->
-  <path
-    d="M76.2,31.6 A32,32 0 1 0 76.2,68.4"
-    stroke="currentColor"
-    stroke-width="9"
-    stroke-linecap="butt"
-  />
-  <polygon points="76.2,64 76.2,73 48,70 48,67" fill="currentColor" />
-</svg>
+<span class={className} style={`color: ${color}`} aria-hidden="true">CGD</span>
+
+<style>
+  span {
+    font-family: "EB Garamond", serif;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+</style>

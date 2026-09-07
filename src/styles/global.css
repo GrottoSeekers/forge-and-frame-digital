@@ -278,8 +278,7 @@ img {
 }
 
 .logo-mark {
-  width: 30px;
-  height: 30px;
+  font-size: 1.7rem;
   flex-shrink: 0;
 }
 
