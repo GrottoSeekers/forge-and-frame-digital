@@ -26,21 +26,27 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
       </ul>
     </div>
 
-    <div class="hero-visual" aria-hidden="true">
-      <div class="browser-frame">
-        <div class="browser-bar">
+    <div class="hero-visual">
+      <a
+        href={`${base}/demo-salon.html`}
+        target="_blank"
+        rel="noopener"
+        class="browser-frame"
+        aria-label="View the Aura Skin & Beauty concept demo"
+      >
+        <span class="browser-bar" aria-hidden="true">
           <span></span><span></span><span></span>
-        </div>
-        <div class="browser-body">
+        </span>
+        <span class="browser-body">
           <img
-            src={`${base}/previews/trade-preview.jpg`}
-            alt=""
+            src={`${base}/previews/salon-preview.jpg`}
+            alt="Preview of the Aura Skin & Beauty concept website"
             loading="eager"
             width="1120"
             height="680"
           />
-        </div>
-      </div>
+        </span>
+      </a>
     </div>
   </div>
 </section>
@@ -117,11 +123,19 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
   }
 
   .browser-frame {
+    display: block;
     background: var(--bg-raised);
     border-radius: var(--radius);
     border: 1px solid var(--line-strong);
     box-shadow: var(--shadow);
     overflow: hidden;
+    transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), border-color 0.3s ease;
+  }
+
+  .browser-frame:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent-2);
+    box-shadow: 0 30px 60px -20px rgba(28, 23, 16, 0.35);
   }
 
   .browser-bar {
@@ -139,6 +153,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
   }
 
   .browser-body {
+    display: block;
     line-height: 0;
   }
 
