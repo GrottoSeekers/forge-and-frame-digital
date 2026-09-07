@@ -226,6 +226,11 @@ const featureOptions = [
     color: var(--accent-2);
   }
 
+  .page-chip:has(input:focus-visible) {
+    outline: 2px solid var(--accent-2);
+    outline-offset: 2px;
+  }
+
   .chip-price {
     font-size: 0.76rem;
     color: var(--text-faint);

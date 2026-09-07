@@ -204,16 +204,16 @@
   }
 
   .field label .optional {
-    color: rgba(255, 255, 255, 0.35);
+    color: rgba(255, 255, 255, 0.55);
   }
 
   .field.is-active label {
     transform: translateY(-21px) scale(0.8);
-    color: var(--accent-2);
+    color: #8fd66b; /* light green — var(--accent-2) is tuned for light backgrounds and fails contrast here */
   }
 
   .field.has-error.is-active label {
-    color: var(--error);
+    color: #ff8a75; /* matches the error copy colour used elsewhere on this dark card */
   }
 
   .contact-form input,
@@ -245,19 +245,19 @@
   .contact-form input:focus,
   .contact-form select:focus {
     outline: none;
-    border-color: var(--accent-2);
+    border-color: #8fd66b;
     background: rgba(255, 255, 255, 0.08);
-    box-shadow: 0 0 0 3px rgba(76, 122, 31, 0.25);
+    box-shadow: 0 0 0 3px rgba(143, 214, 107, 0.3);
   }
 
   .field.has-error input,
   .field.has-error select {
-    border-color: var(--error);
+    border-color: #ff8a75;
   }
 
   .field.has-error input:focus,
   .field.has-error select:focus {
-    box-shadow: 0 0 0 3px rgba(193, 67, 47, 0.25);
+    box-shadow: 0 0 0 3px rgba(255, 138, 117, 0.3);
   }
 
   .field-error {

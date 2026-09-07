@@ -6,10 +6,11 @@
   --paper: #fbf7ef;
   --text: #1c1710;
   --text-dim: rgba(28, 23, 16, 0.68);
-  --text-faint: rgba(28, 23, 16, 0.46);
+  --text-faint: rgba(28, 23, 16, 0.6); /* darkened from 0.46 for WCAG AA text contrast */
   --accent: #ff5b2e;
   --accent-soft: rgba(255, 91, 46, 0.12);
-  --accent-2: #4c7a1f;
+  --accent-text: #b8360a; /* darker accent for text/icons on light backgrounds — --accent itself fails WCAG AA there */
+  --accent-2: #456e1c; /* darkened slightly from the original olive for WCAG AA text contrast */
   --accent-2-soft: rgba(76, 122, 31, 0.12);
   --on-accent: #1c1006;
   --error: #c1432f;
