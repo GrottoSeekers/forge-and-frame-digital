@@ -710,8 +710,12 @@
 </style>
 
 <script>
+  import { animate, press } from "motion";
+  import { prefersReducedMotion } from "../lib/motion-utils.js";
+
   const frame = document.getElementById("compare-frame");
   const range = document.getElementById("compare-range") as HTMLInputElement | null;
+  const grip = document.querySelector<HTMLElement>(".handle-grip");
 
   let pendingFrame = 0;
 
@@ -730,5 +734,14 @@
   if (range) {
     update(range.value);
     range.addEventListener("input", () => scheduleUpdate(range.value));
+
+    if (grip && !prefersReducedMotion()) {
+      press(range, () => {
+        animate(grip, { scale: 1.15 }, { type: "spring", stiffness: 500, damping: 15, mass: 0.8 });
+        return () => {
+          animate(grip, { scale: 1 }, { type: "spring", stiffness: 400, damping: 12, mass: 1 });
+        };
+      });
+    }
   }
 </script>

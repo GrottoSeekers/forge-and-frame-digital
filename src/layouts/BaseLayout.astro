@@ -32,6 +32,22 @@ const {
     <div id="scroll-progress"></div>
     <slot />
     <script>
+      import { hover, press, animate } from "motion";
+      import { prefersReducedMotion, SPRING_GENTLE, SPRING_SNAPPY } from "../lib/motion-utils.js";
+
+      if (!prefersReducedMotion()) {
+        hover(".btn, .card", (element) => {
+          const lift = element.classList.contains("card") ? -4 : -3;
+          animate(element, { y: lift }, SPRING_GENTLE);
+          return () => animate(element, { y: 0 }, SPRING_GENTLE);
+        });
+
+        press(".btn", (element) => {
+          animate(element, { y: -1, scale: 0.98 }, SPRING_SNAPPY);
+          return () => animate(element, { y: 0, scale: 1 }, SPRING_SNAPPY);
+        });
+      }
+
       const bar = document.getElementById("scroll-progress");
 
       function updateProgress() {

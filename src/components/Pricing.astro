@@ -57,7 +57,7 @@ const featureOptions = [
       </p>
     </div>
 
-    <div class="estimator reveal" id="estimator">
+    <div class="estimator reveal" id="estimator" data-base-price={BASE_PRICE}>
       <div class="estimator-config">
         <div class="config-block">
           <h3 class="config-label">Pages</h3>
@@ -479,7 +479,11 @@ const featureOptions = [
   }
 </style>
 
-<script define:vars={{ BASE_PRICE }}>
+<script>
+  import { animate } from "motion";
+  import { prefersReducedMotion } from "../lib/motion-utils.js";
+
+  const BASE_PRICE = Number(document.getElementById("estimator")?.dataset.basePrice ?? 0);
   const pageInputs = Array.from(document.querySelectorAll('input[name="est-page"]'));
   const featureInputs = Array.from(document.querySelectorAll('input[name="est-feature"]'));
   const foundingInput = document.getElementById("founding-discount");
@@ -516,11 +520,28 @@ const featureOptions = [
     return { selectedPages, selectedFeatures, subtotal, discount, foundingApplied, oneOff, recurringFeatures };
   }
 
+  let displayedTotal = BASE_PRICE;
+  let totalAnimation = null;
+
   function render() {
     const { selectedPages, selectedFeatures, discount, foundingApplied, oneOff, recurringFeatures } = calculate();
 
     if (totalEl) {
-      totalEl.textContent = currency(oneOff);
+      totalAnimation?.stop();
+      if (prefersReducedMotion()) {
+        displayedTotal = oneOff;
+        totalEl.textContent = currency(displayedTotal);
+      } else {
+        const from = displayedTotal;
+        totalAnimation = animate(from, oneOff, {
+          duration: 0.5,
+          ease: [0.22, 1, 0.36, 1],
+          onUpdate: (latest) => {
+            displayedTotal = latest;
+            totalEl.textContent = currency(latest);
+          },
+        });
+      }
       totalEl.classList.add("is-updated");
       window.setTimeout(() => totalEl.classList.remove("is-updated"), 300);
     }

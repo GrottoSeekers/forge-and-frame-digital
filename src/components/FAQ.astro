@@ -37,7 +37,9 @@ const faqs = [
             <span class="faq-q">{item.q}</span>
             <span class="faq-icon" aria-hidden="true"></span>
           </summary>
-          <p>{item.a}</p>
+          <div class="faq-panel">
+            <p>{item.a}</p>
+          </div>
         </details>
       ))}
     </div>
@@ -109,9 +111,74 @@ const faqs = [
     transform: rotate(90deg) scaleX(0);
   }
 
-  .faq-item p {
+  .faq-panel {
+    overflow: hidden;
+  }
+
+  .faq-panel p {
     margin: 14px 0 0;
     color: var(--text-dim);
     max-width: 620px;
   }
 </style>
+
+<script>
+  import { animate } from "motion";
+  import { prefersReducedMotion } from "../lib/motion-utils.js";
+
+  const EASE = [0.22, 1, 0.36, 1];
+
+  document.querySelectorAll(".faq-item").forEach((details) => {
+    const summary = details.querySelector("summary");
+    const panel = details.querySelector(".faq-panel");
+    if (!(details instanceof HTMLDetailsElement) || !summary || !(panel instanceof HTMLElement)) return;
+
+    let isAnimating = false;
+
+    summary.addEventListener("click", (event) => {
+      event.preventDefault();
+      if (isAnimating) return;
+      details.open ? closePanel() : openPanel();
+    });
+
+    function openPanel() {
+      details.open = true;
+
+      if (prefersReducedMotion()) {
+        panel.style.removeProperty("height");
+        panel.style.removeProperty("opacity");
+        return;
+      }
+
+      isAnimating = true;
+      const targetHeight = panel.scrollHeight;
+      animate(panel, { height: [0, `${targetHeight}px`], opacity: [0, 1] }, { duration: 0.35, ease: EASE })
+        .then(() => {
+          panel.style.removeProperty("height");
+          panel.style.removeProperty("opacity");
+          isAnimating = false;
+        });
+    }
+
+    function closePanel() {
+      if (prefersReducedMotion()) {
+        details.open = false;
+        return;
+      }
+
+      isAnimating = true;
+      const startHeight = panel.scrollHeight;
+      panel.style.height = `${startHeight}px`;
+
+      requestAnimationFrame(() => {
+        animate(panel, { height: [`${startHeight}px`, "0px"], opacity: [1, 0] }, { duration: 0.3, ease: EASE })
+          .then(() => {
+            details.open = false;
+            panel.style.removeProperty("height");
+            panel.style.removeProperty("opacity");
+            isAnimating = false;
+          });
+      });
+    }
+  });
+</script>
