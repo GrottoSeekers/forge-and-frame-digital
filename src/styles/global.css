@@ -1,5 +1,5 @@
 :root {
-  /* Light-dominant palette: warm paper base, two sharp accents */
+  /* Light-dominant palette: warm paper base, espresso & gold accents */
   --bg: #fbf7ef;
   --bg-raised: #f2ead9;
   --bg-raised-2: #e9debd;
@@ -7,12 +7,12 @@
   --text: #1c1710;
   --text-dim: rgba(28, 23, 16, 0.68);
   --text-faint: rgba(28, 23, 16, 0.6); /* darkened from 0.46 for WCAG AA text contrast */
-  --accent: #ff5b2e;
-  --accent-soft: rgba(255, 91, 46, 0.12);
-  --accent-text: #b8360a; /* darker accent for text/icons on light backgrounds — --accent itself fails WCAG AA there */
-  --accent-2: #456e1c; /* darkened slightly from the original olive for WCAG AA text contrast */
-  --accent-2-soft: rgba(76, 122, 31, 0.12);
-  --on-accent: #1c1006;
+  --accent: #b8841f;
+  --accent-soft: rgba(184, 132, 31, 0.14);
+  --accent-text: #7a5518; /* darker gold for text/icons on light backgrounds — --accent itself fails WCAG AA there */
+  --accent-2: #3b2a1c; /* espresso brown */
+  --accent-2-soft: rgba(59, 42, 28, 0.1);
+  --on-accent: #241a10;
   --error: #c1432f;
   --error-soft: rgba(193, 67, 47, 0.1);
   --success: #3f7d1f;
@@ -197,11 +197,11 @@ img {
 .btn-primary {
   background: var(--accent);
   color: var(--on-accent);
-  box-shadow: 0 0 0 0 rgba(255, 91, 46, 0.5);
+  box-shadow: 0 0 0 0 rgba(184, 132, 31, 0.5);
 }
 
 .btn-primary:hover {
-  box-shadow: 0 16px 40px -12px rgba(255, 91, 46, 0.65);
+  box-shadow: 0 16px 40px -12px rgba(184, 132, 31, 0.65);
 }
 
 .btn-ghost {
@@ -221,7 +221,7 @@ img {
   padding: 6px 14px;
   border-radius: 999px;
   background: var(--accent-2-soft);
-  border: 1px solid rgba(76, 122, 31, 0.3);
+  border: 1px solid rgba(59, 42, 28, 0.3);
   font-size: 0.78rem;
   font-weight: 700;
   color: var(--accent-2);
@@ -280,7 +280,7 @@ img {
 }
 
 .logo-word .amp {
-  color: var(--accent-2);
+  color: var(--accent-text);
   font-style: italic;
 }
 

@@ -13,9 +13,8 @@ const navItems = [
 
 <header class="site-header">
   <div class="nav-pill">
-    <a href={base} class="logo" aria-label="CG Design Co. home">
-      <Logomark class="logo-mark" color="#fff" />
-      <span class="logo-word">CG Design Co.</span>
+    <a href={base} class="logo" aria-label="CG Design &amp; Co. home">
+      <Logomark class="logo-mark" color="var(--accent)" />
     </a>
 
     <nav class="nav" aria-label="Primary" id="primary-nav">
@@ -56,7 +55,7 @@ const navItems = [
     gap: 36px;
     padding: 10px 24px;
     border-radius: 9999px;
-    background: rgba(2, 6, 23, 0.8);
+    background: rgba(43, 30, 20, 0.88);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -73,21 +72,6 @@ const navItems = [
   .logo-mark {
     font-size: 1.4rem;
     flex-shrink: 0;
-  }
-
-  .logo-word {
-    display: none;
-    font-family: "Fraunces", serif;
-    font-size: 1.05rem;
-    font-weight: 600;
-    color: #fff;
-    margin-left: 10px;
-    white-space: nowrap;
-  }
-
-  .logo-word .amp {
-    color: var(--accent-2);
-    font-style: italic;
   }
 
   .nav {
@@ -151,7 +135,7 @@ const navItems = [
 
   .btn-cta:hover {
     transform: translateY(-2px);
-    box-shadow: 0 14px 30px -10px rgba(255, 91, 46, 0.55);
+    box-shadow: 0 14px 30px -10px rgba(184, 132, 31, 0.55);
   }
 
   .btn-cta--mobile {
@@ -191,7 +175,7 @@ const navItems = [
     gap: 4px;
     padding: 14px;
     border-radius: 20px;
-    background: rgba(2, 6, 23, 0.92);
+    background: rgba(43, 30, 20, 0.94);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -230,9 +214,6 @@ const navItems = [
     }
     .menu-toggle {
       display: flex;
-    }
-    .logo-word {
-      display: block;
     }
     .site-header {
       top: 0;
