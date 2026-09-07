@@ -12,9 +12,100 @@ import Contact from "../components/Contact.astro";
 import Footer from "../components/Footer.astro";
 import SectionNav from "../components/SectionNav.astro";
 import CookieConsent from "../components/CookieConsent.astro";
+
+const businessSchema = {
+  "@context": "https://schema.org",
+  "@type": ["LocalBusiness", "ProfessionalService", "WebDesignCompany"],
+  name: "CG Design & Co.",
+  alternateName: "CGD",
+  description:
+    "CG Design & Co. designs and builds fast, mobile-friendly websites for local businesses across Australia, with fixed pricing and a clear delivery timeline.",
+  url: "https://cgdesignaus.com",
+  logo: "https://cgdesignaus.com/favicon.svg",
+  image: "https://cgdesignaus.com/favicon.svg",
+  email: "info@cgdesignaus.com",
+  taxID: "25 672 082 550",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "St Luke Street",
+    addressLocality: "Randwick",
+    addressRegion: "NSW",
+    postalCode: "2031",
+    addressCountry: "AU",
+  },
+  areaServed: {
+    "@type": "Country",
+    name: "Australia",
+  },
+  contactPoint: {
+    "@type": "ContactPoint",
+    email: "info@cgdesignaus.com",
+    contactType: "customer service",
+    areaServed: "AU",
+  },
+  priceRange: "$500-$3000",
+  currenciesAccepted: "AUD",
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Website design services",
+    itemListElement: [
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "New Website Builds",
+          description: "Custom-built websites designed to generate local leads.",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Website Redesigns",
+          description: "Modernising an existing website on its current domain.",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Local SEO",
+          description: "Google Business optimisation and local keyword targeting so local customers can find the business.",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Online Booking Systems",
+          description: "Real-time appointment, table, or callout booking setup.",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Online Store Setup",
+          description: "Product catalogue and checkout for e-commerce.",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Website Maintenance & Hosting",
+          description: "Ongoing updates, security, and small content changes.",
+        },
+      },
+    ],
+  },
+};
 ---
 
 <BaseLayout>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(businessSchema)} />
+  </Fragment>
   <Header />
   <SectionNav />
   <Hero />
