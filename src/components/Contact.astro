@@ -3,6 +3,8 @@
 // (see README) before launch. Until then the form still validates and
 // submits, but delivery will fail and visitors see a graceful fallback
 // prompting them to email hello@cgdesignco.co.uk directly.
+
+const base = import.meta.env.BASE_URL;
 ---
 
 <section class="section section-alt" id="contact">
@@ -70,6 +72,18 @@
         </div>
 
         <input type="hidden" id="estimate_details" name="estimate_details" />
+
+        <div class="field field-consent">
+          <label class="consent-label" for="consent">
+            <input type="checkbox" id="consent" name="consent" required />
+            <span class="consent-box" aria-hidden="true"></span>
+            <span class="consent-text">
+              I agree to my details being used to reply to this enquiry, as
+              described in the <a href={`${base}/privacy-policy`} target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
+            </span>
+          </label>
+          <span class="field-error" id="err-consent" role="alert"></span>
+        </div>
 
         <button type="submit" class="btn btn-primary submit-btn" id="submit-btn">
           <span class="spinner" aria-hidden="true"></span>
@@ -196,7 +210,7 @@
     flex-direction: column;
   }
 
-  .field label {
+  .field:not(.field-consent) label {
     position: absolute;
     left: 15px;
     top: 13px;
@@ -211,12 +225,12 @@
     color: rgba(255, 255, 255, 0.55);
   }
 
-  .field.is-active label {
+  .field.is-active:not(.field-consent) label {
     transform: translateY(-21px) scale(0.8);
     color: #8fd66b; /* light green — var(--accent-2) is tuned for light backgrounds and fails contrast here */
   }
 
-  .field.has-error.is-active label {
+  .field.has-error.is-active:not(.field-consent) label {
     color: #ff8a75; /* matches the error copy colour used elsewhere on this dark card */
   }
 
@@ -273,6 +287,81 @@
 
   .field-error:empty {
     display: none;
+  }
+
+  .field-consent {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .consent-label {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+  }
+
+  .consent-label input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+  }
+
+  .consent-box {
+    flex-shrink: 0;
+    width: 19px;
+    height: 19px;
+    margin-top: 1px;
+    border-radius: 5px;
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.05);
+    position: relative;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .consent-box::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 1px;
+    width: 5px;
+    height: 10px;
+    border: solid #05230f;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg) scale(0);
+    transition: transform 0.15s ease;
+  }
+
+  .consent-label input:checked ~ .consent-box {
+    background: #8fd66b;
+    border-color: #8fd66b;
+  }
+
+  .consent-label input:checked ~ .consent-box::after {
+    transform: rotate(45deg) scale(1);
+  }
+
+  .consent-label input:focus-visible ~ .consent-box {
+    outline: 2px solid #8fd66b;
+    outline-offset: 2px;
+  }
+
+  .field-consent.has-error .consent-box {
+    border-color: #ff8a75;
+  }
+
+  .consent-text {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.65);
+  }
+
+  .consent-text a {
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
 
   .submit-btn {
@@ -469,6 +558,13 @@
     if (!service) {
       setError("service", "Let us know what you're after.");
       firstInvalid ||= document.getElementById("service");
+      ok = false;
+    }
+
+    const consent = (form.elements.namedItem("consent") as HTMLInputElement).checked;
+    if (!consent) {
+      setError("consent", "Please agree to the Privacy Policy to continue.");
+      firstInvalid ||= document.getElementById("consent");
       ok = false;
     }
 
