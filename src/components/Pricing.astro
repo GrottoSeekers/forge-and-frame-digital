@@ -70,7 +70,7 @@ const featureOptions = [
               <label class="page-chip">
                 <input type="checkbox" name="est-page" value={page.id} data-price={page.price} />
                 <span>{page.label}</span>
-                <span class="chip-price">+£{page.price}</span>
+                <span class="chip-price">+${page.price}</span>
               </label>
             ))}
           </div>
@@ -86,7 +86,7 @@ const featureOptions = [
                   <span class="feature-desc">{feature.desc}</span>
                 </span>
                 <span class="feature-price">
-                  +£{feature.price}{feature.recurring ? "/mo" : ""}
+                  +${feature.price}{feature.recurring ? "/mo" : ""}
                 </span>
                 <span class="toggle">
                   <input
@@ -107,7 +107,7 @@ const featureOptions = [
 
       <div class="estimator-summary">
         <span class="summary-label">Your estimate</span>
-        <div class="summary-total" id="estimate-total" aria-live="polite">£{BASE_PRICE}</div>
+        <div class="summary-total" id="estimate-total" aria-live="polite">${BASE_PRICE}</div>
         <div class="summary-recurring" id="estimate-recurring" hidden></div>
 
         <label class="founding-toggle">
@@ -477,7 +477,7 @@ const featureOptions = [
   const breakdownEl = document.getElementById("estimate-breakdown");
   const ctaBtn = document.getElementById("estimate-cta");
 
-  const currency = (n) => `£${Math.round(n).toLocaleString("en-GB")}`;
+  const currency = (n) => `$${Math.round(n).toLocaleString("en-AU")}`;
 
   function calculate() {
     const selectedPages = pageInputs.filter((i) => i.checked);
@@ -586,8 +586,8 @@ const featureOptions = [
 
     const estimateInput = document.getElementById("estimate_details");
     if (estimateInput) {
-      estimateInput.value = `${summaryParts.join(" ")} — estimated £${Math.round(oneOff)}${
-        recurringFeatures ? ` + £${recurringFeatures}/mo` : ""
+      estimateInput.value = `${summaryParts.join(" ")} — estimated $${Math.round(oneOff)}${
+        recurringFeatures ? ` + $${recurringFeatures}/mo` : ""
       }${foundingApplied ? " (founding client discount applied)" : ""}`;
     }
 
@@ -596,7 +596,7 @@ const featureOptions = [
       notice.replaceChildren();
       notice.append("Your estimate: ");
       const strong = document.createElement("strong");
-      strong.textContent = `£${Math.round(oneOff)}${recurringFeatures ? ` + £${recurringFeatures}/mo` : ""}`;
+      strong.textContent = `$${Math.round(oneOff)}${recurringFeatures ? ` + $${recurringFeatures}/mo` : ""}`;
       notice.append(strong);
       notice.append(" — tell us a bit more below.");
       notice.hidden = false;
