@@ -18,15 +18,10 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
       <div class="hero-actions">
         <a href="#contact" class="btn btn-primary">Get Your Free Website Check</a>
       </div>
-
-      <ul class="hero-trust">
-        <li>Delivered in under 7 days</li>
-        <li>Fixed price upfront</li>
-        <li>Mobile &amp; SEO ready</li>
-      </ul>
     </div>
 
     <div class="hero-visual">
+      <span class="visual-caption">CG Design Co. — Example</span>
       <a
         href={`${base}/demo-salon.html`}
         target="_blank"
@@ -75,7 +70,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     grid-template-columns: 1.05fr 0.95fr;
     gap: 40px;
     align-items: center;
-    padding-bottom: 112px;
+    padding-bottom: 64px;
   }
 
   h1 {
@@ -98,20 +93,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     display: flex;
     gap: 14px;
     flex-wrap: wrap;
-    margin: 30px 0 44px;
-  }
-
-  .hero-trust {
-    display: flex;
-    gap: 12px 28px;
-    flex-wrap: wrap;
-    list-style: none;
-    margin: 0;
-    padding-top: 26px;
-    border-top: 1px solid var(--line);
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--text-dim);
+    margin: 30px 0 4px;
   }
 
   .hero-visual {
@@ -120,6 +102,16 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     width: 100%;
     max-width: 460px;
     transform: rotate(1.5deg);
+  }
+
+  .visual-caption {
+    display: block;
+    margin: 0 0 10px 4px;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-faint);
   }
 
   .browser-frame {
