@@ -4,7 +4,7 @@
 // submits, but delivery will fail and visitors see a graceful fallback
 // prompting them to email hello@cgdesignco.com.au directly.
 
-const base = import.meta.env.BASE_URL;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
 <section class="section section-alt" id="contact">

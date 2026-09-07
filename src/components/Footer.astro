@@ -1,13 +1,13 @@
 ---
 import Logomark from "./Logomark.astro";
 
-const base = import.meta.env.BASE_URL;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const year = new Date().getFullYear();
 ---
 
 <footer class="footer">
   <div class="wrap footer-inner">
-    <a href={base} class="logo">
+    <a href={base || "/"} class="logo">
       <Logomark class="logo-mark" color="var(--accent-text)" />
       <span class="logo-word">CG Design <span class="amp">&amp;</span> Co.</span>
     </a>

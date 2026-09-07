@@ -1,5 +1,5 @@
 ---
-const base = import.meta.env.BASE_URL;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
 <div class="cookie-banner" id="cookie-banner" hidden role="dialog" aria-live="polite" aria-label="Cookie notice">
