@@ -2,104 +2,51 @@
 import Icon from "./Icon.astro";
 
 const services = [
-  { icon: "layout" as const, title: "New builds", body: "From scratch, ready to search from day one." },
-  { icon: "wrench" as const, title: "Redesigns", body: "Modern and mobile-friendly, same domain." },
-  { icon: "shield-check" as const, title: "Care & hosting", body: "Updates and small changes, handled." },
-  { icon: "map-pin" as const, title: "Local search setup", body: "So nearby customers actually find you." },
-];
-
-const steps = [
-  { n: "01", title: "Free check", body: "Tell us about your business — we'll say honestly what we'd build." },
-  { n: "02", title: "Fixed proposal", body: "One clear price, one clear timeline." },
-  { n: "03", title: "Design & build", body: "You see drafts along the way, we handle the rest." },
-  { n: "04", title: "Handover & support", body: "Your site goes online, with support if you want it." },
+  { icon: "layout" as const, title: "New Builds", body: "Custom-built websites ready to generate local leads." },
+  { icon: "wrench" as const, title: "Redesigns", body: "Modernize your existing site on your current domain." },
+  { icon: "map-pin" as const, title: "Local SEO", body: "Setup and tuning so local customers find you on Google." },
+  { icon: "shield-check" as const, title: "Maintenance & Hosting", body: "Site updates, security, and hosting managed for you." },
 ];
 ---
 
-<section class="section section-alt" id="how-we-help">
-  <div class="orb orb-services" aria-hidden="true"></div>
+<section class="section section-alt" id="services">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="eyebrow">How we help</span>
+      <span class="eyebrow">Services</span>
+      <h2>What we do.</h2>
     </div>
 
-    <div class="overview-block reveal-stagger" id="services">
-      <h3 class="block-label">What you get</h3>
-      <div class="services-row">
-        {services.map((service) => (
-          <div class="service-item">
-            <div class="service-icon" aria-hidden="true">
-              <Icon name={service.icon} />
-            </div>
-            <h4>{service.title}</h4>
-            <p>{service.body}</p>
+    <div class="services-row reveal-stagger">
+      {services.map((service) => (
+        <div class="service-item">
+          <div class="service-icon" aria-hidden="true">
+            <Icon name={service.icon} />
           </div>
-        ))}
-      </div>
-    </div>
-
-    <div class="overview-block reveal-stagger" id="process">
-      <h3 class="block-label">The process</h3>
-      <div class="process-row">
-        {steps.map((step) => (
-          <div class="process-step">
-            <div class="process-num">{step.n}</div>
-            <h4>{step.title}</h4>
-            <p>{step.body}</p>
-          </div>
-        ))}
-      </div>
+          <h4>{service.title}</h4>
+          <p>{service.body}</p>
+        </div>
+      ))}
     </div>
   </div>
 </section>
 
 <style>
-  .section-alt {
-    position: relative;
-    overflow: hidden;
+  .service-item {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 26px;
+    transition: border-color 0.3s ease;
   }
 
-  .orb-services {
-    width: 400px;
-    height: 400px;
-    background: var(--accent);
-    top: 10%;
-    right: -160px;
-    opacity: 0.14;
-  }
-
-  .section-head {
-    margin-bottom: 24px;
-  }
-
-  .overview-block + .overview-block {
-    margin-top: 64px;
-  }
-
-  .block-label {
-    font-family: "Fraunces", serif;
-    font-size: 1.15rem;
-    font-weight: 600;
-    margin: 0 0 22px;
+  .service-item:hover {
+    border-color: var(--line-strong);
   }
 
   .services-row {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 18px;
-  }
-
-  .service-item {
-    background: var(--bg);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 22px;
-    transition: transform 0.35s var(--ease), border-color 0.3s ease;
-  }
-
-  .service-item:hover {
-    transform: translateY(-4px);
-    border-color: var(--line-strong);
+    gap: 20px;
   }
 
   .service-icon {
@@ -132,100 +79,15 @@ const steps = [
     margin: 0;
   }
 
-  .process-row {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 18px;
-  }
-
-  .process-step {
-    position: relative;
-  }
-
-  .process-num {
-    font-family: "Fraunces", serif;
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--accent-text);
-    margin-bottom: 10px;
-  }
-
-  .process-step h4 {
-    font-family: "Fraunces", serif;
-    font-size: 1rem;
-    font-weight: 600;
-    margin: 0 0 6px;
-  }
-
-  .process-step p {
-    font-size: 0.86rem;
-    color: var(--text-dim);
-    margin: 0;
-  }
-
   @media (max-width: 900px) {
-    .services-row,
-    .process-row {
+    .services-row {
       grid-template-columns: repeat(2, 1fr);
-    }
-    .overview-block + .overview-block {
-      margin-top: 48px;
     }
   }
 
   @media (max-width: 560px) {
     .services-row {
       grid-template-columns: 1fr;
-    }
-
-    .process-row {
-      display: block;
-    }
-
-    .process-step {
-      display: grid;
-      grid-template-columns: 40px 1fr;
-      column-gap: 16px;
-      position: relative;
-      padding-bottom: 30px;
-    }
-
-    .process-step::before {
-      content: "";
-      position: absolute;
-      left: 19px;
-      top: 40px;
-      bottom: 2px;
-      width: 1px;
-      background: var(--line-strong);
-    }
-
-    .process-step:last-child {
-      padding-bottom: 0;
-    }
-
-    .process-step:last-child::before {
-      display: none;
-    }
-
-    .process-num {
-      grid-column: 1;
-      grid-row: 1 / span 2;
-      margin-bottom: 0;
-      font-size: 1.1rem;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: 1.5px solid var(--line-strong);
-      background: var(--bg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .process-step h4,
-    .process-step p {
-      grid-column: 2;
     }
   }
 </style>
