@@ -57,8 +57,8 @@
 
   h1, h2, h3 {
     font-family: "Manrope", "Inter", sans-serif;
-    font-weight: 800;
-    line-height: 1.12;
+    font-weight: 700;
+    line-height: 1.15;
     margin: 0 0 0.5em;
     letter-spacing: -0.01em;
   }
@@ -73,10 +73,10 @@
     padding: 0 24px;
   }
 
-  .section { padding: 88px 0; }
+  .section { padding: 104px 0; }
 
   @media (max-width: 640px) {
-    .section { padding: 60px 0; }
+    .section { padding: 68px 0; }
   }
 
   .eyebrow {
@@ -85,11 +85,11 @@
     gap: 8px;
     font-family: "Manrope", sans-serif;
     font-size: 0.78rem;
-    font-weight: 800;
-    letter-spacing: 0.12em;
+    font-weight: 700;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--gold);
-    margin-bottom: 14px;
+    margin-bottom: 16px;
   }
 
   .icon {
@@ -244,7 +244,7 @@
   .hero {
     position: relative;
     overflow: hidden;
-    padding: 72px 0 64px;
+    padding: 92px 0 84px;
     background:
       radial-gradient(600px 400px at 85% -10%, rgba(255, 194, 51, 0.14), transparent 65%),
       linear-gradient(180deg, var(--ink) 0%, var(--ink-raised) 100%);
@@ -313,15 +313,15 @@
     display: flex;
     gap: 14px;
     flex-wrap: wrap;
-    margin: 28px 0 40px;
+    margin: 32px 0 48px;
   }
 
   .hero-stats {
     display: flex;
-    gap: 32px;
+    gap: 40px;
     flex-wrap: wrap;
     border-top: 1px solid var(--line);
-    padding-top: 22px;
+    padding-top: 28px;
   }
 
   .stat strong {
@@ -381,35 +381,6 @@
     .hero-visual { order: -1; }
   }
 
-  /* ---- Trust badges ---- */
-  .trust-section {
-    background: var(--ink-raised);
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-    padding: 34px 0;
-  }
-
-  .trust-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 14px;
-    justify-content: center;
-  }
-
-  .trust-badge {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--ink-raised-2);
-    border: 1px solid var(--line-strong);
-    border-radius: 999px;
-    padding: 10px 18px;
-    font-size: 0.85rem;
-    font-weight: 700;
-  }
-
-  .trust-badge .icon { width: 18px; height: 18px; color: var(--gold); }
-
   /* ---- Services ---- */
   .section-head {
     max-width: 560px;
@@ -422,7 +393,7 @@
   .services-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 22px;
+    gap: 26px;
   }
 
   .service-card {
@@ -505,7 +476,7 @@
   .steps {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 28px;
+    gap: 34px;
   }
 
   .step { position: relative; }
@@ -773,32 +744,6 @@
       </div>
     </section>
 
-    <section class="trust-section">
-      <div class="wrap">
-        <div class="trust-row">
-          <span class="trust-badge">
-            <svg class="icon" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
-            NICEIC Approved Contractor*
-          </span>
-          <span class="trust-badge">
-            <svg class="icon" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
-            Gas Safe Registered*
-          </span>
-          <span class="trust-badge">
-            <svg class="icon" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
-            Fully Insured*
-          </span>
-          <span class="trust-badge">
-            <svg class="icon" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
-            Registered Competent Person*
-          </span>
-        </div>
-        <p style="text-align:center; font-size:0.72rem; color:var(--text-faint); margin: 14px 0 0;">
-          *Placeholder accreditation badges for this design concept — a real site would use the business's actual registration numbers.
-        </p>
-      </div>
-    </section>
-
     <section class="section" id="services">
       <div class="wrap">
         <div class="section-head">
@@ -971,9 +916,9 @@
       <p class="footer-disclaimer">
         Apex Heating &amp; Electrical is a <strong>fictional business</strong>
         created as a concept design demo by
-        <a href="./">CG Design Co.</a>. Accreditation badges,
-        pricing, phone number, and reviews on this page are placeholders for
-        illustration only and don't represent a real company.
+        <a href="./">CG Design Co.</a>. Pricing, phone number, and job
+        figures on this page are placeholders for illustration only and
+        don't represent a real company.
       </p>
     </div>
   </footer>

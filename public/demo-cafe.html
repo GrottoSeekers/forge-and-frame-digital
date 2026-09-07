@@ -69,10 +69,10 @@
 
   .wrap { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
 
-  .section { padding: 84px 0; }
+  .section { padding: 100px 0; }
 
   @media (max-width: 640px) {
-    .section { padding: 56px 0; }
+    .section { padding: 68px 0; }
   }
 
   .eyebrow {
@@ -215,7 +215,7 @@
   .hero {
     position: relative;
     overflow: hidden;
-    padding: 60px 0 0;
+    padding: 76px 0 96px;
     background: linear-gradient(180deg, var(--bg) 0%, var(--bg-raised) 100%);
   }
 
@@ -253,9 +253,10 @@
   .hero-quicklinks {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
+    gap: 16px;
     border-top: 1px solid var(--line);
-    padding-top: 24px;
+    padding-top: 32px;
+    margin-top: 8px;
   }
 
   .quicklink {
@@ -288,21 +289,6 @@
 
   @media (max-width: 640px) {
     .hero-quicklinks { grid-template-columns: repeat(2, 1fr); }
-  }
-
-  .hero-strip {
-    margin-top: 56px;
-    height: 120px;
-    background:
-      linear-gradient(120deg, rgba(193, 101, 46, 0.22), transparent 55%),
-      repeating-linear-gradient(
-        135deg,
-        var(--bg-raised-2),
-        var(--bg-raised-2) 40px,
-        var(--bg-raised) 40px,
-        var(--bg-raised) 80px
-      );
-    border-top: 1px solid var(--line);
   }
 
   /* ---- Menu section ---- */
@@ -654,8 +640,6 @@
           </a>
         </div>
       </div>
-
-      <div class="hero-strip" aria-hidden="true"></div>
     </section>
 
     <section class="section" id="menu">
