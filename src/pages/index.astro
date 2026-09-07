@@ -7,11 +7,24 @@ import Pricing from "../components/Pricing.astro";
 import BeforeAfter from "../components/BeforeAfter.astro";
 import Work from "../components/Work.astro";
 import About from "../components/About.astro";
-import FAQ from "../components/FAQ.astro";
+import FAQ, { faqs } from "../components/FAQ.astro";
 import Contact from "../components/Contact.astro";
 import Footer from "../components/Footer.astro";
 import SectionNav from "../components/SectionNav.astro";
 import CookieConsent from "../components/CookieConsent.astro";
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.a,
+    },
+  })),
+};
 
 const businessSchema = {
   "@context": "https://schema.org",
@@ -102,20 +115,26 @@ const businessSchema = {
 };
 ---
 
-<BaseLayout>
+<BaseLayout
+  title="CG Design & Co. | Custom Web Design & Development Australia"
+  description="CG Design & Co. designs and builds fast, mobile-friendly websites for local businesses across Australia, with fixed pricing and a clear delivery timeline."
+>
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(businessSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   </Fragment>
   <Header />
   <SectionNav />
-  <Hero />
-  <Overview />
-  <Pricing />
-  <BeforeAfter />
-  <Work />
-  <About />
-  <FAQ />
-  <Contact />
+  <main>
+    <Hero />
+    <Overview />
+    <Pricing />
+    <BeforeAfter />
+    <Work />
+    <About />
+    <FAQ />
+    <Contact />
+  </main>
   <Footer />
   <CookieConsent />
 </BaseLayout>

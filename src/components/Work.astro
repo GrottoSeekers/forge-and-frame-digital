@@ -6,8 +6,8 @@ const concepts = [
     tag: "Salon & Wellness Concept",
     business: "Aura Skin & Beauty",
     domain: "auraskinbeauty.co.uk",
-    previewDesktop: `${base}/previews/salon-preview.jpg`,
-    previewMobile: `${base}/previews/salon-preview-mobile.jpg`,
+    previewDesktop: `${base}/previews/salon-preview.webp`,
+    previewMobile: `${base}/previews/salon-preview-mobile.webp`,
     href: `${base}/demo-salon.html`,
     features: ["Sticky Booking", "Visual Pricing", "SEO Optimized"],
     businessType: "Salon & Wellness",
@@ -16,8 +16,8 @@ const concepts = [
     tag: "Trade & Services Concept",
     business: "Apex Heating & Electrical",
     domain: "apexheating.co.uk",
-    previewDesktop: `${base}/previews/trade-preview.jpg`,
-    previewMobile: `${base}/previews/trade-preview-mobile.jpg`,
+    previewDesktop: `${base}/previews/trade-preview.webp`,
+    previewMobile: `${base}/previews/trade-preview-mobile.webp`,
     href: `${base}/demo-trade.html`,
     features: ["Tap-to-Call", "24/7 Badge", "Fast Load"],
     businessType: "Trade & Services",
@@ -26,8 +26,8 @@ const concepts = [
     tag: "Café & Restaurant Concept",
     business: "The Artisan Kitchen",
     domain: "theartisankitchen.co.uk",
-    previewDesktop: `${base}/previews/cafe-preview.jpg`,
-    previewMobile: `${base}/previews/cafe-preview-mobile.jpg`,
+    previewDesktop: `${base}/previews/cafe-preview.webp`,
+    previewMobile: `${base}/previews/cafe-preview-mobile.webp`,
     href: `${base}/demo-cafe.html`,
     features: ["Live Status", "Tabbed Menu", "Instant Booking"],
     businessType: "Café & Restaurant",
@@ -39,7 +39,7 @@ const concepts = [
   <div class="wrap work-wrap">
     <div class="section-head reveal">
       <span class="eyebrow">Our work</span>
-      <h2>Featured concepts.</h2>
+      <h2>Custom website design examples.</h2>
       <p>Examples of the kind of site we'd build for your business.</p>
     </div>
 
@@ -77,6 +77,7 @@ const concepts = [
                       alt={`${concept.business} homepage preview, desktop view`}
                       width="1120"
                       height="680"
+                      loading="lazy"
                       data-mode="desktop"
                     />
                     <img
@@ -84,6 +85,7 @@ const concepts = [
                       alt={`${concept.business} homepage preview, mobile view`}
                       width="430"
                       height="932"
+                      loading="lazy"
                       data-mode="mobile"
                     />
                   </div>
