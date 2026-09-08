@@ -19,14 +19,10 @@ copy for your real ones whenever you're ready. Nothing here is final.
       are placeholders. Replace the wordmark, or drop in a real logo image.
 - [ ] **Contact email/phone**: replace `hello@forgeandframe.digital` in
       `src/components/Contact.astro`.
-- [ ] **Contact form endpoint**: the form currently posts to a placeholder
-      Formspree URL. To make it work:
-      1. Create a free form at [formspree.io](https://formspree.io)
-      2. Copy your form ID
-      3. In `src/components/Contact.astro`, replace
-         `REPLACE_WITH_YOUR_FORM_ID` in the form's `action` attribute
-      (Any other form backend — Netlify Forms, a Resend-powered API route,
-      etc. — works too; this is just the fastest zero-backend option.)
+- [x] **Contact form endpoint**: wired up to [Web3Forms](https://web3forms.com)
+      in `src/components/Contact.astro` (the `access_key` hidden input). To
+      change the destination email, generate a new access key at
+      web3forms.com and swap that value.
 - [ ] **Pricing**: the `£XXX` placeholders in `src/components/Pricing.astro`
       need real numbers.
 - [ ] **Domain**: once you have a real domain, update `site`/`base` in

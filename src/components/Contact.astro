@@ -1,9 +1,4 @@
 ---
-// Formspree endpoint below is a placeholder — swap FORM_ID for a real one
-// (see README) before launch. Until then the form still validates and
-// submits, but delivery will fail and visitors see a graceful fallback
-// prompting them to email info@cgdesignaus.com directly.
-
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
@@ -35,7 +30,11 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     <div class="contact-form-wrap reveal">
       <p class="prefill-notice" id="prefill-notice" hidden></p>
 
-      <form class="contact-form" id="lead-form" action="https://formspree.io/f/REPLACE_WITH_YOUR_FORM_ID" method="POST" novalidate>
+      <form class="contact-form" id="lead-form" action="https://api.web3forms.com/submit" method="POST" novalidate>
+        <input type="hidden" name="access_key" value="af8becda-b0eb-46ce-928f-29364cea38c2" />
+        <input type="hidden" name="subject" value="New enquiry — CG Design & Co. website" />
+        <input type="checkbox" name="botcheck" style="display: none;" tabindex="-1" autocomplete="off" />
+
         <div class="field">
           <input type="text" id="client_name" name="client_name" autocomplete="name" required />
           <label for="client_name">Name</label>
