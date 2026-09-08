@@ -1,35 +1,40 @@
-# Forge & Frame Digital
+# CG Design & Co.
 
-Marketing site for a new web-design studio helping local businesses that
-either don't have a website yet, or have one that badly needs an upgrade.
-Starting in the UK, open to clients anywhere.
+Marketing site for CG Design & Co., a web-design studio helping local
+businesses that either don't have a website yet, or have one that badly
+needs an upgrade. Australia-based, open to clients anywhere.
 
-Built with [Astro](https://astro.build/) — same lightweight stack as the
-Grotto Sitters site, so it's cheap to host and easy to hand-edit later.
+Built with [Astro](https://astro.build/) — a lightweight stack, cheap to
+host and easy to hand-edit later.
 
-**This is a working placeholder brand** — swap the name, logo, colours and
-copy for your real ones whenever you're ready. Nothing here is final.
+Live at **https://cgdesignaus.com**.
 
 ---
 
-## Before this goes live — TODO
+## Status
 
-- [ ] **Name & logo**: "Forge & Frame Digital" and the `F&F` badge in
-      `src/components/Header.astro` / `Footer.astro` / `public/favicon.svg`
-      are placeholders. Replace the wordmark, or drop in a real logo image.
-- [ ] **Contact email/phone**: replace `hello@forgeandframe.digital` in
-      `src/components/Contact.astro`.
+Everything below is live and configured with real business details —
+this is not a placeholder build:
+
+- [x] **Name & logo**: "CG Design & Co." and the `CGD` wordmark, in the
+      Espresso & Gold palette (`src/styles/global.css`).
+- [x] **Contact email/phone**: `info@cgdesignaus.com` /
+      WhatsApp `+61 432 632 712`, in `src/components/Contact.astro`.
 - [x] **Contact form endpoint**: wired up to [Web3Forms](https://web3forms.com)
       in `src/components/Contact.astro` (the `access_key` hidden input). To
       change the destination email, generate a new access key at
       web3forms.com and swap that value.
-- [ ] **Pricing**: the `£XXX` placeholders in `src/components/Pricing.astro`
-      need real numbers.
-- [ ] **Domain**: once you have a real domain, update `site`/`base` in
-      `astro.config.mjs` (see the GitHub Pages section below).
-- [ ] **Real work examples**: `src/components/Work.astro` is intentionally
-      honest about having no case studies yet — once you've launched a
-      few client sites, replace it with real before/after examples.
+- [x] **Pricing**: real AUD figures in `src/components/Pricing.astro`.
+- [x] **Domain**: `astro.config.mjs` points at `https://cgdesignaus.com`;
+      `public/CNAME` holds the custom domain for GitHub Pages.
+- [x] **Legal pages**: Privacy, Terms & Conditions, Cookies, Refund Policy
+      — all filled in with the real ABN, address, and NSW governing law.
+- [ ] **Real work examples**: `src/components/Work.astro` intentionally
+      shows fictional concept demos, not real client case studies — once
+      you've launched a few real client sites, swap these for genuine
+      before/after examples. Not a launch blocker, just worth knowing the
+      "Featured concepts" section is illustrative rather than real client
+      work.
 
 ---
 
@@ -72,24 +77,8 @@ deploys on every push to `main`.
 2. Under **Source**, select **GitHub Actions**
 3. Push to `main` — the site will build and deploy automatically
 
-Your site will be live at:
-
-```
-https://GrottoSeekers.github.io/forge-and-frame-digital/
-```
-
-### Using a custom domain
-
-1. Buy a domain (Namecheap, Google Domains, etc.)
-2. In **Settings → Pages → Custom domain**, enter it
-3. Add a CNAME record at your registrar pointing to `GrottoSeekers.github.io`
-4. Update `astro.config.mjs`:
-   ```js
-   export default defineConfig({
-     site: "https://yourdomain.com",
-     base: "/",
-   });
-   ```
+The site is already configured for its custom domain via `public/CNAME`
+and `astro.config.mjs`'s `site` value — live at https://cgdesignaus.com.
 
 ---
 
