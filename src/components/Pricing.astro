@@ -1,4 +1,6 @@
 ---
+import Icon from "./Icon.astro";
+
 const BASE_PRICE = 500;
 const FOUNDING_DISCOUNT_RATE = 0.5;
 
@@ -42,137 +44,451 @@ const featureOptions = [
     recurring: true,
   },
 ];
+
+const priceById: Record<string, number> = Object.fromEntries(
+  [...pageOptions, ...featureOptions].map((o) => [o.id, o.price])
+);
+
+const currency = (n: number) => `$${Math.round(n).toLocaleString("en-AU")}`;
+const founding = (n: number) => currency(n * FOUNDING_DISCOUNT_RATE);
+
+const tier1Full = BASE_PRICE;
+const tier2Full = tier1Full + priceById.about + priceById.services + priceById.gallery;
+const tier3Full = tier2Full + priceById.booking + priceById.seo + priceById["booking-page"];
+
+const tiers = [
+  {
+    id: "essentials",
+    name: "Essentials",
+    tagline: "A sharp one-pager that gets you found and called.",
+    full: tier1Full,
+    includes: [
+      "Home + Contact pages",
+      "Copywriting and images sourced",
+      "Mobile-first build",
+      "Live in under a week",
+    ],
+    highlighted: false,
+  },
+  {
+    id: "growth",
+    name: "Growth",
+    tagline: "The full shopfront — services, story and gallery.",
+    full: tier2Full,
+    includes: [
+      "Everything in Essentials",
+      "About, Services / Menu, Gallery",
+      "Enquiry form to your inbox",
+      "Google Business profile tidy-up",
+    ],
+    highlighted: true,
+  },
+  {
+    id: "complete",
+    name: "Complete",
+    tagline: "Bookings and local search, done properly.",
+    full: tier3Full,
+    includes: [
+      "Everything in Growth",
+      "Online booking system",
+      "Local SEO package",
+      "Dedicated booking page",
+    ],
+    highlighted: false,
+  },
+];
 ---
 
 <section class="section section-alt" id="pricing">
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">Pricing</span>
-      <h2>Build your estimate.</h2>
-      <p>
-        One flat starting price for every site — you only pay more for what
-        you actually add.
-      </p>
+      <h2>Three packages. One fixed price.</h2>
+      <p>Every site includes design, copywriting, images, mobile layout and launch. No monthly lock-in.</p>
     </div>
 
-    <div class="estimator reveal" id="estimator" data-base-price={BASE_PRICE}>
-      <div class="estimator-config">
-        <div class="config-block">
-          <h3 class="config-label">Pages</h3>
-          <div class="included-row">
-            <span class="included-label">Always included:</span>
-            {includedPages.map((page) => (
-              <span class="pill included-pill">{page}</span>
-            ))}
+    <div class="founding-banner reveal">
+      <span class="founding-label"><span class="founding-dot"></span>Founding client offer</span>
+      <p>50% off every package for the first businesses we work with — plus priority turnaround and a real say in how it turns out.</p>
+    </div>
+
+    <div class="tier-grid reveal-stagger">
+      {tiers.map((tier) => (
+        <div class:list={["tier-card", { "tier-card--highlighted": tier.highlighted }]}>
+          {tier.highlighted && <span class="tier-pill">Most chosen</span>}
+          <div class="tier-head">
+            <h3>{tier.name}</h3>
+            <p>{tier.tagline}</p>
           </div>
-          <div class="page-grid">
-            {pageOptions.map((page) => (
-              <label class="page-chip">
-                <input type="checkbox" name="est-page" value={page.id} data-price={page.price} />
-                <span>{page.label}</span>
-                <span class="chip-price">+${page.price}</span>
-              </label>
+          <div class="tier-price">
+            <span class="tier-price-now">{founding(tier.full)}</span>
+            <span class="tier-price-rrp">{currency(tier.full)}</span>
+          </div>
+          <ul class="tier-includes">
+            {tier.includes.map((line) => (
+              <li><Icon name="check" class="tier-check" />{line}</li>
             ))}
+          </ul>
+          <a href="#contact" class={tier.highlighted ? "btn btn-gold-on-dark" : "btn btn-ghost"}>Start with {tier.name}</a>
+        </div>
+      ))}
+    </div>
+
+    <p class="pricing-footnote">Hosting and maintenance optional at ${featureOptions.find((f) => f.id === "maintenance")?.price}/month. Domains registered at cost.</p>
+
+    <div class="estimator-toggle-wrap reveal">
+      <button type="button" class="estimator-toggle" id="estimator-toggle" aria-expanded="false">
+        <span class="estimator-chevron" id="estimator-chevron">
+          <Icon name="chevron-down" />
+        </span>
+        <span class="estimator-toggle-text">
+          <span class="estimator-toggle-title">Something in between? Build a custom estimate</span>
+          <span class="estimator-toggle-sub">Pick your pages and features and see the price move</span>
+        </span>
+      </button>
+
+      <div class="estimator" id="estimator" data-base-price={BASE_PRICE} data-founding-rate={FOUNDING_DISCOUNT_RATE} hidden>
+        <div class="estimator-config">
+          <div class="config-block">
+            <h4 class="config-label">Pages</h4>
+            <div class="included-row">
+              {includedPages.map((page) => (
+                <span class="pill included-pill">{page} · included</span>
+              ))}
+            </div>
+            <div class="page-grid">
+              {pageOptions.map((page) => (
+                <label class="page-chip">
+                  <input type="checkbox" name="est-page" value={page.id} data-price={page.price} />
+                  <span>{page.label}</span>
+                  <span class="chip-price">+${page.price}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <div class="config-block">
+            <h4 class="config-label">Features</h4>
+            <div class="feature-list">
+              {featureOptions.map((feature) => (
+                <label class="feature-row">
+                  <span class="feature-text">
+                    <span class="feature-name">{feature.label}</span>
+                    <span class="feature-desc">{feature.desc}</span>
+                  </span>
+                  <span class="feature-price">
+                    +${feature.price}{feature.recurring ? "/mo" : ""}
+                  </span>
+                  <span class="toggle">
+                    <input
+                      type="checkbox"
+                      name="est-feature"
+                      value={feature.id}
+                      data-price={feature.price}
+                      data-recurring={feature.recurring ? "true" : "false"}
+                      data-label={feature.label}
+                    />
+                    <span class="toggle-track" aria-hidden="true"><span class="toggle-thumb"></span></span>
+                  </span>
+                </label>
+              ))}
+            </div>
           </div>
         </div>
 
-        <div class="config-block">
-          <h3 class="config-label">Features</h3>
-          <div class="feature-list">
-            {featureOptions.map((feature) => (
-              <label class="feature-row">
-                <span class="feature-text">
-                  <span class="feature-name">{feature.label}</span>
-                  <span class="feature-desc">{feature.desc}</span>
-                </span>
-                <span class="feature-price">
-                  +${feature.price}{feature.recurring ? "/mo" : ""}
-                </span>
-                <span class="toggle">
-                  <input
-                    type="checkbox"
-                    name="est-feature"
-                    value={feature.id}
-                    data-price={feature.price}
-                    data-recurring={feature.recurring ? "true" : "false"}
-                    data-label={feature.label}
-                  />
-                  <span class="toggle-track" aria-hidden="true"><span class="toggle-thumb"></span></span>
-                </span>
-              </label>
-            ))}
-          </div>
+        <div class="estimator-summary">
+          <span class="summary-label">Your estimate</span>
+          <div class="summary-total" id="estimate-total" aria-live="polite">{founding(BASE_PRICE)}</div>
+          <div class="summary-recurring" id="estimate-recurring">One-off, no lock-in</div>
+
+          <ul class="summary-breakdown" id="estimate-breakdown"></ul>
+
+          <button type="button" class="btn btn-primary summary-cta" id="estimate-cta">
+            Send me this quote
+          </button>
+          <p class="summary-note">No payment, no obligation — a starting point for your free check.</p>
         </div>
-      </div>
-
-      <div class="estimator-summary">
-        <span class="summary-label">Your estimate</span>
-        <div class="summary-total" id="estimate-total" aria-live="polite">${BASE_PRICE}</div>
-        <div class="summary-recurring" id="estimate-recurring" hidden></div>
-
-        <label class="founding-toggle">
-          <span class="toggle">
-            <input type="checkbox" id="founding-discount" checked data-rate={FOUNDING_DISCOUNT_RATE} />
-            <span class="toggle-track" aria-hidden="true"><span class="toggle-thumb"></span></span>
-          </span>
-          <span class="founding-text">
-            <span class="founding-title">Founding client — {FOUNDING_DISCOUNT_RATE * 100}% off</span>
-            <span class="founding-desc">For the first businesses we work with</span>
-          </span>
-        </label>
-
-        <ul class="summary-breakdown" id="estimate-breakdown"></ul>
-
-        <button type="button" class="btn btn-primary summary-cta" id="estimate-cta">
-          Get this quote
-        </button>
-        <p class="summary-note">No payment, no obligation — just a starting point for your free check.</p>
       </div>
     </div>
   </div>
 </section>
 
 <style>
+  .founding-banner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px 24px;
+    padding: 18px 24px;
+    border-radius: 16px;
+    background: var(--accent-2);
+    color: var(--paper-on-dark);
+    margin-bottom: 26px;
+  }
+
+  .founding-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-on-dark-text);
+  }
+
+  .founding-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent-on-dark);
+    flex-shrink: 0;
+  }
+
+  .founding-banner p {
+    margin: 0;
+    font-size: 0.96rem;
+    color: var(--paper-on-dark);
+  }
+
+  .tier-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(272px, 1fr));
+    gap: 20px;
+    align-items: stretch;
+  }
+
+  .tier-card {
+    background: var(--bg);
+    border: 1px solid rgba(28, 23, 16, 0.14);
+    border-radius: 20px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+  }
+
+  .tier-card--highlighted {
+    background: var(--accent-2);
+    color: var(--paper-on-dark);
+    border-color: var(--accent-2);
+    box-shadow: 0 40px 80px -44px rgba(28, 23, 16, 0.6);
+  }
+
+  .tier-pill {
+    position: absolute;
+    top: -12px;
+    left: 30px;
+    padding: 5px 13px;
+    border-radius: 999px;
+    background: var(--accent-on-dark);
+    color: var(--on-accent);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .tier-head h3 {
+    font-size: 1.2rem;
+    margin: 0 0 4px;
+    letter-spacing: -0.01em;
+  }
+
+  .tier-card--highlighted .tier-head h3 {
+    color: #fff;
+  }
+
+  .tier-head p {
+    margin: 0;
+    font-size: 0.88rem;
+    color: rgba(28, 23, 16, 0.68);
+  }
+
+  .tier-card--highlighted .tier-head p {
+    color: rgba(246, 236, 216, 0.78);
+  }
+
+  .tier-price {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .tier-price-now {
+    font-family: "Fraunces", serif;
+    font-size: 2.5rem;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .tier-card--highlighted .tier-price-now {
+    color: #fff;
+  }
+
+  .tier-price-rrp {
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: line-through;
+    color: rgba(28, 23, 16, 0.45);
+  }
+
+  .tier-card--highlighted .tier-price-rrp {
+    color: rgba(246, 236, 216, 0.55);
+  }
+
+  .tier-includes {
+    list-style: none;
+    margin: 0;
+    padding: 20px 0 0;
+    border-top: 1px solid rgba(28, 23, 16, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+  }
+
+  .tier-card--highlighted .tier-includes {
+    border-top-color: rgba(246, 236, 216, 0.18);
+  }
+
+  .tier-includes li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: rgba(28, 23, 16, 0.78);
+  }
+
+  .tier-card--highlighted .tier-includes li {
+    color: rgba(246, 236, 216, 0.9);
+  }
+
+  .tier-check {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: var(--accent-text);
+  }
+
+  .tier-card--highlighted .tier-check {
+    color: var(--accent-on-dark);
+  }
+
+  .pricing-footnote {
+    margin: 18px 0 0;
+    font-size: 0.86rem;
+    color: var(--text-faint);
+  }
+
+  .estimator-toggle-wrap {
+    margin-top: 36px;
+    border-top: 1px solid rgba(28, 23, 16, 0.14);
+    padding-top: 28px;
+  }
+
+  .estimator-toggle {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    min-height: 56px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    color: var(--text);
+    font-family: inherit;
+  }
+
+  .estimator-chevron {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    border: 1.5px solid rgba(28, 23, 16, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-2);
+    transition: transform 0.3s var(--ease);
+  }
+
+  .estimator-chevron svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .estimator-toggle[aria-expanded="true"] .estimator-chevron {
+    transform: rotate(180deg);
+  }
+
+  .estimator-toggle-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .estimator-toggle-title {
+    font-family: "Fraunces", serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  .estimator-toggle-sub {
+    font-size: 0.86rem;
+    color: rgba(28, 23, 16, 0.65);
+    font-weight: 500;
+  }
+
   .estimator {
     display: grid;
-    grid-template-columns: 1.4fr 1fr;
-    gap: 32px;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 28px;
     align-items: start;
+    margin-top: 24px;
+    overflow: hidden;
+  }
+
+  .estimator[hidden] {
+    display: none;
   }
 
   .estimator-config {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 28px;
   }
 
   .config-label {
-    font-size: 0.78rem;
+    font-size: 0.74rem;
     font-weight: 700;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--text-faint);
-    margin: 0 0 6px;
+    color: rgba(28, 23, 16, 0.6);
+    margin: 0 0 12px;
+    font-family: "Plus Jakarta Sans", sans-serif;
   }
 
-  /* Pages */
   .included-row {
     display: flex;
-    align-items: center;
     flex-wrap: wrap;
     gap: 8px;
-    margin-bottom: 14px;
-  }
-
-  .included-label {
-    font-size: 0.82rem;
-    color: var(--text-faint);
+    margin-bottom: 12px;
   }
 
   .included-pill {
+    min-height: 38px;
+    padding: 0 15px;
     background: var(--bg-raised-2);
-    border-color: var(--line-strong);
-    color: var(--text-dim);
+    border-color: rgba(28, 23, 16, 0.16);
+    color: rgba(28, 23, 16, 0.7);
+    font-weight: 700;
   }
 
   .page-grid {
@@ -185,16 +501,17 @@ const featureOptions = [
     position: relative;
     display: inline-flex;
     align-items: center;
-    gap: 7px;
-    padding: 9px 14px;
+    gap: 8px;
+    min-height: 42px;
+    padding: 0 16px;
     border-radius: 999px;
     background: var(--bg);
-    border: 1.5px solid var(--line);
-    font-size: 0.85rem;
+    border: 1.5px solid rgba(28, 23, 16, 0.16);
+    font-size: 0.88rem;
     font-weight: 600;
-    color: var(--text-dim);
+    color: rgba(28, 23, 16, 0.75);
     cursor: pointer;
-    transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+    transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
   }
 
   .page-chip input {
@@ -205,17 +522,13 @@ const featureOptions = [
   }
 
   .page-chip:hover {
-    border-color: var(--line-strong);
-  }
-
-  .page-chip:active {
-    transform: scale(0.96);
+    border-color: rgba(28, 23, 16, 0.3);
   }
 
   .page-chip:has(input:checked) {
     border-color: var(--accent-2);
-    background: var(--accent-2-soft);
-    color: var(--accent-2);
+    background: var(--accent-2);
+    color: var(--paper-on-dark);
   }
 
   .page-chip:has(input:focus-visible) {
@@ -224,29 +537,24 @@ const featureOptions = [
   }
 
   .chip-price {
-    font-size: 0.76rem;
-    color: var(--text-faint);
+    font-size: 0.78rem;
+    opacity: 0.75;
   }
 
-  .page-chip:has(input:checked) .chip-price {
-    color: var(--accent-2);
-  }
-
-  /* Features */
   .feature-list {
     display: flex;
     flex-direction: column;
-    gap: 4px;
   }
 
   .feature-row {
-    display: grid;
-    grid-template-columns: 1fr auto auto;
+    display: flex;
     align-items: center;
     gap: 16px;
-    padding: 14px 4px;
+    flex-wrap: wrap;
+    min-height: 56px;
+    padding: 12px 6px;
     border-bottom: 1px solid var(--line);
-    border-radius: var(--radius-sm);
+    border-radius: 10px;
     cursor: pointer;
     transition: background 0.15s ease;
   }
@@ -256,10 +564,6 @@ const featureOptions = [
   }
 
   .feature-row:hover {
-    background: var(--bg-raised);
-  }
-
-  .feature-row:active {
     background: var(--bg-raised-2);
   }
 
@@ -272,22 +576,24 @@ const featureOptions = [
     display: flex;
     flex-direction: column;
     gap: 2px;
+    flex: 1;
+    min-width: 160px;
   }
 
   .feature-name {
     font-weight: 700;
-    font-size: 0.92rem;
+    font-size: 0.94rem;
   }
 
   .feature-desc {
-    font-size: 0.78rem;
-    color: var(--text-faint);
+    font-size: 0.8rem;
+    color: rgba(28, 23, 16, 0.62);
   }
 
   .feature-price {
-    font-size: 0.82rem;
+    font-size: 0.84rem;
     font-weight: 600;
-    color: var(--text-faint);
+    color: rgba(28, 23, 16, 0.62);
     white-space: nowrap;
   }
 
@@ -305,11 +611,11 @@ const featureOptions = [
   }
 
   .toggle-track {
-    width: 42px;
-    height: 24px;
+    width: 46px;
+    height: 26px;
     border-radius: 999px;
-    background: var(--bg-raised-2);
-    border: 1px solid var(--line-strong);
+    background: var(--bg);
+    border: 1px solid rgba(28, 23, 16, 0.2);
     position: relative;
     transition: background 0.25s ease, border-color 0.25s ease;
   }
@@ -318,8 +624,8 @@ const featureOptions = [
     position: absolute;
     top: 2px;
     left: 2px;
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     background: #fff;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
@@ -336,7 +642,7 @@ const featureOptions = [
   }
 
   .toggle input:checked ~ .toggle-track .toggle-thumb {
-    transform: translateX(18px);
+    transform: translateX(20px);
   }
 
   .toggle input:focus-visible ~ .toggle-track {
@@ -344,32 +650,31 @@ const featureOptions = [
     outline-offset: 2px;
   }
 
-  /* Summary sidebar */
   .estimator-summary {
-    position: sticky;
-    top: 96px;
-    background: var(--bg-raised-2);
-    border: 1px solid var(--line-strong);
-    border-radius: var(--radius);
+    background: var(--bg);
+    border: 1px solid rgba(28, 23, 16, 0.16);
+    border-radius: 20px;
     padding: 28px;
-    box-shadow: var(--shadow);
+    box-shadow: 0 30px 60px -36px rgba(28, 23, 16, 0.35);
     display: flex;
     flex-direction: column;
   }
 
   .summary-label {
-    font-size: 0.78rem;
+    font-size: 0.74rem;
     font-weight: 700;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--text-faint);
+    color: rgba(28, 23, 16, 0.6);
   }
 
   .summary-total {
     font-family: "Fraunces", serif;
-    font-size: 2.6rem;
+    font-size: 2.7rem;
     font-weight: 600;
-    margin: 6px 0 2px;
+    line-height: 1.05;
+    margin: 8px 0 2px;
+    letter-spacing: -0.02em;
     transition: color 0.3s ease;
   }
 
@@ -378,48 +683,19 @@ const featureOptions = [
   }
 
   .summary-recurring {
-    font-size: 0.86rem;
-    color: var(--text-dim);
-    margin-bottom: 14px;
-  }
-
-  .founding-toggle {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-top: 14px;
-    padding: 12px 14px;
-    border-radius: var(--radius-sm);
-    background: var(--accent-2-soft);
-    border: 1px solid rgba(59, 42, 28, 0.3);
-    cursor: pointer;
-  }
-
-  .founding-text {
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-  }
-
-  .founding-title {
-    font-weight: 700;
-    font-size: 0.86rem;
-    color: var(--accent-2);
-  }
-
-  .founding-desc {
-    font-size: 0.76rem;
-    color: var(--text-faint);
+    font-size: 0.88rem;
+    color: rgba(28, 23, 16, 0.68);
+    min-height: 22px;
   }
 
   .summary-breakdown {
     list-style: none;
-    margin: 0 0 20px;
-    padding: 14px 0 0;
-    border-top: 1px solid var(--line);
+    margin: 16px 0 22px;
+    padding: 16px 0 0;
+    border-top: 1px solid rgba(28, 23, 16, 0.12);
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 7px;
     min-height: 20px;
   }
 
@@ -427,38 +703,30 @@ const featureOptions = [
     display: flex;
     justify-content: space-between;
     gap: 12px;
-    font-size: 0.82rem;
-    color: var(--text-dim);
+    font-size: 0.86rem;
+    color: rgba(28, 23, 16, 0.7);
   }
 
   .summary-breakdown li.discount-line {
-    color: var(--accent-2);
+    color: var(--accent-text);
     font-weight: 700;
   }
 
   .summary-cta {
     width: 100%;
+    min-height: 50px;
   }
 
   .summary-note {
     margin: 12px 0 0;
-    font-size: 0.76rem;
-    color: var(--text-faint);
+    font-size: 0.78rem;
+    color: rgba(28, 23, 16, 0.6);
     text-align: center;
   }
 
   @media (max-width: 900px) {
-    .estimator {
-      grid-template-columns: 1fr;
-    }
-    .estimator-summary {
-      position: static;
-    }
     .feature-row {
-      grid-template-columns: 1fr auto;
-    }
-    .feature-price {
-      grid-column: 1 / 2;
+      align-items: flex-start;
     }
   }
 </style>
@@ -467,10 +735,20 @@ const featureOptions = [
   import { animate } from "motion";
   import { prefersReducedMotion } from "../lib/motion-utils.js";
 
+  const estimatorToggle = document.getElementById("estimator-toggle");
+  const estimator = document.getElementById("estimator");
+
+  estimatorToggle?.addEventListener("click", () => {
+    const isOpen = estimatorToggle.getAttribute("aria-expanded") === "true";
+    estimatorToggle.setAttribute("aria-expanded", String(!isOpen));
+    if (estimator) estimator.hidden = isOpen;
+    if (!isOpen) estimator?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  });
+
   const BASE_PRICE = Number(document.getElementById("estimator")?.dataset.basePrice ?? 0);
+  const FOUNDING_RATE = Number(document.getElementById("estimator")?.dataset.foundingRate ?? 0);
   const pageInputs = Array.from(document.querySelectorAll('input[name="est-page"]'));
   const featureInputs = Array.from(document.querySelectorAll('input[name="est-feature"]'));
-  const foundingInput = document.getElementById("founding-discount");
 
   const totalEl = document.getElementById("estimate-total");
   const recurringEl = document.getElementById("estimate-recurring");
@@ -496,19 +774,17 @@ const featureOptions = [
     const recurringFeatures = selectedFeatures.filter((f) => f.recurring).reduce((sum, f) => sum + f.price, 0);
 
     const subtotal = BASE_PRICE + pagesTotal + oneOffFeatures;
-    const foundingApplied = Boolean(foundingInput?.checked);
-    const discountRate = foundingApplied ? Number(foundingInput.dataset.rate) : 0;
-    const discount = subtotal * discountRate;
+    const discount = subtotal * FOUNDING_RATE;
     const oneOff = subtotal - discount;
 
-    return { selectedPages, selectedFeatures, subtotal, discount, foundingApplied, oneOff, recurringFeatures };
+    return { selectedPages, selectedFeatures, subtotal, discount, oneOff, recurringFeatures };
   }
 
-  let displayedTotal = BASE_PRICE;
+  let displayedTotal = BASE_PRICE * (1 - FOUNDING_RATE);
   let totalAnimation = null;
 
   function render() {
-    const { selectedPages, selectedFeatures, discount, foundingApplied, oneOff, recurringFeatures } = calculate();
+    const { selectedPages, selectedFeatures, discount, oneOff, recurringFeatures } = calculate();
 
     if (totalEl) {
       totalAnimation?.stop();
@@ -531,12 +807,7 @@ const featureOptions = [
     }
 
     if (recurringEl) {
-      if (recurringFeatures > 0) {
-        recurringEl.textContent = `+ ${currency(recurringFeatures)}/month ongoing`;
-        recurringEl.hidden = false;
-      } else {
-        recurringEl.hidden = true;
-      }
+      recurringEl.textContent = recurringFeatures > 0 ? `+ ${currency(recurringFeatures)}/month ongoing` : "One-off, no lock-in";
     }
 
     if (breakdownEl) {
@@ -551,14 +822,14 @@ const featureOptions = [
         li.append(labelSpan, amountSpan);
         breakdownEl.append(li);
       };
-      addLine("Base site", `+${currency(BASE_PRICE)}`);
+      addLine("Base site (Home + Contact)", `+${currency(BASE_PRICE)}`);
       selectedPages.forEach((p) => {
         addLine(p.parentElement?.querySelector("span")?.textContent ?? "Page", `+${currency(Number(p.dataset.price))}`);
       });
       selectedFeatures.forEach((f) => {
         addLine(f.label + (f.recurring ? " (monthly)" : ""), `+${currency(f.price)}`);
       });
-      if (foundingApplied && discount > 0) {
+      if (discount > 0) {
         addLine("Founding client discount", `−${currency(discount)}`, true);
       }
     }
@@ -568,12 +839,10 @@ const featureOptions = [
     input.addEventListener("change", render);
   });
 
-  foundingInput?.addEventListener("change", render);
-
   render();
 
   ctaBtn?.addEventListener("click", () => {
-    const { selectedPages, selectedFeatures, oneOff, recurringFeatures, foundingApplied } = calculate();
+    const { selectedPages, selectedFeatures, oneOff, recurringFeatures } = calculate();
 
     const pageLabels = selectedPages.map((p) => p.parentElement?.querySelector("span")?.textContent ?? "");
     const featureLabels = selectedFeatures.map((f) => f.label);
@@ -588,7 +857,7 @@ const featureOptions = [
     if (estimateInput) {
       estimateInput.value = `${summaryParts.join(" ")} — estimated $${Math.round(oneOff)}${
         recurringFeatures ? ` + $${recurringFeatures}/mo` : ""
-      }${foundingApplied ? " (founding client discount applied)" : ""}`;
+      } (founding client discount applied)`;
     }
 
     const notice = document.getElementById("prefill-notice");
@@ -602,10 +871,10 @@ const featureOptions = [
       notice.hidden = false;
     }
 
-    const serviceSelect = document.getElementById("service");
-    if (serviceSelect) {
-      serviceSelect.value = "New Site";
-      serviceSelect.dispatchEvent(new Event("change"));
+    const serviceInput = document.getElementById("service");
+    if (serviceInput) {
+      serviceInput.value = "New Site";
+      serviceInput.dispatchEvent(new Event("change"));
     }
 
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth", block: "start" });

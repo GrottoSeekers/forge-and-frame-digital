@@ -13,6 +13,9 @@
   --accent-2: #3b2a1c; /* espresso brown */
   --accent-2-soft: rgba(59, 42, 28, 0.1);
   --on-accent: #241a10;
+  --accent-on-dark: #e0a63c; /* gold — ticks, CTAs and accents on espresso grounds */
+  --gold-on-dark-text: #e9c27a; /* gold — eyebrow/label weight text on espresso grounds */
+  --paper-on-dark: #f6ecd8; /* paper — body text on espresso grounds */
   --error: #c1432f;
   --error-soft: rgba(193, 67, 47, 0.1);
   --success: #3f7d1f;
@@ -32,7 +35,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 96px;
+  scroll-padding-top: 86px;
   background: var(--bg);
   scrollbar-color: var(--line-strong) var(--bg);
 }
@@ -181,7 +184,8 @@ img {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 15px 28px;
+  min-height: 48px;
+  padding: 0 28px;
   border-radius: 999px;
   font-weight: 700;
   font-family: "Plus Jakarta Sans", sans-serif;
@@ -189,7 +193,7 @@ img {
   text-decoration: none;
   cursor: pointer;
   border: 1.5px solid transparent;
-  transition: box-shadow 0.35s var(--ease), background 0.25s ease, border-color 0.25s ease;
+  transition: transform 0.25s var(--ease), box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s ease, color 0.2s ease;
   white-space: nowrap;
   position: relative;
 }
@@ -197,22 +201,80 @@ img {
 .btn-primary {
   background: var(--accent);
   color: var(--on-accent);
-  box-shadow: 0 0 0 0 rgba(184, 132, 31, 0.5);
 }
 
 .btn-primary:hover {
-  box-shadow: 0 16px 40px -12px rgba(184, 132, 31, 0.65);
+  background: #a4741a;
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px -14px rgba(184, 132, 31, 0.85);
+}
+
+.btn-primary:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.btn-espresso {
+  background: var(--accent-2);
+  color: var(--paper-on-dark);
+}
+
+.btn-espresso:hover {
+  background: var(--on-accent);
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px -14px rgba(28, 23, 16, 0.85);
+}
+
+.btn-espresso:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.btn-gold-on-dark {
+  background: var(--accent-on-dark);
+  color: var(--on-accent);
+}
+
+.btn-gold-on-dark:hover {
+  background: #f0bb56;
+  transform: translateY(-2px);
+  box-shadow: 0 18px 36px -14px rgba(224, 166, 60, 0.7);
+}
+
+.btn-gold-on-dark:active {
+  transform: translateY(0) scale(0.98);
 }
 
 .btn-ghost {
   background: transparent;
-  border-color: var(--line-strong);
+  border-color: rgba(28, 23, 16, 0.22);
   color: var(--text);
 }
 
 .btn-ghost:hover {
   border-color: var(--accent-2);
   color: var(--accent-2);
+  background: rgba(59, 42, 28, 0.06);
+  transform: translateY(-2px);
+}
+
+.btn-ghost:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.arrow-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 44px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--accent-text);
+  text-decoration: none;
+  transition: gap 0.25s ease, color 0.2s ease;
+}
+
+.arrow-link:hover {
+  color: var(--accent-2);
+  gap: 13px;
 }
 
 .pill {
@@ -233,11 +295,13 @@ img {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 32px;
-  transition: border-color 0.3s ease, background 0.3s ease;
+  transition: transform 0.3s var(--ease), border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card:hover {
-  border-color: var(--line-strong);
+  transform: translateY(-4px);
+  border-color: rgba(28, 23, 16, 0.28);
+  box-shadow: 0 30px 56px -34px rgba(28, 23, 16, 0.42);
 }
 
 .grid {

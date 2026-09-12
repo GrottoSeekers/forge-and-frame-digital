@@ -7,73 +7,127 @@ const year = new Date().getFullYear();
 
 <footer class="footer">
   <div class="wrap footer-inner">
-    <a href={base || "/"} class="logo">
-      <Logomark class="logo-mark" color="var(--accent-text)" />
-      <span class="logo-word">CG Design <span class="amp">&amp;</span> Co.</span>
-    </a>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href={base || "/"} class="logo">
+          <Logomark class="logo-mark" color="var(--accent-on-dark)" />
+          <span class="logo-word">CG Design <span class="amp">&amp;</span> Co.</span>
+        </a>
+        <p>Websites for local businesses. Randwick, NSW — working with clients worldwide.</p>
+      </div>
 
-    <nav class="footer-nav" aria-label="Footer">
-      <a href="#services">Services</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#work">Work</a>
-      <a href="#faq">FAQ</a>
-      <a href="#contact">Contact</a>
-    </nav>
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="#work">Work</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#process">Process</a>
+        <a href="#faq">FAQ</a>
+      </nav>
 
-    <nav class="footer-nav footer-nav--legal" aria-label="Legal">
-      <a href={`${base}/privacy-policy`}>Privacy Policy</a>
-      <a href={`${base}/terms-and-conditions`}>Terms &amp; Conditions</a>
-      <a href={`${base}/cookies-policy`}>Cookies Policy</a>
-      <a href={`${base}/refund-policy`}>Refund Policy</a>
-    </nav>
+      <nav class="footer-nav" aria-label="Legal">
+        <a href={`${base}/privacy-policy`}>Privacy Policy</a>
+        <a href={`${base}/terms-and-conditions`}>Terms &amp; Conditions</a>
+        <a href={`${base}/cookies-policy`}>Cookies Policy</a>
+        <a href={`${base}/refund-policy`}>Refund Policy</a>
+      </nav>
 
-    <p class="footer-copy">© {year} CG Design &amp; Co. Websites for local businesses, everywhere.</p>
+      <div class="footer-contact">
+        <a href="mailto:info@cgdesignaus.com">info@cgdesignaus.com</a>
+        <a href="https://wa.me/61432632712" target="_blank" rel="noopener noreferrer">WhatsApp +61 432 632 712</a>
+        <span>ABN 25 672 082 550</span>
+      </div>
+    </div>
+
+    <p class="footer-copy">© {year} CG Design &amp; Co. All rights reserved.</p>
   </div>
 </footer>
 
 <style>
   .footer {
-    border-top: 1px solid var(--line);
-    padding: 48px 0 36px;
+    background: var(--accent-2);
+    color: rgba(246, 236, 216, 0.76);
+    padding: clamp(44px, 5vw, 64px) 0 32px;
   }
 
-  .footer-inner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 22px;
-    text-align: center;
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 32px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid rgba(246, 236, 216, 0.16);
+  }
+
+  .footer-brand .logo {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--paper-on-dark);
+    margin-bottom: 12px;
+  }
+
+  .footer-brand .logo-mark {
+    font-size: 1.6rem;
+    line-height: 1;
+  }
+
+  .footer-brand .logo-word {
+    font-family: "Fraunces", serif;
+    font-size: 1.02rem;
+    font-weight: 600;
+  }
+
+  .footer-brand .logo-word .amp {
+    color: var(--accent-on-dark);
+    font-style: italic;
+  }
+
+  .footer-brand p {
+    margin: 0;
+    font-size: 0.9rem;
+    max-width: 32ch;
   }
 
   .footer-nav {
     display: flex;
-    gap: 24px;
-    flex-wrap: wrap;
-    justify-content: center;
-    font-size: 0.88rem;
+    flex-direction: column;
+    gap: 11px;
+    font-size: 0.9rem;
   }
 
   .footer-nav a {
+    color: rgba(246, 236, 216, 0.76);
     text-decoration: none;
-    color: var(--text-dim);
     transition: color 0.2s ease;
   }
 
   .footer-nav a:hover {
-    color: var(--accent-2);
+    color: var(--accent-on-dark);
   }
 
-  .footer-nav--legal {
-    font-size: 0.78rem;
+  .footer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    font-size: 0.9rem;
   }
 
-  .footer-nav--legal a {
-    color: var(--text-faint);
+  .footer-contact a {
+    color: var(--paper-on-dark);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .footer-contact a:hover {
+    color: var(--accent-on-dark);
+  }
+
+  .footer-contact span {
+    color: rgba(246, 236, 216, 0.6);
   }
 
   .footer-copy {
-    font-size: 0.8rem;
-    color: var(--text-faint);
-    margin: 0;
+    margin: 24px 0 0;
+    font-size: 0.82rem;
+    color: rgba(246, 236, 216, 0.6);
   }
 </style>
