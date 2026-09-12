@@ -49,22 +49,9 @@ const ogImageURL = new URL(image, Astro.site);
     <div id="scroll-progress"></div>
     <slot />
     <script>
-      import { hover, press, animate } from "motion";
-      import { prefersReducedMotion, SPRING_GENTLE, SPRING_SNAPPY } from "../lib/motion-utils.js";
-
-      if (!prefersReducedMotion()) {
-        hover(".btn, .card", (element) => {
-          const lift = element.classList.contains("card") ? -4 : -3;
-          animate(element, { y: lift }, SPRING_GENTLE);
-          return () => animate(element, { y: 0 }, SPRING_GENTLE);
-        });
-
-        press(".btn", (element) => {
-          animate(element, { y: -1, scale: 0.98 }, SPRING_SNAPPY);
-          return () => animate(element, { y: 0, scale: 1 }, SPRING_SNAPPY);
-        });
-      }
-
+      // Hover/press feedback for .btn and .card now runs on CSS transitions
+      // (see the shared rules in global.css) rather than motion's hover()/press(),
+      // so it doesn't fight the CSS :active scale over the transform property.
       const bar = document.getElementById("scroll-progress");
 
       function updateProgress() {

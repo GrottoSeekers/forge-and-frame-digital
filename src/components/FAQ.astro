@@ -1,45 +1,44 @@
 ---
+import Icon from "./Icon.astro";
+
 export const faqs = [
   {
     q: "How long does it take?",
-    a: "Under a week once we have your details.",
+    a: "Under a week once we have your details, photos and go-ahead.",
   },
   {
     q: "Do I own the site?",
-    a: "Yes, 100% yours upon final payment.",
+    a: "Yes — 100% yours on final payment, on your own domain.",
   },
   {
     q: "What if I don't have photos or text?",
-    a: "We write the text and source images for you.",
+    a: "We write the copy and source the images for you. It's included in every package.",
   },
   {
-    q: "How much does it cost?",
-    a: "It depends on what you need. Use the estimate tool above, or ask us for a fixed quote.",
+    q: "Can I make changes after launch?",
+    a: "Send us what you'd like changed and we'll quote it, or it's included on the $60/month maintenance plan.",
   },
   {
-    q: "Can I update the site myself later?",
-    a: "Just send us what you'd like changed — we'll quote the work, or it's included if you join our maintenance plan.",
+    q: "Do you handle domains and hosting?",
+    a: "Yes — we register domains at cost, or build on the domain and hosting you already have.",
   },
   {
-    q: "Do you handle my domain and hosting?",
-    a: "Yes — we can register a domain for you at cost (billed separately from our design fee), or build on your existing domain and hosting if you'd rather keep it.",
-  },
-  {
-    q: "What if I want changes after the site is live?",
-    a: "Small text and image changes are quick to make. For ongoing updates, our maintenance plan covers it.",
-  },
-  {
-    q: "Do you only work with businesses in Australia?",
-    a: "No. We're Australia-based but work with businesses anywhere — everything is done remotely.",
+    q: "Do you only work with Australian businesses?",
+    a: "No. We're based in Sydney and most of our clients are Australian, but the whole process is remote — brief, drafts, feedback and launch all happen over WhatsApp, email and video. We've set up hours that overlap with the UK, US and Europe, and we invoice in your local currency.",
   },
 ];
 ---
 
-<section class="section" id="faq">
-  <div class="wrap">
-    <div class="section-head reveal">
+<section class="section section-alt" id="faq">
+  <div class="wrap faq-wrap">
+    <div class="faq-intro reveal">
       <span class="eyebrow">FAQ</span>
       <h2>Good questions, honest answers.</h2>
+      <p>Anything else, just ask — we answer WhatsApp faster than email.</p>
+      <a href="#contact" class="arrow-link">
+        Ask a question
+        <Icon name="arrow-right" class="arrow-link-icon" />
+      </a>
     </div>
 
     <div class="faq-list reveal">
@@ -47,7 +46,9 @@ export const faqs = [
         <details class="faq-item" open={i === 0}>
           <summary>
             <span class="faq-q">{item.q}</span>
-            <span class="faq-icon" aria-hidden="true"></span>
+            <span class="faq-icon" aria-hidden="true">
+              <Icon name="chevron-down" />
+            </span>
           </summary>
           <div class="faq-panel">
             <p>{item.a}</p>
@@ -59,16 +60,30 @@ export const faqs = [
 </section>
 
 <style>
+  .faq-wrap {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: clamp(32px, 5vw, 64px);
+    align-items: start;
+  }
+
+  .faq-intro p {
+    color: var(--text-dim);
+    margin: 0 0 20px;
+  }
+
+  .arrow-link-icon {
+    width: 15px;
+    height: 15px;
+  }
+
   .faq-list {
-    max-width: 780px;
     display: flex;
     flex-direction: column;
-    gap: 2px;
   }
 
   .faq-item {
-    border-bottom: 1px solid var(--line);
-    padding: 22px 0;
+    border-bottom: 1px solid rgba(28, 23, 16, 0.14);
   }
 
   .faq-item summary {
@@ -77,6 +92,8 @@ export const faqs = [
     align-items: center;
     justify-content: space-between;
     gap: 20px;
+    min-height: 60px;
+    padding: 16px 0;
     list-style: none;
   }
 
@@ -87,40 +104,30 @@ export const faqs = [
   .faq-q {
     font-family: "Fraunces", serif;
     font-weight: 600;
-    font-size: 1.08rem;
+    font-size: 1.05rem;
+    letter-spacing: -0.01em;
   }
 
   .faq-icon {
-    position: relative;
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     flex-shrink: 0;
-  }
-
-  .faq-icon::before,
-  .faq-icon::after {
-    content: "";
-    position: absolute;
-    background: var(--accent-2);
+    border-radius: 50%;
+    border: 1.5px solid rgba(28, 23, 16, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-2);
     transition: transform 0.3s var(--ease);
   }
 
-  .faq-icon::before {
-    left: 0;
-    top: 9px;
-    width: 20px;
-    height: 2px;
+  .faq-icon svg {
+    width: 15px;
+    height: 15px;
   }
 
-  .faq-icon::after {
-    left: 9px;
-    top: 0;
-    width: 2px;
-    height: 20px;
-  }
-
-  .faq-item[open] .faq-icon::after {
-    transform: rotate(90deg) scaleX(0);
+  .faq-item[open] .faq-icon {
+    transform: rotate(180deg);
   }
 
   .faq-panel {
@@ -128,9 +135,10 @@ export const faqs = [
   }
 
   .faq-panel p {
-    margin: 14px 0 0;
-    color: var(--text-dim);
-    max-width: 620px;
+    margin: 0 0 18px;
+    color: rgba(28, 23, 16, 0.72);
+    font-size: 0.94rem;
+    max-width: 60ch;
   }
 </style>
 

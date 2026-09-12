@@ -1,0 +1,145 @@
+---
+const stats = [
+  {
+    heading: "Sydney-based, working worldwide",
+    sub: "Randwick, NSW — the whole process runs over WhatsApp, email and video, so your timezone is fine",
+  },
+  {
+    heading: "One point of contact",
+    sub: "The person designing your site is the person you talk to",
+  },
+  {
+    heading: "Fixed pricing",
+    sub: "Agreed in writing before work starts",
+  },
+];
+
+const steps = [
+  {
+    number: "01",
+    title: "Free website check",
+    body: "Send your business name and current site, if you have one. You get an honest written read on what's costing you enquiries.",
+  },
+  {
+    number: "02",
+    title: "Fixed quote and a date",
+    body: "A package or a custom scope, priced to the dollar, with a launch date you can hold us to.",
+  },
+  {
+    number: "03",
+    title: "Live in under a week",
+    body: "We write the copy, source the images, build it and launch on your domain. The site is yours outright.",
+  },
+];
+---
+
+<section class="section" id="process">
+  <div class="wrap process-wrap">
+    <div class="process-copy reveal">
+      <span class="eyebrow">How it works</span>
+      <h2>You deal with the designer. Start to finish.</h2>
+      <p>
+        No account managers, no offshore handoff, no surprise invoices. A
+        small Sydney studio that answers its own phone — for local
+        businesses here and anywhere else.
+      </p>
+
+      <div class="process-stats">
+        {stats.map((stat) => (
+          <div class="stat">
+            <strong>{stat.heading}</strong>
+            <span>{stat.sub}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="process-steps reveal-stagger">
+      {steps.map((step) => (
+        <div class="step-card">
+          <span class="step-number">{step.number}</span>
+          <div>
+            <h3>{step.title}</h3>
+            <p>{step.body}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .process-wrap {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: clamp(36px, 5vw, 64px);
+    align-items: start;
+  }
+
+  .process-copy p {
+    color: var(--text-dim);
+    font-size: 1.02rem;
+    max-width: 46ch;
+    margin: 0 0 26px;
+  }
+
+  .process-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .stat {
+    border-left: 2px solid var(--accent);
+    padding-left: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .stat strong {
+    font-family: "Fraunces", serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+  }
+
+  .stat span {
+    font-size: 0.88rem;
+    color: var(--text-faint);
+  }
+
+  .process-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .step-card {
+    display: flex;
+    gap: 20px;
+    padding: 26px;
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+  }
+
+  .step-number {
+    font-family: "Fraunces", serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .step-card h3 {
+    font-size: 1.1rem;
+    margin: 0 0 6px;
+    letter-spacing: -0.01em;
+  }
+
+  .step-card p {
+    margin: 0;
+    font-size: 0.92rem;
+    color: var(--text-dim);
+  }
+</style>

@@ -1,5 +1,11 @@
 ---
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+const serviceOptions = [
+  { value: "New Site", label: "New site" },
+  { value: "Redesign", label: "Redesign" },
+  { value: "Not Sure", label: "Not sure yet" },
+];
 ---
 
 <section class="section section-alt" id="contact">
@@ -9,22 +15,27 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
       <span class="eyebrow">Get in touch</span>
       <h2>Get your free website check.</h2>
       <p>
-        Tell us a bit about your business. If you already have a website,
-        add the link — we'll take a look and tell you honestly what we'd
-        change. No obligation.
+        Tell us about the business. If you already have a site, add the
+        link — we'll tell you honestly what we'd change, whether or not you
+        hire us.
       </p>
 
-      <a
-        href="https://wa.me/61432632712"
-        class="whatsapp-link"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2m0 1.67c2.2 0 4.27.86 5.82 2.42a8.19 8.19 0 0 1 2.42 5.82c0 4.54-3.7 8.24-8.25 8.24a8.3 8.3 0 0 1-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.23 8.23 0 0 1-1.26-4.4c0-4.55 3.7-8.22 8.26-8.22M8.53 7.33c-.16 0-.43.06-.66.31-.22.25-.87.85-.87 2.07 0 1.22.89 2.4 1.01 2.56.13.17 1.75 2.67 4.25 3.73.6.24 1.06.39 1.42.5.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.23-.16-.48-.28-.25-.13-1.47-.73-1.7-.81-.23-.08-.39-.13-.56.13-.16.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.15.16-.25.24-.42.08-.16.04-.31-.02-.43-.06-.13-.56-1.36-.77-1.86-.2-.48-.4-.42-.56-.42h-.47" />
-        </svg>
-        WhatsApp us
-      </a>
+      <div class="contact-cta-row">
+        <a
+          href="https://wa.me/61432632712"
+          class="btn btn-espresso whatsapp-link"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2m0 1.67c2.2 0 4.27.86 5.82 2.42a8.19 8.19 0 0 1 2.42 5.82c0 4.54-3.7 8.24-8.25 8.24a8.3 8.3 0 0 1-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.23 8.23 0 0 1-1.26-4.4c0-4.55 3.7-8.22 8.26-8.22M8.53 7.33c-.16 0-.43.06-.66.31-.22.25-.87.85-.87 2.07 0 1.22.89 2.4 1.01 2.56.13.17 1.75 2.67 4.25 3.73.6.24 1.06.39 1.42.5.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.23-.16-.48-.28-.25-.13-1.47-.73-1.7-.81-.23-.08-.39-.13-.56.13-.16.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.15.16-.25.24-.42.08-.16.04-.31-.02-.43-.06-.13-.56-1.36-.77-1.86-.2-.48-.4-.42-.56-.42h-.47" />
+          </svg>
+          WhatsApp us
+        </a>
+        <a href="mailto:info@cgdesignaus.com" class="btn btn-ghost">info@cgdesignaus.com</a>
+      </div>
+
+      <p class="fine-print">Replies within one business day. ABN 25 672 082 550.</p>
     </div>
 
     <div class="contact-form-wrap reveal">
@@ -35,38 +46,40 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         <input type="hidden" name="subject" value="New enquiry — CG Design & Co. website" />
         <input type="checkbox" name="botcheck" style="display: none;" tabindex="-1" autocomplete="off" />
 
-        <div class="field">
-          <input type="text" id="client_name" name="client_name" autocomplete="name" required />
-          <label for="client_name">Name</label>
-          <span class="field-error" id="err-client_name" role="alert"></span>
+        <div class="field-grid">
+          <div class="field">
+            <label for="client_name">Your name</label>
+            <input type="text" id="client_name" name="client_name" autocomplete="name" placeholder="Jane Doe" required />
+            <span class="field-error" id="err-client_name" role="alert"></span>
+          </div>
+
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" autocomplete="email" placeholder="jane@business.com.au" required />
+            <span class="field-error" id="err-email" role="alert"></span>
+          </div>
         </div>
 
         <div class="field">
-          <input type="email" id="email" name="email" autocomplete="email" required />
-          <label for="email">Email</label>
-          <span class="field-error" id="err-email" role="alert"></span>
-        </div>
-
-        <div class="field">
-          <input type="text" id="business_name" name="business_name" autocomplete="organization" required />
           <label for="business_name">Business name</label>
+          <input type="text" id="business_name" name="business_name" autocomplete="organization" placeholder="Apex Heating & Electrical" required />
           <span class="field-error" id="err-business_name" role="alert"></span>
         </div>
 
         <div class="field">
-          <input type="text" id="website" name="website" />
-          <label for="website">Existing website URL <span class="optional">(optional)</span></label>
+          <label for="website">Existing website <span class="optional">(optional)</span></label>
+          <input type="text" id="website" name="website" placeholder="yourbusiness.com.au" />
           <span class="field-error" id="err-website" role="alert"></span>
         </div>
 
-        <div class="field">
-          <select id="service" name="service" required>
-            <option value="" disabled selected></option>
-            <option value="New Site">New Site</option>
-            <option value="Redesign">Redesign</option>
-            <option value="Not Sure">Not Sure</option>
-          </select>
-          <label for="service">Service needed</label>
+        <div class="field field-service">
+          <span class="field-label">What do you need?</span>
+          <div class="service-chips" role="group" aria-label="What do you need?">
+            {serviceOptions.map((opt) => (
+              <button type="button" class="service-chip" data-value={opt.value}>{opt.label}</button>
+            ))}
+          </div>
+          <input type="hidden" id="service" name="service" />
           <span class="field-error" id="err-service" role="alert"></span>
         </div>
 
@@ -74,8 +87,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
         <div class="field field-consent">
           <label class="consent-label" for="consent">
-            <input type="checkbox" id="consent" name="consent" required />
-            <span class="consent-box" aria-hidden="true"></span>
+            <input type="checkbox" id="consent" name="consent" class="consent-checkbox" required />
             <span class="consent-text">
               I agree to my details being used to reply to this enquiry, as
               described in the <a href={`${base}/privacy-policy`} target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
@@ -125,8 +137,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
   .contact-wrap {
     display: grid;
-    grid-template-columns: 0.9fr 1.1fr;
-    gap: 48px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: clamp(36px, 5vw, 64px);
     align-items: start;
   }
 
@@ -134,33 +146,22 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     color: var(--text-dim);
   }
 
-  .whatsapp-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-    margin-top: 20px;
-    padding: 11px 20px;
-    border-radius: 999px;
-    background: #25d366;
-    color: #05230f;
-    font-weight: 700;
-    font-size: 0.9rem;
-    text-decoration: none;
-    transition: transform 0.25s var(--ease), box-shadow 0.25s ease;
-  }
-
-  .whatsapp-link:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 24px -10px rgba(37, 211, 102, 0.5);
-  }
-
-  .whatsapp-link:active {
-    transform: translateY(0) scale(0.97);
+  .contact-cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 28px 0;
   }
 
   .whatsapp-link svg {
-    width: 19px;
-    height: 19px;
+    width: 18px;
+    height: 18px;
+  }
+
+  .fine-print {
+    margin: 0;
+    font-size: 0.88rem;
+    color: var(--text-faint);
   }
 
   .contact-form-wrap {
@@ -183,19 +184,17 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
   .contact-form,
   .form-success {
-    background: rgba(15, 23, 42, 0.92);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
-    padding: 32px;
+    background: var(--bg-raised);
+    border: 1px solid rgba(28, 23, 16, 0.16);
+    border-radius: 22px;
+    box-shadow: 0 40px 80px -44px rgba(28, 23, 16, 0.35);
+    padding: clamp(24px, 3vw, 34px);
   }
 
   .contact-form {
     display: flex;
     flex-direction: column;
-    gap: 28px;
+    gap: 18px;
     transition: opacity 0.3s ease, transform 0.3s ease;
   }
 
@@ -203,89 +202,107 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     display: none;
   }
 
-  .field {
-    position: relative;
-    display: flex;
-    flex-direction: column;
+  .field-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 18px;
   }
 
-  .field:not(.field-consent) label {
-    position: absolute;
-    left: 15px;
-    top: 13px;
-    font-size: 0.95rem;
-    color: rgba(255, 255, 255, 0.5);
-    pointer-events: none;
-    transform-origin: left top;
-    transition: transform 0.2s var(--ease), color 0.2s ease;
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .field label,
+  .field-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: rgba(28, 23, 16, 0.7);
   }
 
   .field label .optional {
-    color: rgba(255, 255, 255, 0.55);
+    color: rgba(28, 23, 16, 0.5);
+    font-weight: 500;
   }
 
-  .field.is-active:not(.field-consent) label {
-    transform: translateY(-30px) scale(0.8);
-    color: #8fd66b; /* light green — var(--accent-2) is tuned for light backgrounds and fails contrast here */
-  }
-
-  .field.has-error.is-active:not(.field-consent) label {
-    color: #ff8a75; /* matches the error copy colour used elsewhere on this dark card */
-  }
-
-  .contact-form input,
-  .contact-form select {
+  .contact-form input[type="text"],
+  .contact-form input[type="email"] {
     font-family: inherit;
-    font-size: 0.95rem;
-    padding: 12px 14px;
-    border-radius: var(--radius-sm);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    background: rgba(255, 255, 255, 0.05);
-    color: #fff;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    font-size: 0.96rem;
+    min-height: 48px;
+    padding: 0 14px;
+    border-radius: 12px;
+    border: 1.5px solid rgba(28, 23, 16, 0.18);
+    background: var(--bg);
+    color: var(--text);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
   }
 
-  .contact-form select {
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 8 5 5 5-5'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 14px center;
-    background-size: 16px;
-    padding-right: 40px;
-  }
-
-  .contact-form select option {
-    background: #0f172a;
-    color: #fff;
-  }
-
-  .contact-form input:focus,
-  .contact-form select:focus {
+  .contact-form input[type="text"]:focus,
+  .contact-form input[type="email"]:focus {
     outline: none;
-    border-color: #8fd66b;
-    background: rgba(255, 255, 255, 0.08);
-    box-shadow: 0 0 0 3px rgba(143, 214, 107, 0.3);
+    border-color: var(--accent-2);
+    box-shadow: 0 0 0 3px rgba(59, 42, 28, 0.15);
   }
 
-  .field.has-error input,
-  .field.has-error select {
-    border-color: #ff8a75;
+  .field.has-error input[type="text"],
+  .field.has-error input[type="email"] {
+    border-color: var(--error);
   }
 
-  .field.has-error input:focus,
-  .field.has-error select:focus {
-    box-shadow: 0 0 0 3px rgba(255, 138, 117, 0.3);
+  .field.has-error input:focus {
+    box-shadow: 0 0 0 3px var(--error-soft);
   }
 
   .field-error {
     font-size: 0.8rem;
-    color: #ff8a75;
+    color: var(--error);
     min-height: 0;
-    margin-top: 5px;
+    margin-top: 2px;
   }
 
   .field-error:empty {
     display: none;
+  }
+
+  .service-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .service-chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 18px;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1.5px solid rgba(28, 23, 16, 0.18);
+    background: var(--bg);
+    color: rgba(28, 23, 16, 0.75);
+    transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+  }
+
+  .service-chip:hover {
+    border-color: rgba(28, 23, 16, 0.3);
+  }
+
+  .service-chip.is-selected {
+    border-color: var(--accent-2);
+    background: var(--accent-2);
+    color: var(--paper-on-dark);
+  }
+
+  .field-service.has-error .service-chips {
+    outline: 2px solid var(--error);
+    outline-offset: 4px;
+    border-radius: 999px;
   }
 
   .field-consent {
@@ -294,77 +311,40 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
   }
 
   .consent-label {
-    position: relative;
     display: flex;
     align-items: flex-start;
-    gap: 10px;
+    gap: 11px;
     cursor: pointer;
   }
 
-  .consent-label input {
-    position: absolute;
-    opacity: 0;
-    width: 1px;
-    height: 1px;
-  }
-
-  .consent-box {
-    flex-shrink: 0;
+  .consent-checkbox {
     width: 19px;
     height: 19px;
-    margin-top: 1px;
-    border-radius: 5px;
-    border: 1.5px solid rgba(255, 255, 255, 0.3);
-    background: rgba(255, 255, 255, 0.05);
-    position: relative;
-    transition: border-color 0.2s ease, background 0.2s ease;
+    margin: 3px 0 0;
+    accent-color: var(--accent-2);
+    flex-shrink: 0;
   }
 
-  .consent-box::after {
-    content: "";
-    position: absolute;
-    left: 5px;
-    top: 1px;
-    width: 5px;
-    height: 10px;
-    border: solid #05230f;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg) scale(0);
-    transition: transform 0.15s ease;
-  }
-
-  .consent-label input:checked ~ .consent-box {
-    background: #8fd66b;
-    border-color: #8fd66b;
-  }
-
-  .consent-label input:checked ~ .consent-box::after {
-    transform: rotate(45deg) scale(1);
-  }
-
-  .consent-label input:focus-visible ~ .consent-box {
-    outline: 2px solid #8fd66b;
+  .field-consent.has-error .consent-checkbox {
+    outline: 2px solid var(--error);
     outline-offset: 2px;
   }
 
-  .field-consent.has-error .consent-box {
-    border-color: #ff8a75;
-  }
-
   .consent-text {
-    font-size: 0.85rem;
+    font-size: 0.86rem;
     line-height: 1.5;
-    color: rgba(255, 255, 255, 0.65);
+    color: rgba(28, 23, 16, 0.7);
   }
 
   .consent-text a {
-    color: #fff;
+    color: var(--accent-text);
     text-decoration: underline;
     text-underline-offset: 2px;
   }
 
   .submit-btn {
     margin-top: 4px;
+    min-height: 54px;
     position: relative;
   }
 
@@ -400,27 +380,27 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
   .submit-error {
     font-size: 0.85rem;
-    color: #ff8a75;
-    background: rgba(193, 67, 47, 0.15);
+    color: var(--error);
+    background: var(--error-soft);
     border-radius: var(--radius-sm);
     padding: 10px 14px;
     margin: 0;
   }
 
   .submit-error a {
-    color: #ff8a75;
+    color: var(--error);
     font-weight: 700;
   }
 
   .form-success {
     text-align: center;
+    display: flex;
     flex-direction: column;
     align-items: center;
     gap: 6px;
   }
 
   .form-success:not([hidden]) {
-    display: flex;
     animation: popIn 0.45s var(--ease) forwards;
   }
 
@@ -462,29 +442,12 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
   .form-success h3 {
     font-size: 1.3rem;
-    color: #fff;
     margin-bottom: 2px;
   }
 
   .form-success p {
-    color: rgba(255, 255, 255, 0.65);
+    color: var(--text-dim);
     margin: 0 0 20px;
-  }
-
-  .form-success .btn-ghost {
-    border-color: rgba(255, 255, 255, 0.25);
-    color: #fff;
-  }
-
-  .form-success .btn-ghost:hover {
-    border-color: var(--accent-2);
-    color: var(--accent-2);
-  }
-
-  @media (max-width: 800px) {
-    .contact-wrap {
-      grid-template-columns: 1fr;
-    }
   }
 </style>
 
@@ -553,7 +516,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
       ok = false;
     }
 
-    const service = (form.elements.namedItem("service") as HTMLSelectElement).value;
+    const service = (form.elements.namedItem("service") as HTMLInputElement).value;
     if (!service) {
       setError("service", "Let us know what you're after.");
       firstInvalid ||= document.getElementById("service");
@@ -587,7 +550,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     if (!form || !successPanel) return;
     form.reset();
     clearErrors();
-    form.querySelectorAll(".field").forEach((el) => el.classList.remove("is-active"));
+    syncServiceChips();
     if (submitError) submitError.hidden = true;
     successPanel.hidden = true;
     form.classList.remove("is-hidden");
@@ -620,20 +583,27 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
   resetBtn?.addEventListener("click", resetToForm);
 
-  // Floating labels: keep a field's label floated while focused or filled.
-  const updateActive = (el: HTMLInputElement | HTMLSelectElement) => {
-    const wrap = fieldWrap(el);
-    const hasValue = el.value.trim().length > 0;
-    wrap?.classList.toggle("is-active", hasValue || document.activeElement === el);
-  };
+  // Service chips: write to the hidden #service input the rest of the site already targets.
+  const serviceInput = document.getElementById("service") as HTMLInputElement | null;
+  const serviceChips = Array.from(document.querySelectorAll<HTMLButtonElement>(".service-chip"));
 
-  form?.querySelectorAll<HTMLInputElement | HTMLSelectElement>("input, select").forEach((el) => {
-    updateActive(el);
-    el.addEventListener("focus", () => fieldWrap(el)?.classList.add("is-active"));
-    el.addEventListener("blur", () => updateActive(el));
-    el.addEventListener("input", () => updateActive(el));
-    el.addEventListener("change", () => updateActive(el));
+  function syncServiceChips() {
+    serviceChips.forEach((chip) => {
+      chip.classList.toggle("is-selected", chip.dataset.value === serviceInput?.value);
+    });
+  }
+
+  serviceChips.forEach((chip) => {
+    chip.addEventListener("click", () => {
+      if (!serviceInput) return;
+      serviceInput.value = chip.dataset.value ?? "";
+      syncServiceChips();
+      setError("service", "");
+    });
   });
+
+  // Other components (Pricing, Work) set #service.value programmatically and dispatch "change".
+  serviceInput?.addEventListener("change", syncServiceChips);
 
   // WhatsApp: draft a message from whatever the visitor has filled in so far.
   const whatsappLink = document.querySelector(".whatsapp-link") as HTMLAnchorElement | null;
@@ -641,7 +611,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
   const DEFAULT_WHATSAPP_MESSAGE = "Hi! I'd like to chat about getting a website.";
 
   function fieldValue(id: string): string {
-    const el = document.getElementById(id) as HTMLInputElement | HTMLSelectElement | null;
+    const el = document.getElementById(id) as HTMLInputElement | null;
     return el?.value.trim() ?? "";
   }
 
