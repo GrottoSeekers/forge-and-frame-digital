@@ -29,12 +29,12 @@ this is not a placeholder build:
       `public/CNAME` holds the custom domain for GitHub Pages.
 - [x] **Legal pages**: Privacy, Terms & Conditions, Cookies, Refund Policy
       — all filled in with the real ABN, address, and NSW governing law.
-- [ ] **Real work examples**: `src/components/Work.astro` intentionally
-      shows fictional concept demos, not real client case studies — once
-      you've launched a few real client sites, swap these for genuine
-      before/after examples. Not a launch blocker, just worth knowing the
-      "Featured concepts" section is illustrative rather than real client
-      work.
+- [x] **Real client work**: `src/components/Client.astro` showcases
+      NIR-MA-TA (nir-ma-ta.com), a coffee shop in Senggigi, Lombok — our
+      first real client site, with real screenshots and a real Google
+      review. `src/components/Work.astro` still shows fictional concept
+      demos alongside it (clearly labelled "concept demos") to give
+      prospects a range of styles to react to.
 
 ---
 
