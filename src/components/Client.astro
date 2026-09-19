@@ -1,0 +1,274 @@
+---
+import Icon from "./Icon.astro";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+const stats = [
+  { label: "5.0★ · 84 Google reviews" },
+  { label: "Open daily · 7am–10pm" },
+  { label: "Senggigi, Lombok, Indonesia" },
+];
+
+const chips = [
+  "Interactive menu & order builder",
+  "Bilingual ID / EN copy",
+  "WhatsApp + Maps click-through",
+  "Mobile-first build",
+];
+---
+
+<section class="section" id="client">
+  <div class="wrap">
+    <div class="client-grid">
+      <div class="client-copy reveal">
+        <span class="pill client-pill">
+          <Icon name="check" class="client-pill-icon" />
+          Real client — live right now
+        </span>
+        <span class="eyebrow">Client work</span>
+        <h2>NIR-MA-TA started as one cart on the road. Now it's online too.</h2>
+        <p>
+          NIR-MA-TA began as a single hand-pulled espresso cart on the
+          roadside in Senggigi, Lombok — beans ground by hand, no power
+          point, just gas and muscle. It's since grown into its own shop,
+          and we built the site that brings that story to visitors before
+          they ever pull up a stool: a full menu with live pricing, an
+          interactive order builder, and copy that switches between
+          Indonesian and English.
+        </p>
+
+        <div class="client-stats">
+          {stats.map((stat) => (
+            <span class="client-stat">{stat.label}</span>
+          ))}
+        </div>
+
+        <blockquote class="client-quote">
+          <p>&ldquo;Genuinely the nicest coffee we've had in our four weeks in Indonesia.&rdquo;</p>
+          <cite>Jon Wylie · Google review for NIR-MA-TA</cite>
+        </blockquote>
+
+        <div class="client-chips">
+          {chips.map((chip) => (
+            <span class="client-chip">{chip}</span>
+          ))}
+        </div>
+
+        <a href="https://www.nir-ma-ta.com" target="_blank" rel="noopener noreferrer" class="btn btn-primary client-cta">
+          Visit the live site
+          <Icon name="external-link" class="btn-icon" />
+        </a>
+      </div>
+
+      <div class="client-visual">
+        <div class="client-phone client-phone-main">
+          <span class="client-phone-bar" aria-hidden="true">
+            <span class="client-phone-dot"></span>
+            nir-ma-ta.com
+          </span>
+          <a
+            href="https://www.nir-ma-ta.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="View the NIR-MA-TA homepage"
+          >
+            <img
+              src={`${base}/previews/nirmata-hero.webp`}
+              alt="NIR-MA-TA homepage: 'Lombok's Soul, Brewed to Perfection' with Get Directions and See the Menu buttons"
+              width="760"
+              height="1652"
+              loading="lazy"
+            />
+          </a>
+        </div>
+
+        <div class="client-phone client-phone-inset">
+          <span class="client-phone-bar" aria-hidden="true">
+            <span class="client-phone-dot"></span>
+            nir-ma-ta.com
+          </span>
+          <img
+            src={`${base}/previews/nirmata-menu.webp`}
+            alt="NIR-MA-TA menu page with coffee and non-coffee pricing in Indonesian rupiah"
+            width="620"
+            height="1348"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .client-grid {
+    display: grid;
+    grid-template-columns: minmax(320px, 1fr) minmax(300px, 420px);
+    gap: clamp(40px, 6vw, 80px);
+    align-items: center;
+  }
+
+  .client-pill {
+    margin-bottom: 20px;
+    gap: 7px;
+  }
+
+  .client-pill-icon {
+    width: 13px;
+    height: 13px;
+  }
+
+  .client-copy .eyebrow {
+    margin-bottom: 14px;
+  }
+
+  .client-copy h2 {
+    font-size: clamp(1.6rem, 3.2vw, 2.3rem);
+    margin: 0 0 18px;
+    max-width: 15ch;
+  }
+
+  .client-copy > p {
+    color: var(--text-dim);
+    font-size: 1.02rem;
+    max-width: 54ch;
+    margin: 0 0 26px;
+  }
+
+  .client-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+
+  .client-stat {
+    padding: 8px 15px;
+    border-radius: 999px;
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-dim);
+  }
+
+  .client-quote {
+    margin: 0 0 28px;
+    padding: 4px 0 4px 20px;
+    border-left: 3px solid var(--accent);
+  }
+
+  .client-quote p {
+    margin: 0 0 8px;
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1.12rem;
+    line-height: 1.4;
+    color: var(--text);
+  }
+
+  .client-quote cite {
+    font-style: normal;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--accent-text);
+  }
+
+  .client-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 30px;
+  }
+
+  .client-chip {
+    padding: 5px 11px;
+    border-radius: 999px;
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-dim);
+  }
+
+  .client-cta {
+    min-height: 52px;
+    padding: 0 30px;
+  }
+
+  .client-visual {
+    position: relative;
+    justify-self: center;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .client-phone {
+    border-radius: 22px;
+    overflow: hidden;
+    border: 1px solid rgba(28, 23, 16, 0.16);
+    background: var(--bg-raised);
+    box-shadow: 0 40px 80px -40px rgba(28, 23, 16, 0.4);
+  }
+
+  .client-phone img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .client-phone-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    background: var(--bg-raised-2);
+    border-bottom: 1px solid rgba(28, 23, 16, 0.08);
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: rgba(28, 23, 16, 0.5);
+  }
+
+  .client-phone-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--error);
+    flex-shrink: 0;
+  }
+
+  .client-phone-main {
+    width: 100%;
+  }
+
+  .client-phone-inset {
+    position: absolute;
+    bottom: -34px;
+    left: -60px;
+    width: 42%;
+    box-shadow: 0 30px 60px -28px rgba(28, 23, 16, 0.55);
+  }
+
+  @media (max-width: 900px) {
+    .client-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .client-visual {
+      max-width: 280px;
+      margin: 8px auto 56px;
+    }
+
+    .client-copy h2 {
+      max-width: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .client-phone-inset {
+      left: -24px;
+    }
+  }
+</style>
