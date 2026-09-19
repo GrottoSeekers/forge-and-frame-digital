@@ -19,7 +19,7 @@ this is not a placeholder build:
 - [x] **Name & logo**: "CG Design & Co." and the `CGD` wordmark, in the
       Espresso & Gold palette (`src/styles/global.css`).
 - [x] **Contact email/phone**: `info@cgdesignaus.com` /
-      WhatsApp `+61 432 632 712`, in `src/components/Contact.astro`.
+      WhatsApp `+44 7306 100251`, in `src/components/Contact.astro`.
 - [x] **Contact form endpoint**: wired up to [Web3Forms](https://web3forms.com)
       in `src/components/Contact.astro` (the `access_key` hidden input). To
       change the destination email, generate a new access key at
