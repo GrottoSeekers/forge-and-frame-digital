@@ -16,8 +16,9 @@ Live at **https://cgdesignaus.com**.
 Everything below is live and configured with real business details —
 this is not a placeholder build:
 
-- [x] **Name & logo**: "CG Design & Co." and the `CGD` wordmark, in the
-      Espresso & Gold palette (`src/styles/global.css`).
+- [x] **Name & logo**: "CG Design & Co." with the pixel-block `CGDesign`
+      lockup (`public/logo-full.png`, `public/favicon.png`), in the
+      Purple, Black & White palette (`src/styles/global.css`).
 - [x] **Contact email/phone**: `info@cgdesignaus.com` /
       WhatsApp `+44 7306 100251`, in `src/components/Contact.astro`.
 - [x] **Contact form endpoint**: wired up to [Web3Forms](https://web3forms.com)

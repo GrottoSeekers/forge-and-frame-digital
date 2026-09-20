@@ -1,6 +1,4 @@
 ---
-import Logomark from "./Logomark.astro";
-
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const year = new Date().getFullYear();
 ---
@@ -10,8 +8,9 @@ const year = new Date().getFullYear();
     <div class="footer-grid">
       <div class="footer-brand">
         <a href={base || "/"} class="logo">
-          <Logomark class="logo-mark" color="var(--accent-on-dark)" />
-          <span class="logo-word">CG Design <span class="amp">&amp;</span> Co.</span>
+          <span class="logo-chip">
+            <img src={`${base}/logo-full.png`} alt="CG Design & Co." width="566" height="241" />
+          </span>
         </a>
         <p>Websites for local businesses. Randwick, NSW — working with clients worldwide.</p>
       </div>
@@ -44,7 +43,7 @@ const year = new Date().getFullYear();
 <style>
   .footer {
     background: var(--accent-2);
-    color: rgba(246, 236, 216, 0.76);
+    color: rgba(243, 238, 250, 0.76);
     padding: clamp(44px, 5vw, 64px) 0 32px;
   }
 
@@ -53,32 +52,27 @@ const year = new Date().getFullYear();
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 32px;
     padding-bottom: 32px;
-    border-bottom: 1px solid rgba(246, 236, 216, 0.16);
+    border-bottom: 1px solid rgba(243, 238, 250, 0.16);
   }
 
   .footer-brand .logo {
     display: inline-flex;
-    align-items: baseline;
-    gap: 10px;
     text-decoration: none;
-    color: var(--paper-on-dark);
     margin-bottom: 12px;
   }
 
-  .footer-brand .logo-mark {
-    font-size: 1.6rem;
-    line-height: 1;
+  .logo-chip {
+    display: inline-flex;
+    background: #fff;
+    border-radius: 10px;
+    padding: 8px 10px;
+    line-height: 0;
   }
 
-  .footer-brand .logo-word {
-    font-family: "Fraunces", serif;
-    font-size: 1.02rem;
-    font-weight: 600;
-  }
-
-  .footer-brand .logo-word .amp {
-    color: var(--accent-on-dark);
-    font-style: italic;
+  .logo-chip img {
+    display: block;
+    height: 30px;
+    width: auto;
   }
 
   .footer-brand p {
@@ -95,7 +89,7 @@ const year = new Date().getFullYear();
   }
 
   .footer-nav a {
-    color: rgba(246, 236, 216, 0.76);
+    color: rgba(243, 238, 250, 0.76);
     text-decoration: none;
     transition: color 0.2s ease;
   }
@@ -122,12 +116,12 @@ const year = new Date().getFullYear();
   }
 
   .footer-contact span {
-    color: rgba(246, 236, 216, 0.6);
+    color: rgba(243, 238, 250, 0.6);
   }
 
   .footer-copy {
     margin: 24px 0 0;
     font-size: 0.82rem;
-    color: rgba(246, 236, 216, 0.6);
+    color: rgba(243, 238, 250, 0.6);
   }
 </style>
