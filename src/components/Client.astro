@@ -8,49 +8,23 @@ const stats = [
   { label: "Open daily · 7am–10pm" },
   { label: "Senggigi, Lombok, Indonesia" },
 ];
-
-const chips = [
-  "Interactive menu & order builder",
-  "Bilingual ID / EN copy",
-  "WhatsApp + Maps click-through",
-  "Mobile-first build",
-];
 ---
 
 <section class="section" id="client">
   <div class="wrap">
     <div class="client-grid">
       <div class="client-copy reveal">
-        <span class="pill client-pill">
-          <Icon name="check" class="client-pill-icon" />
-          Our first client — live right now
-        </span>
         <span class="eyebrow">Client work</span>
         <h2>NIR-MA-TA started as one cart on the road. Now it's online too.</h2>
         <p>
-          NIR-MA-TA began as a single hand-pulled espresso cart on the
-          roadside in Senggigi, Lombok — beans ground by hand, no power
-          point, just gas and muscle. It's since grown into its own shop,
-          and we built the site that brings that story to visitors before
-          they ever pull up a stool: a full menu with live pricing, an
-          interactive order builder, and copy that switches between
-          Indonesian and English.
+          A hand-pulled espresso cart in Senggigi, Lombok — now with a
+          full menu, live pricing, and an interactive order builder,
+          in Indonesian and English.
         </p>
 
         <div class="client-stats">
           {stats.map((stat) => (
             <span class="client-stat">{stat.label}</span>
-          ))}
-        </div>
-
-        <blockquote class="client-quote">
-          <p>&ldquo;Genuinely the nicest coffee we've had in our four weeks in Indonesia.&rdquo;</p>
-          <cite>Jon Wylie · Google review for NIR-MA-TA</cite>
-        </blockquote>
-
-        <div class="client-chips">
-          {chips.map((chip) => (
-            <span class="client-chip">{chip}</span>
           ))}
         </div>
 
@@ -108,16 +82,6 @@ const chips = [
     align-items: center;
   }
 
-  .client-pill {
-    margin-bottom: 20px;
-    gap: 7px;
-  }
-
-  .client-pill-icon {
-    width: 13px;
-    height: 13px;
-  }
-
   .client-copy .eyebrow {
     margin-bottom: 14px;
   }
@@ -139,7 +103,7 @@ const chips = [
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    margin-bottom: 28px;
+    margin-bottom: 32px;
   }
 
   .client-stat {
@@ -149,46 +113,6 @@ const chips = [
     border: 1px solid var(--line);
     font-size: 0.8rem;
     font-weight: 700;
-    color: var(--text-dim);
-  }
-
-  .client-quote {
-    margin: 0 0 28px;
-    padding: 4px 0 4px 20px;
-    border-left: 3px solid var(--accent);
-  }
-
-  .client-quote p {
-    margin: 0 0 8px;
-    font-family: "Fraunces", serif;
-    font-style: italic;
-    font-weight: 500;
-    font-size: 1.12rem;
-    line-height: 1.4;
-    color: var(--text);
-  }
-
-  .client-quote cite {
-    font-style: normal;
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: var(--accent-text);
-  }
-
-  .client-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 30px;
-  }
-
-  .client-chip {
-    padding: 5px 11px;
-    border-radius: 999px;
-    background: var(--bg-raised);
-    border: 1px solid var(--line);
-    font-size: 0.75rem;
-    font-weight: 600;
     color: var(--text-dim);
   }
 
