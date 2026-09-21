@@ -3,87 +3,179 @@ import Icon from "./Icon.astro";
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
-const stats = [
-  { label: "5.0★ · 84 Google reviews" },
-  { label: "Open daily · 7am–10pm" },
-  { label: "Senggigi, Lombok, Indonesia" },
+const clients = [
+  {
+    id: "nirmata",
+    domain: "nir-ma-ta.com",
+    href: "https://www.nir-ma-ta.com",
+    headline: "NIR-MA-TA started as one cart on the road. Now it's online too.",
+    description:
+      "A hand-pulled espresso cart in Senggigi, Lombok — now with a full menu, live pricing, and an interactive order builder, in Indonesian and English.",
+    stats: ["5.0★ · 84 Google reviews", "Open daily · 7am–10pm", "Senggigi, Lombok, Indonesia"],
+    ctaLabel: "Visit the live site",
+    mainImage: {
+      src: "nirmata-hero.webp",
+      alt: "NIR-MA-TA homepage: 'Lombok's Soul, Brewed to Perfection' with Get Directions and See the Menu buttons",
+      width: 760,
+      height: 1652,
+    },
+    insetImage: {
+      src: "nirmata-menu.webp",
+      alt: "NIR-MA-TA menu page with coffee and non-coffee pricing in Indonesian rupiah",
+      width: 620,
+      height: 1348,
+    },
+  },
+  {
+    id: "rochses",
+    domain: "rochses.com",
+    href: "https://rochses.com",
+    headline: "Rochses is a new womenswear label, launching soon.",
+    description:
+      "An upcoming women's clothing brand building its first collection — we built the coming-soon site collecting priority access before launch.",
+    stats: ["Launching soon", "Women's fashion", "Priority access open"],
+    ctaLabel: "Preview the site",
+    mainImage: {
+      src: "rochses-hero.webp",
+      alt: "Rochses coming-soon homepage with the brand's handwritten logo and 'help shape the first collection'",
+      width: 760,
+      height: 1644,
+    },
+    insetImage: {
+      src: "rochses-signup.webp",
+      alt: "Rochses priority access email signup section",
+      width: 620,
+      height: 1341,
+    },
+  },
 ];
 ---
 
 <section class="section" id="client">
   <div class="wrap">
-    <div class="client-grid">
-      <div class="client-copy reveal">
-        <span class="eyebrow">Client work</span>
-        <h2>NIR-MA-TA started as one cart on the road. Now it's online too.</h2>
-        <p>
-          A hand-pulled espresso cart in Senggigi, Lombok — now with a
-          full menu, live pricing, and an interactive order builder,
-          in Indonesian and English.
-        </p>
+    <div class="client-head reveal">
+      <span class="eyebrow">Client testimonial</span>
+    </div>
 
-        <div class="client-stats">
-          {stats.map((stat) => (
-            <span class="client-stat">{stat.label}</span>
-          ))}
-        </div>
+    <div class="client-carousel reveal">
+      <div class="client-track" id="client-track" role="region" aria-label="Client testimonials carousel" tabindex="0">
+        {clients.map((client) => (
+          <div class="client-slide">
+            <div class="client-grid">
+              <div class="client-copy">
+                <h2>{client.headline}</h2>
+                <p>{client.description}</p>
 
-        <a href="https://www.nir-ma-ta.com" target="_blank" rel="noopener noreferrer" class="btn btn-primary client-cta">
-          Visit the live site
-          <Icon name="external-link" class="btn-icon" />
-        </a>
+                <div class="client-stats">
+                  {client.stats.map((stat) => (
+                    <span class="client-stat">{stat}</span>
+                  ))}
+                </div>
+
+                <a href={client.href} target="_blank" rel="noopener noreferrer" class="btn btn-primary client-cta">
+                  {client.ctaLabel}
+                  <Icon name="external-link" class="btn-icon" />
+                </a>
+              </div>
+
+              <div class="client-visual">
+                <div class="client-phone client-phone-main">
+                  <span class="client-phone-bar" aria-hidden="true">
+                    <span class="client-phone-dot"></span>
+                    {client.domain}
+                  </span>
+                  <a href={client.href} target="_blank" rel="noopener noreferrer" aria-label={`View the ${client.domain} homepage`}>
+                    <img
+                      src={`${base}/previews/${client.mainImage.src}`}
+                      alt={client.mainImage.alt}
+                      width={client.mainImage.width}
+                      height={client.mainImage.height}
+                      loading="lazy"
+                    />
+                  </a>
+                </div>
+
+                <div class="client-phone client-phone-inset">
+                  <span class="client-phone-bar" aria-hidden="true">
+                    <span class="client-phone-dot"></span>
+                    {client.domain}
+                  </span>
+                  <img
+                    src={`${base}/previews/${client.insetImage.src}`}
+                    alt={client.insetImage.alt}
+                    width={client.insetImage.width}
+                    height={client.insetImage.height}
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
 
-      <div class="client-visual">
-        <div class="client-phone client-phone-main">
-          <span class="client-phone-bar" aria-hidden="true">
-            <span class="client-phone-dot"></span>
-            nir-ma-ta.com
-          </span>
-          <a
-            href="https://www.nir-ma-ta.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="View the NIR-MA-TA homepage"
-          >
-            <img
-              src={`${base}/previews/nirmata-hero.webp`}
-              alt="NIR-MA-TA homepage: 'Lombok's Soul, Brewed to Perfection' with Get Directions and See the Menu buttons"
-              width="760"
-              height="1652"
-              loading="lazy"
-            />
-          </a>
+      <div class="client-nav">
+        <button type="button" class="client-nav-btn" id="client-prev" aria-label="Previous client">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+        <div class="client-dots" id="client-dots">
+          {clients.map((client, i) => (
+            <button type="button" class="client-dot" data-index={i} aria-label={`Go to ${client.domain}`}></button>
+          ))}
         </div>
-
-        <div class="client-phone client-phone-inset">
-          <span class="client-phone-bar" aria-hidden="true">
-            <span class="client-phone-dot"></span>
-            nir-ma-ta.com
-          </span>
-          <img
-            src={`${base}/previews/nirmata-menu.webp`}
-            alt="NIR-MA-TA menu page with coffee and non-coffee pricing in Indonesian rupiah"
-            width="620"
-            height="1348"
-            loading="lazy"
-          />
-        </div>
+        <button type="button" class="client-nav-btn" id="client-next" aria-label="Next client">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
       </div>
     </div>
   </div>
 </section>
 
 <style>
+  .client-head {
+    margin-bottom: 28px;
+  }
+
+  .client-head .eyebrow {
+    margin-bottom: 0;
+  }
+
+  .client-carousel {
+    position: relative;
+  }
+
+  .client-track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-snap-stop: always;
+    -webkit-overflow-scrolling: touch;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  .client-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .client-track:focus-visible {
+    outline: 2px solid var(--accent-2);
+    outline-offset: 4px;
+    border-radius: 8px;
+  }
+
+  .client-slide {
+    flex: 0 0 100%;
+    width: 100%;
+    scroll-snap-align: start;
+    padding-bottom: 56px;
+  }
+
   .client-grid {
     display: grid;
     grid-template-columns: minmax(320px, 1fr) minmax(300px, 420px);
     gap: clamp(40px, 6vw, 80px);
     align-items: center;
-  }
-
-  .client-copy .eyebrow {
-    margin-bottom: 14px;
   }
 
   .client-copy h2 {
@@ -175,6 +267,72 @@ const stats = [
     box-shadow: 0 30px 60px -28px rgba(20, 17, 26, 0.55);
   }
 
+  .client-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 4px;
+  }
+
+  .client-nav-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 1px solid var(--line-strong);
+    color: var(--text);
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .client-nav-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .client-nav-btn:hover:not(:disabled) {
+    background: var(--accent-2);
+    border-color: var(--accent-2);
+    color: var(--paper-on-dark);
+    transform: translateY(-2px);
+  }
+
+  .client-nav-btn:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+
+  .client-dots {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+
+  .client-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--line-strong);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.25s ease;
+  }
+
+  .client-dot:hover {
+    background: var(--accent);
+  }
+
+  .client-dot.active {
+    background: var(--accent-2);
+    transform: scale(1.3);
+  }
+
   @media (max-width: 900px) {
     .client-grid {
       grid-template-columns: 1fr;
@@ -196,3 +354,50 @@ const stats = [
     }
   }
 </style>
+
+<script>
+  const track = document.getElementById("client-track");
+  const prevBtn = document.getElementById("client-prev") as HTMLButtonElement | null;
+  const nextBtn = document.getElementById("client-next") as HTMLButtonElement | null;
+  const dots = Array.from(document.querySelectorAll<HTMLButtonElement>(".client-dot"));
+
+  if (track && prevBtn && nextBtn) {
+    const step = () => track.clientWidth;
+
+    const updateUI = () => {
+      const maxScroll = track.scrollWidth - track.clientWidth - 1;
+      prevBtn.disabled = track.scrollLeft <= 0;
+      nextBtn.disabled = track.scrollLeft >= maxScroll;
+
+      const activeIndex = Math.round(track.scrollLeft / step());
+      dots.forEach((dot, i) => dot.classList.toggle("active", i === activeIndex));
+    };
+
+    prevBtn.addEventListener("click", () => {
+      track.scrollBy({ left: -step(), behavior: "smooth" });
+    });
+
+    nextBtn.addEventListener("click", () => {
+      track.scrollBy({ left: step(), behavior: "smooth" });
+    });
+
+    dots.forEach((dot, i) => {
+      dot.addEventListener("click", () => {
+        track.scrollTo({ left: i * step(), behavior: "smooth" });
+      });
+    });
+
+    let ticking = false;
+    track.addEventListener("scroll", () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        updateUI();
+        ticking = false;
+      });
+    });
+
+    window.addEventListener("resize", updateUI);
+    updateUI();
+  }
+</script>
