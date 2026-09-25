@@ -96,6 +96,11 @@ const serviceOptions = [
           <span class="field-error" id="err-consent" role="alert"></span>
         </div>
 
+        <div class="field field-captcha">
+          <div class="h-captcha" data-captcha="true"></div>
+          <span class="field-error" id="err-captcha" role="alert"></span>
+        </div>
+
         <button type="submit" class="btn btn-primary submit-btn" id="submit-btn">
           <span class="spinner" aria-hidden="true"></span>
           <span class="btn-label">Send it over</span>
@@ -106,6 +111,8 @@ const serviceOptions = [
           <a href="mailto:info@cgdesignaus.com">info@cgdesignaus.com</a> instead.
         </p>
       </form>
+
+      <script src="https://web3forms.com/client/script.js" async defer></script>
 
       <div class="form-success" id="form-success" hidden>
         <svg class="success-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -303,6 +310,12 @@ const serviceOptions = [
     outline: 2px solid var(--error);
     outline-offset: 4px;
     border-radius: 999px;
+  }
+
+  .field-captcha.has-error .h-captcha {
+    outline: 2px solid var(--error);
+    outline-offset: 4px;
+    border-radius: 4px;
   }
 
   .field-consent {
@@ -531,6 +544,15 @@ const serviceOptions = [
     if (!consent) {
       setError("consent", "Please agree to the Privacy Policy to continue.");
       firstInvalid ||= document.getElementById("consent");
+      ok = false;
+    }
+
+    const captchaResponse = form.querySelector<HTMLTextAreaElement>("textarea[name='h-captcha-response']")?.value;
+    if (!captchaResponse) {
+      const err = document.getElementById("err-captcha");
+      if (err) err.textContent = "Please complete the captcha.";
+      document.querySelector(".field-captcha")?.classList.add("has-error");
+      firstInvalid ||= document.querySelector(".h-captcha");
       ok = false;
     }
 
